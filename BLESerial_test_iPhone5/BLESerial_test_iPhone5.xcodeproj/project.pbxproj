@@ -480,6 +480,7 @@
 				CD39CE0518322D0A00B137E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CD39CE0618322D0A00B137E6 /* Build configuration list for PBXNativeTarget "BLESerial_test_iPhone5Tests" */ = {
 			isa = XCConfigurationList;
@@ -488,6 +489,7 @@
 				CD39CE0818322D0A00B137E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

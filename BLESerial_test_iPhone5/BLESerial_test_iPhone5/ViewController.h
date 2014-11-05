@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController{
+    UITextField* _textField;
     UIButton* _connectButton;
     UIButton* _disconnectButton;
-    UITextField* _textField;
-    UIButton* _ledOnButton;
-    UIButton* _ledOffButton;
+    UIButton* _flightModeButton;
+    UIButton* _emergencyStopButton;
 }
 
 @end

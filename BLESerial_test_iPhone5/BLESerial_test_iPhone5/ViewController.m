@@ -59,30 +59,30 @@
     _disconnectButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:30];
     [self.view addSubview:_disconnectButton];
     
-    //---LED ONボタン生成---
-    _ledOnButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_ledOnButton setFrame:CGRectMake(30,280,250,40)];  //位置と大きさ設定
-    [_ledOnButton setTitle:@"LED ON" forState:UIControlStateNormal];
-    [_ledOnButton setTag:LED_ON_BUTTON];           //ボタン識別タグ
-    [_ledOnButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
-    _ledOnButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:30];
-    [self.view addSubview:_ledOnButton];
+    //---FLIGHT MODEボタン生成---
+    _flightModeButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_flightModeButton setFrame:CGRectMake(30,280,250,40)];  //位置と大きさ設定
+    [_flightModeButton setTitle:@"FLIGHT MODE" forState:UIControlStateNormal];
+    [_flightModeButton setTag:LED_ON_BUTTON];           //ボタン識別タグ
+    [_flightModeButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
+    _flightModeButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:30];
+    [self.view addSubview:_flightModeButton];
     
-    //---LED OFFボタン生成---
-    _ledOffButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_ledOffButton setFrame:CGRectMake(30,350,250,40)];  //位置と大きさ設定
-    [_ledOffButton setTitle:@"LED OFF" forState:UIControlStateNormal];
-    [_ledOffButton setTag:LED_OFF_BUTTON];           //ボタン識別タグ
-    [_ledOffButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
-    _ledOffButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:30];
-    [self.view addSubview:_ledOffButton];
+    //---EMERGENCY STOPボタン生成---
+    _emergencyStopButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_emergencyStopButton setFrame:CGRectMake(30,350,250,40)];  //位置と大きさ設定
+    [_emergencyStopButton setTitle:@"EMERGENCY" forState:UIControlStateNormal];
+    [_emergencyStopButton setTag:LED_OFF_BUTTON];           //ボタン識別タグ
+    [_emergencyStopButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
+    _emergencyStopButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:30];
+    [self.view addSubview:_emergencyStopButton];
     
     
     //---ボタンの状態設定---
     _connectButton.enabled = TRUE;
     _disconnectButton.enabled = FALSE;
-    _ledOnButton.enabled = FALSE;
-    _ledOffButton.enabled = FALSE;
+    _flightModeButton.enabled = FALSE;
+    _emergencyStopButton.enabled = FALSE;
     
     //	BLEBaseClassの初期化
 	_BaseClass = [[BLEBaseClass alloc] init];
@@ -165,8 +165,8 @@
         //ボタンの状態変更
 		_connectButton.enabled = FALSE;
 		_disconnectButton.enabled = TRUE;
-        _ledOnButton.enabled = TRUE;
-        _ledOffButton.enabled = TRUE;
+        _flightModeButton.enabled = TRUE;
+        _emergencyStopButton.enabled = TRUE;
         
 		//	tx(Device->iPhone)のnotifyをセット
 		CBCharacteristic*	tx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_TX];
@@ -188,8 +188,8 @@
         //ボタンの状態変更
 		_connectButton.enabled = TRUE;
 		_disconnectButton.enabled = FALSE;
-        _ledOnButton.enabled = FALSE;
-        _ledOffButton.enabled = FALSE;
+        _flightModeButton.enabled = FALSE;
+        _emergencyStopButton.enabled = FALSE;
 		_textField.text = @"---";
 		//	周りのBLEデバイスからのadvertise情報のスキャンを開始する
 		[_BaseClass scanDevices:nil];
