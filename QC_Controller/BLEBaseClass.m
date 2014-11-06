@@ -1,20 +1,23 @@
 //
 //  BLEBaseClass.m
-//  BLESerial_test_iPhone5
+//  QC_Controller
 //
-//  Created by 石井 孝佳 on 2013/11/12.
-//  Copyright (c) 2013年 浅草ギ研. All rights reserved.
+//  Created by 川原岳大 on 2014/11/6.
+//
 //
 /*
  BLEの管理と通信を行う２つのクラス
- 
- BLEBaseクラス     ：スキャン、接続、切断、スキャン情報の表示など
+
  BLEDeviceクラス   ：接続した周辺機器の実態を保持し、受信と送信を行う
+ BLEBaseクラス     ：スキャン、接続、切断、スキャン情報の表示など
  
  */
 
 #import "BLEBaseClass.h"
 
+//================================================================================
+// BLE Device Class
+//================================================================================
 @interface BLEDeviceClass() <CBPeripheralDelegate>
 - (id)initWithPeripheral:(CBPeripheral*)peripheral advertisement:(NSDictionary*)advertisementData RSSI:(NSNumber*)rssi;
 @property (readwrite)	enum {disconnected, connected, other}	state;
@@ -112,7 +115,9 @@
 
 
 
-
+//================================================================================
+// BLE Base Class
+//================================================================================
 @interface BLEBaseClass() <CBCentralManagerDelegate>
 @property (strong)	CBCentralManager*	CentralManager;
 @property (strong)	NSMutableArray*		Devices;

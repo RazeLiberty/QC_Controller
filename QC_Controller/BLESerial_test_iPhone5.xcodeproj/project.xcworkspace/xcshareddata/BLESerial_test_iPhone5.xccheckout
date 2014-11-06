@@ -14,7 +14,7 @@
 		<string>github.com:RazeLiberty/QC_Controller.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>BLESerial_test_iPhone5/BLESerial_test_iPhone5.xcodeproj</string>
+	<string>QC_Controller/BLESerial_test_iPhone5.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>A4475E0C3A70FBD355E67900A52348248F3022AC</key>
@@ -34,7 +34,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>A4475E0C3A70FBD355E67900A52348248F3022AC</string>
 			<key>IDESourceControlWCCName</key>
-			<string>QC_Controller</string>
+			<string>Controller_QC</string>
 		</dict>
 	</array>
 </dict>

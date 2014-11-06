@@ -81,8 +81,8 @@
     //---ボタンの状態設定---
     _connectButton.enabled = TRUE;
     _disconnectButton.enabled = FALSE;
-    _flightModeButton.enabled = FALSE;
-    _emergencyStopButton.enabled = FALSE;
+    _flightModeButton.enabled = TRUE;
+    _emergencyStopButton.enabled = TRUE;
     
     //	BLEBaseClassの初期化
 	_BaseClass = [[BLEBaseClass alloc] init];

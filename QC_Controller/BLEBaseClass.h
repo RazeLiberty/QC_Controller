@@ -16,6 +16,7 @@
 - (void)didUpdateValueForCharacteristic:(BLEDeviceClass*)device Characteristic:(CBCharacteristic *)characteristic;
 @end
 
+//BLEDeviceClass
 @interface BLEDeviceClass : NSObject
 @property (strong)		id<BLEDeviceClassDelegate>	delegate;
 - (CBCharacteristic*)getCharacteristic:(NSString*)service_uuid characteristic:(NSString*)characteristic_uuid;
