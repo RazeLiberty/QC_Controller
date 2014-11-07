@@ -73,11 +73,13 @@
     
     //---センサー値結果のテキストフィールド生成---
     _textField=[[UITextField alloc] init];
-    [_textField setFrame:CGRectMake(60,50,200,50)];  //位置と大きさ設定
+    [_textField setFrame:CGRectMake(10,50,300,50)];  //位置と大きさ設定
     [_textField setText:@"OFFLINE"];
     [_textField setBackgroundColor:[UIColor whiteColor]];
     [_textField setBorderStyle:UITextBorderStyleRoundedRect];
     _textField.font = [UIFont fontWithName:@"Helvetica" size:30];
+    //テキストフィールドタッチ無効化
+    _textField.enabled = NO;
     [self.view addSubview:_textField];
     
     //---CONNECTボタン生成---
@@ -122,7 +124,7 @@
     [_defaultButton setTitle:@"DEFAULT" forState:UIControlStateNormal];
     [_defaultButton setTag:DEFAULT_BUTTON];           //ボタン識別タグ
     [_defaultButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
-    _emergencyStopButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
+    _defaultButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
     [self.view addSubview:_defaultButton];
 
     //---スロットルボタン生成---
@@ -182,7 +184,7 @@
     //---ヨー＋２ボタン生成---
     _yawPlusButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_yawPlusButton setFrame:CGRectMake(BUTTON_LOCATE_X,450,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
-    [_yawPlusButton setTitle:@"YAW_PLUS2" forState:UIControlStateNormal];
+    [_yawPlusButton setTitle:@"YAW_PLUS" forState:UIControlStateNormal];
     [_yawPlusButton setTag:YAW_PLUS_BUTTON];           //ボタン識別タグ
     [_yawPlusButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
     _yawPlusButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
@@ -192,7 +194,7 @@
     _yawMinusButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_yawMinusButton
      setFrame:CGRectMake(BUTTON_LOCATE_X,480,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
-    [_yawMinusButton setTitle:@"YAW_MINUS2" forState:UIControlStateNormal];
+    [_yawMinusButton setTitle:@"YAW_MINUS" forState:UIControlStateNormal];
     [_yawMinusButton setTag:YAW_MINUS_BUTTON];           //ボタン識別タグ
     [_yawMinusButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
     _yawMinusButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
@@ -201,17 +203,17 @@
     //---ボタンの状態設定---
     _connectButton.enabled = TRUE;
     _disconnectButton.enabled = FALSE;
-    _flightModeButton.enabled = TRUE;
-    _emergencyStopButton.enabled = TRUE;
-    _defaultButton.enabled = TRUE;
-    _throttleButton.enabled = TRUE;
-    _throttlePlusButton.enabled = TRUE;
-    _throttleMinusButton.enabled = TRUE;
-    _rollButton.enabled = TRUE;
-    _pitchButton.enabled = TRUE;
-    _yawButton.enabled = TRUE;
-    _yawPlusButton.enabled = TRUE;
-    _yawMinusButton.enabled = TRUE;
+    _flightModeButton.enabled = FALSE;
+    _emergencyStopButton.enabled = FALSE;
+    _defaultButton.enabled = FALSE;
+    _throttleButton.enabled = FALSE;
+    _throttlePlusButton.enabled = FALSE;
+    _throttleMinusButton.enabled = FALSE;
+    _rollButton.enabled = FALSE;
+    _pitchButton.enabled = FALSE;
+    _yawButton.enabled = FALSE;
+    _yawPlusButton.enabled = FALSE;
+    _yawMinusButton.enabled = FALSE;
     
     //	BLEBaseClassの初期化
 	_BaseClass = [[BLEBaseClass alloc] init];
@@ -345,25 +347,27 @@
         //ボタンの状態変更
 		_connectButton.enabled = TRUE;
 		_disconnectButton.enabled = FALSE;
-        _flightModeButton.enabled = TRUE;
-        _emergencyStopButton.enabled = TRUE;
-        _defaultButton.enabled = TRUE;
-        _throttleButton.enabled = TRUE;
-        _throttlePlusButton.enabled = TRUE;
-        _throttleMinusButton.enabled = TRUE;
-        _rollButton.enabled = TRUE;
-        _pitchButton.enabled = TRUE;
-        _yawButton.enabled = TRUE;
-        _yawPlusButton.enabled = TRUE;
-        _yawMinusButton.enabled = TRUE;
+        _flightModeButton.enabled = FALSE;
+        _emergencyStopButton.enabled = FALSE;
+        _defaultButton.enabled = FALSE;
+        _throttleButton.enabled = FALSE;
+        _throttlePlusButton.enabled = FALSE;
+        _throttleMinusButton.enabled = FALSE;
+        _rollButton.enabled = FALSE;
+        _pitchButton.enabled = FALSE;
+        _yawButton.enabled = FALSE;
+        _yawPlusButton.enabled = FALSE;
+        _yawMinusButton.enabled = FALSE;
 		_textField.text = @"OFFLINE";
 		//	周りのBLEデバイスからのadvertise情報のスキャンを開始する
 		[_BaseClass scanDevices:nil];
 	}
 }
 
+//================================================================================
+// フライトモード　ONコマンド
+//================================================================================
 
-//フライトモード　ONコマンド
 -(void)flightModeOn{
     if (_Device)	{
 		//	iPhone->Device
@@ -377,7 +381,9 @@
 	}
 }
 
-//緊急停止　コマンド
+//================================================================================
+// 緊急停止　コマンド
+//================================================================================
 -(void)emergencyStop{
     if (_Device)	{
 		//	iPhone->Device
@@ -391,7 +397,9 @@
 	}
 }
 
-//初期値　コマンド
+//================================================================================
+// 初期値　コマンド　（ストップ）
+//================================================================================
 -(void)defaultValue{
     if (_Device)	{
         //	iPhone->Device
@@ -405,7 +413,9 @@
     }
 }
 
-//スロットル　コマンド
+//================================================================================
+// スロットル　コマンド
+//================================================================================
 -(void)throttle{
     if (_Device)	{
         //	iPhone->Device
@@ -419,7 +429,10 @@
     }
 }
 
-//スロットルプラス　コマンド
+
+//================================================================================
+// スロットルプラス　コマンド
+//================================================================================
 -(void)throttlePlus{
     if (_Device)	{
         //	iPhone->Device
@@ -433,7 +446,11 @@
     }
 }
 
-//スロットルマイナス　コマンド
+
+//================================================================================
+// スロットルマイナス　コマンド
+//================================================================================
+
 -(void)throttleMinus{
     if (_Device)	{
         //	iPhone->Device
@@ -447,7 +464,10 @@
     }
 }
 
-//ロール　コマンド
+
+//================================================================================
+// ロール　コマンド
+//================================================================================
 -(void)roll{
     if (_Device)	{
         //	iPhone->Device
@@ -461,7 +481,10 @@
     }
 }
 
-//ピッチ　コマンド
+
+//================================================================================
+// ピッチ　コマンド
+//================================================================================
 -(void)pitch{
     if (_Device)	{
         //	iPhone->Device
@@ -475,7 +498,10 @@
     }
 }
 
-//ヨー　コマンド
+
+//================================================================================
+// ヨー　コマンド
+//================================================================================
 -(void)yaw{
     if (_Device)	{
         //	iPhone->Device
@@ -489,7 +515,9 @@
     }
 }
 
-//ヨープラス　コマンド
+//================================================================================
+// ヨープラス　コマンド
+//================================================================================
 -(void)yawPlus{
     if (_Device)	{
         //	iPhone->Device
@@ -503,7 +531,9 @@
     }
 }
 
-//ヨーマイナス　コマンド
+//================================================================================
+// ヨーマイナス　コマンド
+//================================================================================
 -(void)yawMinus{
     if (_Device)	{
         //	iPhone->Device
