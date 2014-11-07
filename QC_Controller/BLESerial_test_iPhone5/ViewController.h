@@ -14,6 +14,15 @@
     UIButton* _disconnectButton;
     UIButton* _flightModeButton;
     UIButton* _emergencyStopButton;
+    UIButton* _defaultButton;
+    UIButton* _throttleButton;
+    UIButton* _throttlePlusButton;
+    UIButton* _throttleMinusButton;
+    UIButton* _rollButton;
+    UIButton* _pitchButton;
+    UIButton* _yawButton;
+    UIButton* _yawPlusButton;
+    UIButton* _yawMinusButton;
 }
 
 @end
