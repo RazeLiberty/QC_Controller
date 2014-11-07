@@ -26,6 +26,7 @@
 - (BOOL)notifyRequest:(CBCharacteristic*)characteristic;
 @end
 
+//BLEBaseClass
 @interface BLEBaseClass : NSObject
 - (id)init;
 - (BOOL)scanDevices:(NSString*)uuid;

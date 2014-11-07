@@ -10,11 +10,17 @@
 #import "BLEBaseClass.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 
+//ボタンタグ
 #define CONNECT_BUTTON 0
 #define DISCONNECT_BUTTON 1
-#define LED_ON_BUTTON 2
-#define LED_OFF_BUTTON 3
+#define FLIGHT_MODE_BUTTON 2
+#define EMERGENCY_STOP_BUTTON 3
 
+//送るデータ
+#define FLIGHT_MODE_DATA 0xd1
+#define EMERGENCY_STOP_DATA 0xe1
+
+//UUID
 #define UUID_VSP_SERVICE					@"569a1101-b87f-490c-92cb-11ba5ea5167c" //VSP
 #define UUID_RX                             @"569a2001-b87f-490c-92cb-11ba5ea5167c" //RX
 #define UUID_TX								@"569a2000-b87f-490c-92cb-11ba5ea5167c" //TX
@@ -34,8 +40,8 @@
     
     //---センサー値結果のテキストフィールド生成---
     _textField=[[UITextField alloc] init];
-    [_textField setFrame:CGRectMake(110,50,100,50)];  //位置と大きさ設定
-    [_textField setText:@"---"];
+    [_textField setFrame:CGRectMake(60,50,200,50)];  //位置と大きさ設定
+    [_textField setText:@"OFFLINE"];
     [_textField setBackgroundColor:[UIColor whiteColor]];
     [_textField setBorderStyle:UITextBorderStyleRoundedRect];
     _textField.font = [UIFont fontWithName:@"Helvetica" size:30];
@@ -63,7 +69,7 @@
     _flightModeButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_flightModeButton setFrame:CGRectMake(30,280,250,40)];  //位置と大きさ設定
     [_flightModeButton setTitle:@"FLIGHT MODE" forState:UIControlStateNormal];
-    [_flightModeButton setTag:LED_ON_BUTTON];           //ボタン識別タグ
+    [_flightModeButton setTag:FLIGHT_MODE_BUTTON];           //ボタン識別タグ
     [_flightModeButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
     _flightModeButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:30];
     [self.view addSubview:_flightModeButton];
@@ -72,7 +78,7 @@
     _emergencyStopButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_emergencyStopButton setFrame:CGRectMake(30,350,250,40)];  //位置と大きさ設定
     [_emergencyStopButton setTitle:@"EMERGENCY" forState:UIControlStateNormal];
-    [_emergencyStopButton setTag:LED_OFF_BUTTON];           //ボタン識別タグ
+    [_emergencyStopButton setTag:EMERGENCY_STOP_BUTTON];           //ボタン識別タグ
     [_emergencyStopButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
     _emergencyStopButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:30];
     [self.view addSubview:_emergencyStopButton];
@@ -139,10 +145,10 @@
         [self connect];
     }else if(sender.tag==DISCONNECT_BUTTON){
         [self disconnect];
-    }else if(sender.tag==LED_ON_BUTTON){
-        [self sendOn];
-    }else if(sender.tag==LED_OFF_BUTTON){
-        [self sendOff];
+    }else if(sender.tag==FLIGHT_MODE_BUTTON){
+        [self flightModeOn];
+    }else if(sender.tag==EMERGENCY_STOP_BUTTON){
+        [self emergencyStop];
     }
 }
 
@@ -167,6 +173,7 @@
 		_disconnectButton.enabled = TRUE;
         _flightModeButton.enabled = TRUE;
         _emergencyStopButton.enabled = TRUE;
+        _textField.text = @"ONLINE";
         
 		//	tx(Device->iPhone)のnotifyをセット
 		CBCharacteristic*	tx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_TX];
@@ -188,37 +195,39 @@
         //ボタンの状態変更
 		_connectButton.enabled = TRUE;
 		_disconnectButton.enabled = FALSE;
-        _flightModeButton.enabled = FALSE;
-        _emergencyStopButton.enabled = FALSE;
-		_textField.text = @"---";
+        _flightModeButton.enabled = TRUE;
+        _emergencyStopButton.enabled = TRUE;
+		_textField.text = @"OFFLINE";
 		//	周りのBLEデバイスからのadvertise情報のスキャンを開始する
 		[_BaseClass scanDevices:nil];
 	}
 }
 
 
-//LED 点灯コマンド
--(void)sendOn{
+//フライトモード　ONコマンド
+-(void)flightModeOn{
     if (_Device)	{
 		//	iPhone->Device
 		CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
 		//	ダミーデータ
         uint8_t	buf[1];
-        buf[0]=1;
+        buf[0] = FLIGHT_MODE_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
+        _textField.text = (@"FLIGHT_MODE_ON");
 		[_Device writeWithoutResponse:rx value:data];
 	}
 }
 
-//LED 消灯コマンド
--(void)sendOff{
+//緊急停止　コマンド
+-(void)emergencyStop{
     if (_Device)	{
 		//	iPhone->Device
 		CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
 		//	ダミーデータ
         uint8_t	buf[1];
-        buf[0]=0;
+        buf[0] = EMERGENCY_STOP_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
+        _textField.text = (@"EMERGENCY_STOP");
 		[_Device writeWithoutResponse:rx value:data];
 	}
 }
