@@ -376,7 +376,7 @@
         uint8_t	buf[1];
         buf[0] = FLIGHT_MODE_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        _textField.text = (@"FLIGHT_MODE_ON");
+        //_textField.text = (@"FLIGHT_MODE_ON");
 		[_Device writeWithoutResponse:rx value:data];
 	}
 }
@@ -392,7 +392,7 @@
         uint8_t	buf[1];
         buf[0] = EMERGENCY_STOP_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        _textField.text = (@"EMERGENCY_STOP");
+        //_textField.text = (@"EMERGENCY_STOP");
 		[_Device writeWithoutResponse:rx value:data];
 	}
 }
@@ -408,7 +408,7 @@
         uint8_t	buf[1];
         buf[0] = DEFAULT_VALUE_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        _textField.text = (@"DEFAULT_VALUE");
+        //_textField.text = (@"DEFAULT_VALUE");
         [_Device writeWithoutResponse:rx value:data];
     }
 }
@@ -424,7 +424,7 @@
         uint8_t	buf[1];
         buf[0] = THROTTLE_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        _textField.text = (@"THROTTLE");
+        //_textField.text = (@"THROTTLE");
         [_Device writeWithoutResponse:rx value:data];
     }
 }
@@ -441,7 +441,7 @@
         uint8_t	buf[1];
         buf[0] = THROTTLE_PLUS_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        _textField.text = (@"THROTTLE_PLUS");
+        //_textField.text = (@"THROTTLE_PLUS");
         [_Device writeWithoutResponse:rx value:data];
     }
 }
@@ -459,7 +459,7 @@
         uint8_t	buf[1];
         buf[0] = THROTTLE_MINUS_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        _textField.text = (@"THROTTLE_MINUS");
+        //_textField.text = (@"THROTTLE_MINUS");
         [_Device writeWithoutResponse:rx value:data];
     }
 }
@@ -476,7 +476,7 @@
         uint8_t	buf[1];
         buf[0] = ROLL_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        _textField.text = (@"ROLL");
+        //_textField.text = (@"ROLL");
         [_Device writeWithoutResponse:rx value:data];
     }
 }
@@ -493,7 +493,7 @@
         uint8_t	buf[1];
         buf[0] = PITCH_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        _textField.text = (@"PITCH");
+        //_textField.text = (@"PITCH");
         [_Device writeWithoutResponse:rx value:data];
     }
 }
@@ -510,7 +510,7 @@
         uint8_t	buf[1];
         buf[0] = YAW_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        _textField.text = (@"YAW");
+        //_textField.text = (@"YAW");
         [_Device writeWithoutResponse:rx value:data];
     }
 }
@@ -526,7 +526,7 @@
         uint8_t	buf[1];
         buf[0] = YAW_PLUS_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        _textField.text = (@"YAW_PLUS");
+        //_textField.text = (@"YAW_PLUS");
         [_Device writeWithoutResponse:rx value:data];
     }
 }
@@ -542,7 +542,7 @@
         uint8_t	buf[1];
         buf[0] = YAW_MINUS_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        _textField.text = (@"YAW_MINUS");
+        //_textField.text = (@"YAW_MINUS");
         [_Device writeWithoutResponse:rx value:data];
     }
 }
