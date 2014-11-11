@@ -8,7 +8,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			DEiTb6ELy9TzK1oO473xn+oXWkw=
+			7HtfDVpVl8e6wk7ogovdtJg5Uug=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -26,7 +26,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			rFv3WeXswihY19fIf/p8BIFsln0=
+			gstGfD9MJ+0nDnnVh4Q59+bO/wY=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -44,7 +44,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			sFq7GyN3kSiMz0J+oVsvHrKwCfE=
+			oOCEPa3hv3TfH9YF7/QW5DlOdEc=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -53,7 +53,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			8rdUTCczRzTU3dCGqbaF5TH4wU0=
+			wMSPBCuboFCiibHmh9/zIAcJBTY=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -83,6 +83,22 @@
 			<key>optional</key>
 			<true/>
 		</dict>
+		<key>key_a.png</key>
+		<data>
+		kqqXbrVV2pVrbud6vPBIKa0RPxQ=
+		</data>
+		<key>key_d.png</key>
+		<data>
+		lHQy/UC25wt57am1Zl5oNtSiw8A=
+		</data>
+		<key>key_s.png</key>
+		<data>
+		I9988hynSVC3PsnRoImvAQKumFA=
+		</data>
+		<key>key_w.png</key>
+		<data>
+		vDZtnNJSNG/R+x7+yqAnlu1Kb8g=
+		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
@@ -90,7 +106,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			DEiTb6ELy9TzK1oO473xn+oXWkw=
+			7HtfDVpVl8e6wk7ogovdtJg5Uug=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -108,7 +124,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			rFv3WeXswihY19fIf/p8BIFsln0=
+			gstGfD9MJ+0nDnnVh4Q59+bO/wY=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -126,7 +142,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			sFq7GyN3kSiMz0J+oVsvHrKwCfE=
+			oOCEPa3hv3TfH9YF7/QW5DlOdEc=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -135,7 +151,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			8rdUTCczRzTU3dCGqbaF5TH4wU0=
+			wMSPBCuboFCiibHmh9/zIAcJBTY=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -157,6 +173,22 @@
 			<key>optional</key>
 			<true/>
 		</dict>
+		<key>key_a.png</key>
+		<data>
+		kqqXbrVV2pVrbud6vPBIKa0RPxQ=
+		</data>
+		<key>key_d.png</key>
+		<data>
+		lHQy/UC25wt57am1Zl5oNtSiw8A=
+		</data>
+		<key>key_s.png</key>
+		<data>
+		I9988hynSVC3PsnRoImvAQKumFA=
+		</data>
+		<key>key_w.png</key>
+		<data>
+		vDZtnNJSNG/R+x7+yqAnlu1Kb8g=
+		</data>
 	</dict>
 	<key>rules</key>
 	<dict>
