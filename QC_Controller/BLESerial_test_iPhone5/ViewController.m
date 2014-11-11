@@ -63,6 +63,8 @@
 @property (readwrite)	BLEDeviceClass*	Device;
 
 - (IBAction)rightKey:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *label;
+@property (weak, nonatomic) IBOutlet UIButton *changelabel;
 
 @end
 
@@ -573,7 +575,7 @@
         uint8_t	buf[1];
         buf[0] = YAW_PLUS_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        _textField.text = (@"YAW_PLUS");
+        self.label.text = (@"YAW_PLUS");
         [_Device writeWithoutResponse:rx value:data];
     }
 }

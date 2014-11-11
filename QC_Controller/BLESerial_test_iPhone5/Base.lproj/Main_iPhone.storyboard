@@ -64,7 +64,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="rightKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="s45-Bn-3rb"/>
+                                    <action selector="rightKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="My7-r9-Ltf"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0jD-u4-73G">
@@ -96,12 +96,14 @@
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
-                        <outlet property="view" destination="kh9-bI-dsS" id="G5l-uV-gBU"/>
+                        <outlet property="changelabel" destination="ee1-df-6ZH" id="kag-Qy-68j"/>
+                        <outlet property="label" destination="15t-jA-NKg" id="Jhd-ZF-InM"/>
+                        <outlet property="view" destination="kh9-bI-dsS" id="qEk-cq-ubc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="102" y="176"/>
+            <point key="canvasLocation" x="175" y="207"/>
         </scene>
     </scenes>
     <resources>
