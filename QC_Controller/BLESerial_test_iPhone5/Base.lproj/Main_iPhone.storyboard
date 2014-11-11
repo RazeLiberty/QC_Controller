@@ -96,6 +96,7 @@
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="Mylabel" destination="15t-jA-NKg" id="jQg-EP-EV4"/>
                         <outlet property="view" destination="kh9-bI-dsS" id="G5l-uV-gBU"/>
                     </connections>
                 </viewController>
