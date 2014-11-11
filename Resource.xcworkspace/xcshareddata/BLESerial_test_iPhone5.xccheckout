@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>367AD923-9707-4A10-ADF5-CFA30026336B</string>
+	<key>IDESourceControlProjectName</key>
+	<string>BLESerial_test_iPhone5</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>A4475E0C3A70FBD355E67900A52348248F3022AC</key>
+		<string>github.com:RazeLiberty/QC_Controller.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>QC_Controller/BLESerial_test_iPhone5.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>A4475E0C3A70FBD355E67900A52348248F3022AC</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:RazeLiberty/QC_Controller.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>A4475E0C3A70FBD355E67900A52348248F3022AC</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>A4475E0C3A70FBD355E67900A52348248F3022AC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Controller_QC</string>
+		</dict>
+	</array>
+</dict>
+</plist>

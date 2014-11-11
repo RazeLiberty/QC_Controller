@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		77421B6F1A11BF3C0071399E /* key_a.png in Resources */ = {isa = PBXBuildFile; fileRef = 77421B6B1A11BF3C0071399E /* key_a.png */; };
-		77421B701A11BF3C0071399E /* key_d.png in Resources */ = {isa = PBXBuildFile; fileRef = 77421B6C1A11BF3C0071399E /* key_d.png */; };
-		77421B711A11BF3C0071399E /* key_s.png in Resources */ = {isa = PBXBuildFile; fileRef = 77421B6D1A11BF3C0071399E /* key_s.png */; };
-		77421B721A11BF3C0071399E /* key_w.png in Resources */ = {isa = PBXBuildFile; fileRef = 77421B6E1A11BF3C0071399E /* key_w.png */; };
 		CD39CDD218322D0900B137E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39CDD118322D0900B137E6 /* Foundation.framework */; };
 		CD39CDD418322D0900B137E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39CDD318322D0900B137E6 /* CoreGraphics.framework */; };
 		CD39CDD618322D0900B137E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39CDD518322D0900B137E6 /* UIKit.framework */; };
@@ -39,10 +35,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		77421B6B1A11BF3C0071399E /* key_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_a.png; sourceTree = "<group>"; };
-		77421B6C1A11BF3C0071399E /* key_d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_d.png; sourceTree = "<group>"; };
-		77421B6D1A11BF3C0071399E /* key_s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_s.png; sourceTree = "<group>"; };
-		77421B6E1A11BF3C0071399E /* key_w.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_w.png; sourceTree = "<group>"; };
 		CD39CDCE18322D0900B137E6 /* BLESerial_test_iPhone5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = BLESerial_test_iPhone5.app; path = "/apps/Controller_QC/QC_Controller/build/Debug-iphoneos/BLESerial_test_iPhone5.app"; sourceTree = "<absolute>"; };
 		CD39CDD118322D0900B137E6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CD39CDD318322D0900B137E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -89,17 +81,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		77421B6A1A11B8290071399E /* Resource */ = {
-			isa = PBXGroup;
-			children = (
-				77421B6B1A11BF3C0071399E /* key_a.png */,
-				77421B6C1A11BF3C0071399E /* key_d.png */,
-				77421B6D1A11BF3C0071399E /* key_s.png */,
-				77421B6E1A11BF3C0071399E /* key_w.png */,
-			);
-			name = Resource;
-			sourceTree = "<group>";
-		};
 		CD39CDC518322D0900B137E6 = {
 			isa = PBXGroup;
 			children = (
@@ -115,7 +96,6 @@
 				CD39CDD118322D0900B137E6 /* Foundation.framework */,
 				CD39CDD318322D0900B137E6 /* CoreGraphics.framework */,
 				CD39CDD518322D0900B137E6 /* UIKit.framework */,
-				77421B6A1A11B8290071399E /* Resource */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -243,12 +223,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD39CDE818322D0900B137E6 /* Main_iPad.storyboard in Resources */,
-				77421B711A11BF3C0071399E /* key_s.png in Resources */,
-				77421B6F1A11BF3C0071399E /* key_a.png in Resources */,
-				77421B721A11BF3C0071399E /* key_w.png in Resources */,
 				CD39CDED18322D0A00B137E6 /* Images.xcassets in Resources */,
 				CD39CDE518322D0900B137E6 /* Main_iPhone.storyboard in Resources */,
-				77421B701A11BF3C0071399E /* key_d.png in Resources */,
 				CD39CDDC18322D0900B137E6 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
