@@ -61,6 +61,9 @@
 @interface ViewController () <BLEDeviceClassDelegate>
 @property (strong)		BLEBaseClass*	BaseClass;
 @property (readwrite)	BLEDeviceClass*	Device;
+
+- (IBAction)rightKey:(id)sender;
+
 @end
 
 @implementation ViewController
@@ -70,6 +73,20 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    /*
+    //ボタン画像生成
+    _key_w = [UIImage imageNamed:@"key_w.png"];
+    _key_a = [UIImage imageNamed:@"key_a.png"];
+    _key_s = [UIImage imageNamed:@"key_s.png"];
+    _key_d = [UIImage imageNamed:@"key_d.png"];
+    _key_up = [UIImage imageNamed:@"key_up.png"];
+    _key_down = [UIImage imageNamed:@"key_down.png"];
+    _key_right = [UIImage imageNamed:@"key_right.png"];
+    _key_left = [UIImage imageNamed:@"key_left.png"];
+   */
+    _key_w = [UIImage imageNamed:@"key_w.png"];
+
+
     
     //---センサー値結果のテキストフィールド生成---
     _textField=[[UITextField alloc] init];
@@ -87,6 +104,7 @@
     [_connectButton setFrame:CGRectMake(BUTTON_LOCATE_X,120,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
     [_connectButton setTitle:@"CONNECT" forState:UIControlStateNormal];
     [_connectButton setTag:CONNECT_BUTTON];           //ボタン識別タグ
+    
     [_connectButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
     _connectButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
     [self.view addSubview:_connectButton];
@@ -212,8 +230,9 @@
     _rollButton.enabled = FALSE;
     _pitchButton.enabled = FALSE;
     _yawButton.enabled = FALSE;
-    _yawPlusButton.enabled = FALSE;
+    _yawPlusButton.enabled = TRUE;
     _yawMinusButton.enabled = FALSE;
+    
     
     //	BLEBaseClassの初期化
 	_BaseClass = [[BLEBaseClass alloc] init];
@@ -526,7 +545,7 @@
         uint8_t	buf[1];
         buf[0] = YAW_PLUS_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        //_textField.text = (@"YAW_PLUS");
+        _textField.text = (@"YAW_PLUS");
         [_Device writeWithoutResponse:rx value:data];
     }
 }
@@ -546,5 +565,16 @@
         [_Device writeWithoutResponse:rx value:data];
     }
 }
-
+- (IBAction)rightKey:(id)sender {
+    if (_Device)	{
+        //	iPhone->Device
+        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
+        //	ダミーデータ
+        uint8_t	buf[1];
+        buf[0] = YAW_PLUS_DATA;
+        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
+        _textField.text = (@"YAW_PLUS");
+        [_Device writeWithoutResponse:rx value:data];
+    }
+}
 @end

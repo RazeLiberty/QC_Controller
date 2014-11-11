@@ -23,6 +23,16 @@
     UIButton* _yawButton;
     UIButton* _yawPlusButton;
     UIButton* _yawMinusButton;
+    
+    UIImage *_key_w;
+    UIImage *_key_a;
+    UIImage *_key_s;
+    UIImage *_key_d;
+    UIImage *_key_up;
+    UIImage *_key_down;
+    UIImage *_key_right;
+    UIImage *_key_left;
+    UIButton *button;
 }
 
 @end

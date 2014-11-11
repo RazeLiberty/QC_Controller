@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		772EFA161A12008B008C169E /* key_a.png in Resources */ = {isa = PBXBuildFile; fileRef = 772EFA121A12008B008C169E /* key_a.png */; };
+		772EFA181A12008B008C169E /* key_s.png in Resources */ = {isa = PBXBuildFile; fileRef = 772EFA141A12008B008C169E /* key_s.png */; };
+		772EFA191A12008B008C169E /* key_d.png in Resources */ = {isa = PBXBuildFile; fileRef = 772EFA151A12008B008C169E /* key_d.png */; };
+		772EFA1E1A12043D008C169E /* key_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 772EFA1A1A12043D008C169E /* key_down.png */; };
+		772EFA1F1A12043D008C169E /* key_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 772EFA1B1A12043D008C169E /* key_left.png */; };
+		772EFA201A12043D008C169E /* key_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 772EFA1C1A12043D008C169E /* key_right.png */; };
+		772EFA211A12043D008C169E /* key_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 772EFA1D1A12043D008C169E /* key_up.png */; };
+		772EFA231A12047E008C169E /* top_bar_line.png in Resources */ = {isa = PBXBuildFile; fileRef = 772EFA221A12047E008C169E /* top_bar_line.png */; };
+		7757D95A1A1238EE00BC1C13 /* key_w.png in Resources */ = {isa = PBXBuildFile; fileRef = 7757D9591A1238EE00BC1C13 /* key_w.png */; };
 		CD39CDD218322D0900B137E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39CDD118322D0900B137E6 /* Foundation.framework */; };
 		CD39CDD418322D0900B137E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39CDD318322D0900B137E6 /* CoreGraphics.framework */; };
 		CD39CDD618322D0900B137E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39CDD518322D0900B137E6 /* UIKit.framework */; };
@@ -35,7 +44,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CD39CDCE18322D0900B137E6 /* BLESerial_test_iPhone5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = BLESerial_test_iPhone5.app; path = "/apps/Controller_QC/QC_Controller/build/Debug-iphoneos/BLESerial_test_iPhone5.app"; sourceTree = "<absolute>"; };
+		772EFA0F1A11FE9D008C169E /* BLESerial_test_iPhone5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLESerial_test_iPhone5.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		772EFA101A11FE9D008C169E /* BLESerial_test_iPhone5Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BLESerial_test_iPhone5Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		772EFA121A12008B008C169E /* key_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_a.png; sourceTree = "<group>"; };
+		772EFA141A12008B008C169E /* key_s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_s.png; sourceTree = "<group>"; };
+		772EFA151A12008B008C169E /* key_d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_d.png; sourceTree = "<group>"; };
+		772EFA1A1A12043D008C169E /* key_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_down.png; sourceTree = "<group>"; };
+		772EFA1B1A12043D008C169E /* key_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_left.png; sourceTree = "<group>"; };
+		772EFA1C1A12043D008C169E /* key_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_right.png; sourceTree = "<group>"; };
+		772EFA1D1A12043D008C169E /* key_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_up.png; sourceTree = "<group>"; };
+		772EFA221A12047E008C169E /* top_bar_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = top_bar_line.png; sourceTree = "<group>"; };
+		7757D9591A1238EE00BC1C13 /* key_w.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_w.png; sourceTree = "<group>"; };
 		CD39CDD118322D0900B137E6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CD39CDD318322D0900B137E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		CD39CDD518322D0900B137E6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -50,7 +69,6 @@
 		CD39CDE918322D0900B137E6 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		CD39CDEA18322D0A00B137E6 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		CD39CDEC18322D0A00B137E6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		CD39CDF218322D0A00B137E6 /* BLESerial_test_iPhone5Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = BLESerial_test_iPhone5Tests.xctest; path = "/apps/Controller_QC/QC_Controller/build/Debug-iphoneos/BLESerial_test_iPhone5Tests.xctest"; sourceTree = "<absolute>"; };
 		CD39CDFB18322D0A00B137E6 /* BLESerial_test_iPhone5Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BLESerial_test_iPhone5Tests-Info.plist"; sourceTree = "<group>"; };
 		CD39CDFD18322D0A00B137E6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CD39CDFF18322D0A00B137E6 /* BLESerial_test_iPhone5Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLESerial_test_iPhone5Tests.m; sourceTree = "<group>"; };
@@ -81,12 +99,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		772EFA111A11FEC9008C169E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				772EFA121A12008B008C169E /* key_a.png */,
+				772EFA141A12008B008C169E /* key_s.png */,
+				772EFA151A12008B008C169E /* key_d.png */,
+				772EFA1A1A12043D008C169E /* key_down.png */,
+				772EFA1B1A12043D008C169E /* key_left.png */,
+				772EFA1C1A12043D008C169E /* key_right.png */,
+				772EFA1D1A12043D008C169E /* key_up.png */,
+				772EFA221A12047E008C169E /* top_bar_line.png */,
+				7757D9591A1238EE00BC1C13 /* key_w.png */,
+			);
+			name = Resources;
+			path = BLESerial_test_iPhone5/Resources;
+			sourceTree = "<group>";
+		};
 		CD39CDC518322D0900B137E6 = {
 			isa = PBXGroup;
 			children = (
+				772EFA0F1A11FE9D008C169E /* BLESerial_test_iPhone5.app */,
+				772EFA101A11FE9D008C169E /* BLESerial_test_iPhone5Tests.xctest */,
 				CD39CDD718322D0900B137E6 /* BLESerial_test_iPhone5 */,
 				CD39CDF918322D0A00B137E6 /* BLESerial_test_iPhone5Tests */,
 				CD39CDD018322D0900B137E6 /* Frameworks */,
+				772EFA111A11FEC9008C169E /* Resources */,
 			);
 			sourceTree = "<group>";
 		};
@@ -163,7 +201,7 @@
 			);
 			name = BLESerial_test_iPhone5;
 			productName = BLESerial_test_iPhone5;
-			productReference = CD39CDCE18322D0900B137E6 /* BLESerial_test_iPhone5.app */;
+			productReference = 772EFA0F1A11FE9D008C169E /* BLESerial_test_iPhone5.app */;
 			productType = "com.apple.product-type.application";
 		};
 		CD39CDF118322D0A00B137E6 /* BLESerial_test_iPhone5Tests */ = {
@@ -181,7 +219,7 @@
 			);
 			name = BLESerial_test_iPhone5Tests;
 			productName = BLESerial_test_iPhone5Tests;
-			productReference = CD39CDF218322D0A00B137E6 /* BLESerial_test_iPhone5Tests.xctest */;
+			productReference = 772EFA101A11FE9D008C169E /* BLESerial_test_iPhone5Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -193,6 +231,9 @@
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "石井 孝佳";
 				TargetAttributes = {
+					CD39CDCD18322D0900B137E6 = {
+						DevelopmentTeam = 4DUFGD924K;
+					};
 					CD39CDF118322D0A00B137E6 = {
 						TestTargetID = CD39CDCD18322D0900B137E6;
 					};
@@ -222,9 +263,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				772EFA231A12047E008C169E /* top_bar_line.png in Resources */,
+				772EFA181A12008B008C169E /* key_s.png in Resources */,
+				772EFA161A12008B008C169E /* key_a.png in Resources */,
+				7757D95A1A1238EE00BC1C13 /* key_w.png in Resources */,
+				772EFA1F1A12043D008C169E /* key_left.png in Resources */,
 				CD39CDE818322D0900B137E6 /* Main_iPad.storyboard in Resources */,
 				CD39CDED18322D0A00B137E6 /* Images.xcassets in Resources */,
+				772EFA211A12043D008C169E /* key_up.png in Resources */,
+				772EFA1E1A12043D008C169E /* key_down.png in Resources */,
 				CD39CDE518322D0900B137E6 /* Main_iPhone.storyboard in Resources */,
+				772EFA201A12043D008C169E /* key_right.png in Resources */,
+				772EFA191A12008B008C169E /* key_d.png in Resources */,
 				CD39CDDC18322D0900B137E6 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -382,6 +432,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BLESerial_test_iPhone5/BLESerial_test_iPhone5-Prefix.pch";
 				INFOPLIST_FILE = "BLESerial_test_iPhone5/BLESerial_test_iPhone5-Info.plist";
@@ -395,6 +446,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BLESerial_test_iPhone5/BLESerial_test_iPhone5-Prefix.pch";
 				INFOPLIST_FILE = "BLESerial_test_iPhone5/BLESerial_test_iPhone5-Info.plist";
