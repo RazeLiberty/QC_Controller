@@ -16,6 +16,7 @@
 //ボタンタグ
 #define CONNECT_BUTTON 0
 #define DISCONNECT_BUTTON 1
+/*
 #define FLIGHT_MODE_BUTTON 2
 #define EMERGENCY_STOP_BUTTON 3
 #define DEFAULT_BUTTON 4
@@ -27,7 +28,7 @@
 #define YAW_BUTTON 10
 #define YAW_PLUS_BUTTON 11
 #define YAW_MINUS_BUTTON 12
-
+*/
 //送るデータ
 #define FLIGHT_MODE_DATA 0xd1
 #define EMERGENCY_STOP_DATA 0xe1
@@ -62,9 +63,17 @@
 @property (strong)		BLEBaseClass*	BaseClass;
 @property (readwrite)	BLEDeviceClass*	Device;
 
+- (IBAction)flightModeKey:(id)sender;
+- (IBAction)emergencyKey:(id)sender;
 - (IBAction)rightKey:(id)sender;
-@property (weak, nonatomic) IBOutlet UILabel *label;
-@property (weak, nonatomic) IBOutlet UIButton *changelabel;
+- (IBAction)leftKey:(id)sender;
+- (IBAction)upKey:(id)sender;
+- (IBAction)downKey:(id)sender;
+- (IBAction)wKey:(id)sender;
+- (IBAction)aKey:(id)sender;
+- (IBAction)sKey:(id)sender;
+- (IBAction)dKey:(id)sender;
+
 
 @end
 
@@ -85,9 +94,9 @@
     _key_down = [UIImage imageNamed:@"key_down.png"];
     _key_right = [UIImage imageNamed:@"key_right.png"];
     _key_left = [UIImage imageNamed:@"key_left.png"];
-   */
+   
     _key_w = [UIImage imageNamed:@"key_w.png"];
-
+*/
 
     
     //---センサー値結果のテキストフィールド生成---
@@ -100,6 +109,10 @@
     //テキストフィールドタッチ無効化
     _textField.enabled = NO;
     [self.view addSubview:_textField];
+    
+    //------------------------------------------------------------------------------------------
+    //	ストーリーボード使わないなら　/**/はずす
+    //------------------------------------------------------------------------------------------
     
     //---CONNECTボタン生成---
     _connectButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -119,7 +132,7 @@
     [_disconnectButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
     _disconnectButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
     [self.view addSubview:_disconnectButton];
-    
+    /*
     //---FLIGHT MODEボタン生成---
     _flightModeButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_flightModeButton setFrame:CGRectMake(BUTTON_LOCATE_X,180,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
@@ -219,11 +232,11 @@
     [_yawMinusButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
     _yawMinusButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
     [self.view addSubview:_yawMinusButton];
-    
+    */
     //---ボタンの状態設定---
     _connectButton.enabled = TRUE;
     _disconnectButton.enabled = FALSE;
-    _flightModeButton.enabled = FALSE;
+  /*  _flightModeButton.enabled = FALSE;
     _emergencyStopButton.enabled = FALSE;
     _defaultButton.enabled = FALSE;
     _throttleButton.enabled = FALSE;
@@ -234,7 +247,7 @@
     _yawButton.enabled = FALSE;
     _yawPlusButton.enabled = TRUE;
     _yawMinusButton.enabled = FALSE;
-    
+    */
     
     //	BLEBaseClassの初期化
 	_BaseClass = [[BLEBaseClass alloc] init];
@@ -291,7 +304,7 @@
         [self connect];
     }else if(sender.tag==DISCONNECT_BUTTON){
         [self disconnect];
-    }else if(sender.tag==FLIGHT_MODE_BUTTON){
+/*    }else if(sender.tag==FLIGHT_MODE_BUTTON){
         [self flightModeOn];
     }else if(sender.tag==EMERGENCY_STOP_BUTTON){
         [self emergencyStop];
@@ -313,7 +326,7 @@
         [self yawPlus];
     }else if(sender.tag==YAW_MINUS_BUTTON){
         [self yawMinus];
-    }
+ */   }
 }
 
 
@@ -331,7 +344,7 @@
 		_Device.delegate = self;
         
         //        [_BaseClass printDevices];
-        
+        /*
         //ボタンの状態変更
 		_connectButton.enabled = FALSE;
 		_disconnectButton.enabled = TRUE;
@@ -347,7 +360,7 @@
         _yawPlusButton.enabled = TRUE;
         _yawMinusButton.enabled = TRUE;
         _textField.text = @"ONLINE";
-        
+        */
 		//	tx(Device->iPhone)のnotifyをセット
 		CBCharacteristic*	tx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_TX];
 		if (tx)	{
@@ -365,6 +378,7 @@
 		//	UUID_DEMO_SERVICEサービスを持っているデバイスから切断する
 		[_BaseClass disconnectService:UUID_VSP_SERVICE];
 		_Device = 0;
+        /*
         //ボタンの状態変更
 		_connectButton.enabled = TRUE;
 		_disconnectButton.enabled = FALSE;
@@ -379,12 +393,15 @@
         _yawButton.enabled = FALSE;
         _yawPlusButton.enabled = FALSE;
         _yawMinusButton.enabled = FALSE;
+         */
 		_textField.text = @"OFFLINE";
+         
 		//	周りのBLEデバイスからのadvertise情報のスキャンを開始する
 		[_BaseClass scanDevices:nil];
 	}
 }
 
+/*
 //================================================================================
 // フライトモード　ONコマンド
 //================================================================================
@@ -567,16 +584,129 @@
         [_Device writeWithoutResponse:rx value:data];
     }
 }
-- (IBAction)rightKey:(id)sender {
+*/
+//================================================================================
+// ストーリーボード使ったなら
+//================================================================================
+
+
+- (IBAction)flightModeKey:(id)sender {
+    _textField.text = (@"FLIGHT_MODE_ON");
+
     if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
         //	ダミーデータ
         uint8_t	buf[1];
-        buf[0] = YAW_PLUS_DATA;
+        buf[0] = FLIGHT_MODE_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        self.label.text = (@"YAW_PLUS");
         [_Device writeWithoutResponse:rx value:data];
     }
 }
+
+- (IBAction)emergencyKey:(id)sender {
+    _textField.text = (@"EMERGENCY_STOP");
+
+    if (_Device)	{
+        //	iPhone->Device
+        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
+        //	ダミーデータ
+        uint8_t	buf[1];
+        buf[0] = EMERGENCY_STOP_DATA;
+        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
+        [_Device writeWithoutResponse:rx value:data];
+    }
+}
+
+
+- (IBAction)rightKey:(id)sender {
+    _textField.text = (@"ROLL");
+
+    if (_Device)	{
+        //	iPhone->Device
+        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
+        //	ダミーデータ
+        uint8_t	buf[1];
+        buf[0] = ROLL_DATA;
+        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
+        [_Device writeWithoutResponse:rx value:data];
+    }
+}
+
+- (IBAction)leftKey:(id)sender {
+    _textField.text = (@"YAW_MINUS");
+
+    if (_Device)	{
+        //	iPhone->Device
+        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
+        //	ダミーデータ
+        uint8_t	buf[1];
+        buf[0] = YAW_MINUS_DATA;
+        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
+        [_Device writeWithoutResponse:rx value:data];
+    }
+}
+
+- (IBAction)upKey:(id)sender {
+    _textField.text = (@"THROTTLE_PLUS");
+
+    if (_Device)	{
+        //	iPhone->Device
+        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
+        //	ダミーデータ
+        uint8_t	buf[1];
+        buf[0] = THROTTLE_PLUS_DATA;
+        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
+        [_Device writeWithoutResponse:rx value:data];
+    }
+}
+
+- (IBAction)downKey:(id)sender {
+    _textField.text = (@"THROTTLE_MINUS");
+
+    if (_Device)	{
+        //	iPhone->Device
+        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
+        //	ダミーデータ
+        uint8_t	buf[1];
+        buf[0] = THROTTLE_MINUS_DATA;
+        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
+        [_Device writeWithoutResponse:rx value:data];
+    }
+}
+
+- (IBAction)wKey:(id)sender {
+    _textField.text = (@"PITCH");
+
+    if (_Device)	{
+        //	iPhone->Device
+        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
+        //	ダミーデータ
+        uint8_t	buf[1];
+        buf[0] = PITCH_DATA;
+        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
+        [_Device writeWithoutResponse:rx value:data];
+    }
+}
+
+- (IBAction)aKey:(id)sender {
+}
+
+- (IBAction)sKey:(id)sender {
+}
+
+- (IBAction)dKey:(id)sender {
+    _textField.text = (@"ROLL");
+
+    if (_Device)	{
+        //	iPhone->Device
+        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
+        //	ダミーデータ
+        uint8_t	buf[1];
+        buf[0] = ROLL_DATA;
+        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
+        [_Device writeWithoutResponse:rx value:data];
+    }
+}
+
 @end

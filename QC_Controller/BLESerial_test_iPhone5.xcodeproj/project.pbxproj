@@ -15,7 +15,7 @@
 		772EFA201A12043D008C169E /* key_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 772EFA1C1A12043D008C169E /* key_right.png */; };
 		772EFA211A12043D008C169E /* key_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 772EFA1D1A12043D008C169E /* key_up.png */; };
 		772EFA231A12047E008C169E /* top_bar_line.png in Resources */ = {isa = PBXBuildFile; fileRef = 772EFA221A12047E008C169E /* top_bar_line.png */; };
-		7757D95A1A1238EE00BC1C13 /* key_w.png in Resources */ = {isa = PBXBuildFile; fileRef = 7757D9591A1238EE00BC1C13 /* key_w.png */; };
+		77FABE561A12471000A03858 /* key_w.png in Resources */ = {isa = PBXBuildFile; fileRef = 77FABE551A12471000A03858 /* key_w.png */; };
 		CD39CDD218322D0900B137E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39CDD118322D0900B137E6 /* Foundation.framework */; };
 		CD39CDD418322D0900B137E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39CDD318322D0900B137E6 /* CoreGraphics.framework */; };
 		CD39CDD618322D0900B137E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39CDD518322D0900B137E6 /* UIKit.framework */; };
@@ -54,7 +54,7 @@
 		772EFA1C1A12043D008C169E /* key_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_right.png; sourceTree = "<group>"; };
 		772EFA1D1A12043D008C169E /* key_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_up.png; sourceTree = "<group>"; };
 		772EFA221A12047E008C169E /* top_bar_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = top_bar_line.png; sourceTree = "<group>"; };
-		7757D9591A1238EE00BC1C13 /* key_w.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_w.png; sourceTree = "<group>"; };
+		77FABE551A12471000A03858 /* key_w.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_w.png; sourceTree = "<group>"; };
 		CD39CDD118322D0900B137E6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CD39CDD318322D0900B137E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		CD39CDD518322D0900B137E6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -102,6 +102,7 @@
 		772EFA111A11FEC9008C169E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				77FABE551A12471000A03858 /* key_w.png */,
 				772EFA121A12008B008C169E /* key_a.png */,
 				772EFA141A12008B008C169E /* key_s.png */,
 				772EFA151A12008B008C169E /* key_d.png */,
@@ -110,7 +111,6 @@
 				772EFA1C1A12043D008C169E /* key_right.png */,
 				772EFA1D1A12043D008C169E /* key_up.png */,
 				772EFA221A12047E008C169E /* top_bar_line.png */,
-				7757D9591A1238EE00BC1C13 /* key_w.png */,
 			);
 			name = Resources;
 			path = BLESerial_test_iPhone5/Resources;
@@ -266,7 +266,7 @@
 				772EFA231A12047E008C169E /* top_bar_line.png in Resources */,
 				772EFA181A12008B008C169E /* key_s.png in Resources */,
 				772EFA161A12008B008C169E /* key_a.png in Resources */,
-				7757D95A1A1238EE00BC1C13 /* key_w.png in Resources */,
+				77FABE561A12471000A03858 /* key_w.png in Resources */,
 				772EFA1F1A12043D008C169E /* key_left.png in Resources */,
 				CD39CDE818322D0900B137E6 /* Main_iPad.storyboard in Resources */,
 				CD39CDED18322D0A00B137E6 /* Images.xcassets in Resources */,

@@ -24,39 +24,90 @@
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="emergencyKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="1jR-H3-jt5"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9XB-r2-ymj">
                                 <rect key="frame" x="227" y="290" width="115" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Flight Mode ON"/>
+                                <connections>
+                                    <action selector="flightModeKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="h3n-PX-jwA"/>
+                                </connections>
                             </button>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="top_bar_line.png" translatesAutoresizingMaskIntoConstraints="NO" id="gXT-13-pNs">
                                 <rect key="frame" x="-196" y="28" width="960" height="2"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QDe-N0-n9x">
-                                <rect key="frame" x="72" y="185" width="64" height="64"/>
-                                <state key="normal" title="Button" image="key_w@64.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DbR-wd-iUW">
-                                <rect key="frame" x="8" y="248" width="64" height="64"/>
-                                <state key="normal" title="Button" image="key_a@64.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jL9-Km-Bxo">
-                                <rect key="frame" x="136" y="248" width="64" height="64"/>
-                                <state key="normal" title="Button" image="key_d @64.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U0S-lX-cmc">
                                 <rect key="frame" x="504" y="96" width="64" height="64"/>
                                 <state key="normal" title="Button" image="key_up.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="upKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="bO4-g9-Clx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0jD-u4-73G">
+                                <rect key="frame" x="504" y="159" width="64" height="64"/>
+                                <state key="normal" title="Button" image="key_down.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="downKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="egG-CG-Mx4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xvn-uP-EV1">
+                                <rect key="frame" x="416" y="248" width="64" height="64"/>
+                                <state key="normal" title="Button" image="key_left.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="leftKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="MvM-p0-aLg"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="15t-jA-NKg">
+                                <rect key="frame" x="263" y="149" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MF9-11-idt">
+                                <rect key="frame" x="71" y="185" width="64" height="64"/>
+                                <state key="normal" title="Button" image="key_w.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="wKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="tkg-74-Czc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0bk-TH-zuW">
+                                <rect key="frame" x="71" y="248" width="64" height="64"/>
+                                <state key="normal" title="Button" image="key_s.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="iAJ-tZ-sDb"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DOK-Ot-40d">
+                                <rect key="frame" x="7" y="248" width="64" height="64"/>
+                                <state key="normal" title="Button" image="key_a.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="aKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="UUs-Y0-Ext"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k5L-8a-eL2">
+                                <rect key="frame" x="135" y="248" width="64" height="64"/>
+                                <state key="normal" title="Button" image="key_d.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Lso-0U-Xlp"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ee1-df-6ZH">
                                 <rect key="frame" x="488" y="248" width="64" height="64"/>
@@ -67,36 +118,11 @@
                                     <action selector="rightKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="My7-r9-Ltf"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0jD-u4-73G">
-                                <rect key="frame" x="504" y="159" width="64" height="64"/>
-                                <state key="normal" title="Button" image="key_down.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xvn-uP-EV1">
-                                <rect key="frame" x="416" y="248" width="64" height="64"/>
-                                <state key="normal" title="Button" image="key_left.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="15t-jA-NKg">
-                                <rect key="frame" x="263" y="149" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aRY-KI-TiM">
-                                <rect key="frame" x="72" y="248" width="64" height="64"/>
-                                <state key="normal" title="Button" image="key_s@64.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
-                        <outlet property="changelabel" destination="ee1-df-6ZH" id="kag-Qy-68j"/>
                         <outlet property="label" destination="15t-jA-NKg" id="Jhd-ZF-InM"/>
                         <outlet property="view" destination="kh9-bI-dsS" id="qEk-cq-ubc"/>
                     </connections>
@@ -107,14 +133,14 @@
         </scene>
     </scenes>
     <resources>
-        <image name="key_a@64.png" width="68" height="64"/>
-        <image name="key_d @64.png" width="68" height="64"/>
+        <image name="key_a.png" width="68" height="64"/>
+        <image name="key_d.png" width="68" height="64"/>
         <image name="key_down.png" width="68" height="64"/>
         <image name="key_left.png" width="68" height="64"/>
         <image name="key_right.png" width="68" height="64"/>
-        <image name="key_s@64.png" width="68" height="64"/>
+        <image name="key_s.png" width="68" height="64"/>
         <image name="key_up.png" width="68" height="64"/>
-        <image name="key_w@64.png" width="68" height="64"/>
+        <image name="key_w.png" width="68" height="64"/>
         <image name="top_bar_line.png" width="960" height="2"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

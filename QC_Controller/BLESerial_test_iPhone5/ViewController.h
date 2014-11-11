@@ -10,8 +10,10 @@
 
 @interface ViewController : UIViewController{
     UITextField* _textField;
+    
     UIButton* _connectButton;
     UIButton* _disconnectButton;
+    /*
     UIButton* _flightModeButton;
     UIButton* _emergencyStopButton;
     UIButton* _defaultButton;
@@ -33,6 +35,7 @@
     UIImage *_key_right;
     UIImage *_key_left;
     UIButton *button;
+     */
 }
 
 @end
