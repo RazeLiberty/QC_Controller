@@ -25,7 +25,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="emergencyKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="1jR-H3-jt5"/>
+                                    <action selector="emergencyKeyTouchUpInside:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="iyq-mx-Lwd"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9XB-r2-ymj">
@@ -34,7 +34,7 @@
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Flight Mode ON"/>
                                 <connections>
-                                    <action selector="flightModeKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="h3n-PX-jwA"/>
+                                    <action selector="flightModeKeyTouchUpInside:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="JIb-fW-NP3"/>
                                 </connections>
                             </button>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="top_bar_line.png" translatesAutoresizingMaskIntoConstraints="NO" id="gXT-13-pNs">
@@ -46,7 +46,8 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="upKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="bO4-g9-Clx"/>
+                                    <action selector="upKeyTouchDown:" destination="vXZ-lx-hvc" eventType="touchDown" id="T7I-DT-GNg"/>
+                                    <action selector="upKeyTouchUpInside:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="3S3-ca-dOB"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0jD-u4-73G">
@@ -55,7 +56,8 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="downKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="egG-CG-Mx4"/>
+                                    <action selector="downKeyTouchDown:" destination="vXZ-lx-hvc" eventType="touchDown" id="D1Z-Kb-xF7"/>
+                                    <action selector="downKeyTouchUpInside:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="W0Q-QE-cP1"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xvn-uP-EV1">
@@ -64,22 +66,18 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="leftKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="MvM-p0-aLg"/>
+                                    <action selector="leftKeyTouchDown:" destination="vXZ-lx-hvc" eventType="touchDown" id="NJ1-DE-rTy"/>
+                                    <action selector="leftKeyTouchUpInside:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ShU-PO-24c"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="15t-jA-NKg">
-                                <rect key="frame" x="263" y="149" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MF9-11-idt">
                                 <rect key="frame" x="71" y="185" width="64" height="64"/>
                                 <state key="normal" title="Button" image="key_w.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="wKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="tkg-74-Czc"/>
+                                    <action selector="wKeyTouchDown:" destination="vXZ-lx-hvc" eventType="touchDown" id="Chq-Cg-IWA"/>
+                                    <action selector="wKeyTouchUpInside:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="LHw-Z8-Jxg"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0bk-TH-zuW">
@@ -88,7 +86,8 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="sKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="iAJ-tZ-sDb"/>
+                                    <action selector="sKeyTouchDown:" destination="vXZ-lx-hvc" eventType="touchDown" id="fHS-ET-18o"/>
+                                    <action selector="sKeyTouchUpInside:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Zcr-BY-YS0"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DOK-Ot-40d">
@@ -97,7 +96,8 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="aKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="UUs-Y0-Ext"/>
+                                    <action selector="aKeyTouchDown:" destination="vXZ-lx-hvc" eventType="touchDown" id="Ekw-0E-WYL"/>
+                                    <action selector="aKeyTouchUpInside:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="8cc-hw-k6Y"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k5L-8a-eL2">
@@ -106,7 +106,8 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="dKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Lso-0U-Xlp"/>
+                                    <action selector="dKeyTouchDown:" destination="vXZ-lx-hvc" eventType="touchDown" id="ns6-Yn-cn9"/>
+                                    <action selector="dKeyTouchUpInside:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="0S7-z4-Hhp"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ee1-df-6ZH">
@@ -115,7 +116,8 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="rightKey:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="My7-r9-Ltf"/>
+                                    <action selector="rightKeyTouchDown:" destination="vXZ-lx-hvc" eventType="touchDown" id="YQ1-fQ-mNe"/>
+                                    <action selector="rightKeyTouchUpInside:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="auK-a6-sGg"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -123,7 +125,6 @@
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
-                        <outlet property="label" destination="15t-jA-NKg" id="Jhd-ZF-InM"/>
                         <outlet property="view" destination="kh9-bI-dsS" id="qEk-cq-ubc"/>
                     </connections>
                 </viewController>

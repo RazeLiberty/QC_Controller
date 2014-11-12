@@ -29,7 +29,8 @@
 #define YAW_PLUS_BUTTON 11
 #define YAW_MINUS_BUTTON 12
 */
-//送るデータ
+
+//送信データ
 #define FLIGHT_MODE_DATA 0xd1
 #define EMERGENCY_STOP_DATA 0xe1
 #define DEFAULT_VALUE_DATA 0xe1
@@ -63,17 +64,25 @@
 @property (strong)		BLEBaseClass*	BaseClass;
 @property (readwrite)	BLEDeviceClass*	Device;
 
-- (IBAction)flightModeKey:(id)sender;
-- (IBAction)emergencyKey:(id)sender;
-- (IBAction)rightKey:(id)sender;
-- (IBAction)leftKey:(id)sender;
-- (IBAction)upKey:(id)sender;
-- (IBAction)downKey:(id)sender;
-- (IBAction)wKey:(id)sender;
-- (IBAction)aKey:(id)sender;
-- (IBAction)sKey:(id)sender;
-- (IBAction)dKey:(id)sender;
+- (IBAction)flightModeKeyTouchUpInside:(id)sender;
+- (IBAction)emergencyKeyTouchUpInside:(id)sender;
+- (IBAction)rightKeyTouchDown:(id)sender;
+- (IBAction)leftKeyTouchDown:(id)sender;
+- (IBAction)upKeyTouchDown:(id)sender;
+- (IBAction)downKeyTouchDown:(id)sender;
+- (IBAction)wKeyTouchDown:(id)sender;
+- (IBAction)aKeyTouchDown:(id)sender;
+- (IBAction)sKeyTouchDown:(id)sender;
+- (IBAction)dKeyTouchDown:(id)sender;
 
+- (IBAction)rightKeyTouchUpInside:(id)sender;
+- (IBAction)leftKeyTouchUpInside:(id)sender;
+- (IBAction)upKeyTouchUpInside:(id)sender;
+- (IBAction)downKeyTouchUpInside:(id)sender;
+- (IBAction)wKeyTouchUpInside:(id)sender;
+- (IBAction)aKeyTouchUpInside:(id)sender;
+- (IBAction)sKeyTouchUpInside:(id)sender;
+- (IBAction)dKeyTouchUpInside:(id)sender;
 
 @end
 
@@ -590,7 +599,7 @@
 //================================================================================
 
 
-- (IBAction)flightModeKey:(id)sender {
+- (IBAction)flightModeKeyTouchUpInside:(id)sender {
     _textField.text = (@"FLIGHT_MODE_ON");
 
     if (_Device)	{
@@ -604,8 +613,8 @@
     }
 }
 
-- (IBAction)emergencyKey:(id)sender {
-    _textField.text = (@"EMERGENCY_STOP");
+- (IBAction)emergencyKeyTouchUpInside:(id)sender {
+    _textField.text = (@"EMERGENCY");
 
     if (_Device)	{
         //	iPhone->Device
@@ -619,21 +628,21 @@
 }
 
 
-- (IBAction)rightKey:(id)sender {
-    _textField.text = (@"ROLL");
+- (IBAction)rightKeyTouchDown:(id)sender {
+    _textField.text = (@"YAW_PLUS");
 
     if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
         //	ダミーデータ
         uint8_t	buf[1];
-        buf[0] = ROLL_DATA;
+        buf[0] = YAW_PLUS_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
         [_Device writeWithoutResponse:rx value:data];
     }
 }
 
-- (IBAction)leftKey:(id)sender {
+- (IBAction)leftKeyTouchDown:(id)sender {
     _textField.text = (@"YAW_MINUS");
 
     if (_Device)	{
@@ -647,7 +656,7 @@
     }
 }
 
-- (IBAction)upKey:(id)sender {
+- (IBAction)upKeyTouchDown:(id)sender {
     _textField.text = (@"THROTTLE_PLUS");
 
     if (_Device)	{
@@ -661,7 +670,7 @@
     }
 }
 
-- (IBAction)downKey:(id)sender {
+- (IBAction)downKeyTouchDown:(id)sender {
     _textField.text = (@"THROTTLE_MINUS");
 
     if (_Device)	{
@@ -675,8 +684,8 @@
     }
 }
 
-- (IBAction)wKey:(id)sender {
-    _textField.text = (@"PITCH");
+- (IBAction)wKeyTouchDown:(id)sender {
+    _textField.text = (@"PITCH_PLUS");
 
     if (_Device)	{
         //	iPhone->Device
@@ -689,14 +698,36 @@
     }
 }
 
-- (IBAction)aKey:(id)sender {
+- (IBAction)aKeyTouchDown:(id)sender {
+    _textField.text = (@"ROLL_MINUS");
+    
+    if (_Device)	{
+        //	iPhone->Device
+        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
+        //	ダミーデータ
+        uint8_t	buf[1];
+        buf[0] = ROLL_DATA;
+        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
+        [_Device writeWithoutResponse:rx value:data];
+    }
 }
 
-- (IBAction)sKey:(id)sender {
+- (IBAction)sKeyTouchDown:(id)sender {
+    _textField.text = (@"PITCH_MINUS");
+    
+    if (_Device)	{
+        //	iPhone->Device
+        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
+        //	ダミーデータ
+        uint8_t	buf[1];
+        buf[0] = PITCH_DATA;
+        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
+        [_Device writeWithoutResponse:rx value:data];
+    }
 }
 
-- (IBAction)dKey:(id)sender {
-    _textField.text = (@"ROLL");
+- (IBAction)dKeyTouchDown:(id)sender {
+    _textField.text = (@"ROLL_PLUS");
 
     if (_Device)	{
         //	iPhone->Device
@@ -709,4 +740,28 @@
     }
 }
 
+- (IBAction)rightKeyTouchUpInside:(id)sender {
+    _textField.text = (@"rightKeyTUI");
+}
+- (IBAction)leftKeyTouchUpInside:(id)sender {
+    _textField.text = (@"leftKeyTUI");
+}
+- (IBAction)upKeyTouchUpInside:(id)sender {
+    _textField.text = (@"upKeyTUI");
+}
+- (IBAction)downKeyTouchUpInside:(id)sender {
+    _textField.text = (@"downKeyTUI");
+}
+- (IBAction)wKeyTouchUpInside:(id)sender {
+    _textField.text = (@"wKeyTUI");
+}
+- (IBAction)aKeyTouchUpInside:(id)sender {
+    _textField.text = (@"aKeyTUI");
+}
+- (IBAction)sKeyTouchUpInside:(id)sender {
+    _textField.text = (@"sKeyTUI");
+}
+- (IBAction)dKeyTouchUpInside:(id)sender {
+    _textField.text = (@"dKeyTUI");
+}
 @end
