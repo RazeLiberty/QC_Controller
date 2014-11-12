@@ -8,7 +8,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			kD6I8J7pFM03Ddx8EH10pjxdxQE=
+			y38DYqD1HtwuRGQ2ihjvAOW9+wk=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -26,7 +26,25 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			EqNG5pVDZdTptig6g29pOp/v+F0=
+			faOIi/LB28whs5P+0C/1Qt4cnUg=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Base.lproj/Main_iPhone.storyboardc/Connect.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			/8Abw37viLaFkLhuayzYYBkjjsU=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Base.lproj/Main_iPhone.storyboardc/Controll.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			CMKe8eUJr1gF7UTM7KG8fMQMdxE=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -35,16 +53,16 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Jmu6F/QDeWUyQljt5m/23hAkmcs=
+			6VRHGlll0Z4Prq63n6RiRUMuhJw=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
-		<key>Base.lproj/Main_iPhone.storyboardc/UIViewController-vXZ-lx-hvc.nib</key>
+		<key>Base.lproj/Main_iPhone.storyboardc/JUV-VR-yz9-view-oKW-1g-4jT.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			jWanfP0GIsTL2X467dOBzG8pkR4=
+			MNZ/qSFocpGo9KMcRz2vS6XhXpo=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -53,7 +71,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			PeFmyoUBv3E0YEn0TXuAsrw0UlU=
+			FOvt1AfVY2zghisnQ6mbA4MG5M4=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -142,7 +160,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			kD6I8J7pFM03Ddx8EH10pjxdxQE=
+			y38DYqD1HtwuRGQ2ihjvAOW9+wk=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -160,7 +178,25 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			EqNG5pVDZdTptig6g29pOp/v+F0=
+			faOIi/LB28whs5P+0C/1Qt4cnUg=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Base.lproj/Main_iPhone.storyboardc/Connect.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			/8Abw37viLaFkLhuayzYYBkjjsU=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Base.lproj/Main_iPhone.storyboardc/Controll.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			CMKe8eUJr1gF7UTM7KG8fMQMdxE=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -169,16 +205,16 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Jmu6F/QDeWUyQljt5m/23hAkmcs=
+			6VRHGlll0Z4Prq63n6RiRUMuhJw=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
-		<key>Base.lproj/Main_iPhone.storyboardc/UIViewController-vXZ-lx-hvc.nib</key>
+		<key>Base.lproj/Main_iPhone.storyboardc/JUV-VR-yz9-view-oKW-1g-4jT.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			jWanfP0GIsTL2X467dOBzG8pkR4=
+			MNZ/qSFocpGo9KMcRz2vS6XhXpo=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -187,7 +223,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			PeFmyoUBv3E0YEn0TXuAsrw0UlU=
+			FOvt1AfVY2zghisnQ6mbA4MG5M4=
 			</data>
 			<key>optional</key>
 			<true/>

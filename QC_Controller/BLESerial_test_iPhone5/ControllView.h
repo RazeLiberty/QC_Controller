@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController{
+@interface ControllView : UIViewController{
     UITextField* _textField;
     
-    UIButton* _connectButton;
+    //UIButton* _connectButton;
     UIButton* _disconnectButton;
     /*
     UIButton* _flightModeButton;

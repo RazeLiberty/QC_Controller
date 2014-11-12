@@ -1,5 +1,5 @@
 //
-//  ViewController.m
+//  ControllView.m
 //  BLESerial_test_iPhone5
 //
 //  Created by 石井 孝佳 on 2013/11/12.
@@ -9,7 +9,7 @@
 //　ピッチ：y軸まわりの回転、上下回転
 //　ヨーは、z軸まわりの回転、機体の左右回転
 
-#import "ViewController.h"
+#import "ControllView.h"
 #import "BLEBaseClass.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 
@@ -60,7 +60,7 @@
 #define UUID_RX                             @"569a2001-b87f-490c-92cb-11ba5ea5167c" //RX
 #define UUID_TX								@"569a2000-b87f-490c-92cb-11ba5ea5167c" //TX
 
-@interface ViewController () <BLEDeviceClassDelegate>
+@interface ControllView () <BLEDeviceClassDelegate>
 @property (strong)		BLEBaseClass*	BaseClass;
 @property (readwrite)	BLEDeviceClass*	Device;
 
@@ -86,7 +86,7 @@
 
 @end
 
-@implementation ViewController
+@implementation ControllView
 
 
 - (void)viewDidLoad
@@ -122,7 +122,7 @@
     //------------------------------------------------------------------------------------------
     //	ストーリーボード使わないなら　/**/はずす
     //------------------------------------------------------------------------------------------
-    
+    /*
     //---CONNECTボタン生成---
     _connectButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_connectButton setFrame:CGRectMake(BUTTON_LOCATE_X,120,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
@@ -141,7 +141,7 @@
     [_disconnectButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
     _disconnectButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
     [self.view addSubview:_disconnectButton];
-    /*
+    
     //---FLIGHT MODEボタン生成---
     _flightModeButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_flightModeButton setFrame:CGRectMake(BUTTON_LOCATE_X,180,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
@@ -242,9 +242,11 @@
     _yawMinusButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
     [self.view addSubview:_yawMinusButton];
     */
+    /*
     //---ボタンの状態設定---
     _connectButton.enabled = TRUE;
     _disconnectButton.enabled = FALSE;
+     */
   /*  _flightModeButton.enabled = FALSE;
     _emergencyStopButton.enabled = FALSE;
     _defaultButton.enabled = FALSE;
@@ -257,13 +259,13 @@
     _yawPlusButton.enabled = TRUE;
     _yawMinusButton.enabled = FALSE;
     */
-    
+    /*
     //	BLEBaseClassの初期化
 	_BaseClass = [[BLEBaseClass alloc] init];
 	//	周りのBLEデバイスからのadvertise情報のスキャンを開始する
 	[_BaseClass scanDevices:nil];
 	_Device = 0;
-    
+    */
     
     
 }
@@ -304,7 +306,7 @@
         
 	}
 }
-
+/*
 //////////////////////////////////////////////////////////////
 //  ボタンクリックイベント
 //////////////////////////////////////////////////////////////
@@ -313,7 +315,7 @@
         [self connect];
     }else if(sender.tag==DISCONNECT_BUTTON){
         [self disconnect];
-/*    }else if(sender.tag==FLIGHT_MODE_BUTTON){
+    }else if(sender.tag==FLIGHT_MODE_BUTTON){
         [self flightModeOn];
     }else if(sender.tag==EMERGENCY_STOP_BUTTON){
         [self emergencyStop];
@@ -335,11 +337,11 @@
         [self yawPlus];
     }else if(sender.tag==YAW_MINUS_BUTTON){
         [self yawMinus];
- */   }
+    }
 }
+*/
 
-
-
+/*
 //////////////////////////////////////////////////////////////
 //  connect
 //////////////////////////////////////////////////////////////
@@ -353,7 +355,7 @@
 		_Device.delegate = self;
         
         //        [_BaseClass printDevices];
-        /*
+ 
         //ボタンの状態変更
 		_connectButton.enabled = FALSE;
 		_disconnectButton.enabled = TRUE;
@@ -369,7 +371,7 @@
         _yawPlusButton.enabled = TRUE;
         _yawMinusButton.enabled = TRUE;
         _textField.text = @"ONLINE";
-        */
+ 
 		//	tx(Device->iPhone)のnotifyをセット
 		CBCharacteristic*	tx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_TX];
 		if (tx)	{
@@ -378,6 +380,7 @@
 		}
 	}
 }
+*/
 
 //------------------------------------------------------------------------------------------
 //	disconnectボタンを押したとき
@@ -387,10 +390,12 @@
 		//	UUID_DEMO_SERVICEサービスを持っているデバイスから切断する
 		[_BaseClass disconnectService:UUID_VSP_SERVICE];
 		_Device = 0;
-        /*
+ 
         //ボタンの状態変更
-		_connectButton.enabled = TRUE;
+		//_connectButton.enabled = TRUE;
 		_disconnectButton.enabled = FALSE;
+        
+        /*
         _flightModeButton.enabled = FALSE;
         _emergencyStopButton.enabled = FALSE;
         _defaultButton.enabled = FALSE;
@@ -402,13 +407,14 @@
         _yawButton.enabled = FALSE;
         _yawPlusButton.enabled = FALSE;
         _yawMinusButton.enabled = FALSE;
-         */
+ */
 		_textField.text = @"OFFLINE";
          
 		//	周りのBLEデバイスからのadvertise情報のスキャンを開始する
 		[_BaseClass scanDevices:nil];
 	}
 }
+
 
 /*
 //================================================================================
