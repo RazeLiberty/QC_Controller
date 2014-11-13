@@ -81,13 +81,14 @@
     [_textField setBorderStyle:UITextBorderStyleRoundedRect];
     _textField.font = [UIFont fontWithName:@"Helvetica" size:30];
     //テキストフィールドタッチ無効化
+     
     _textField.enabled = NO;
     [self.view addSubview:_textField];
     
     //------------------------------------------------------------------------------------------
     //	ストーリーボード使わないなら　/**/
     //------------------------------------------------------------------------------------------
-    /*
+    
     //---CONNECTボタン生成---
     _connectButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_connectButton setFrame:CGRectMake(BUTTON_LOCATE_X,120,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
@@ -95,9 +96,10 @@
     [_connectButton setTag:CONNECT_BUTTON];           //ボタン識別タグ
     
     [_connectButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
+    _connectButton.center = self.view.center;
     _connectButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
     [self.view addSubview:_connectButton];
-    
+    /*
     //---DISCONNECTボタン生成---
     _disconnectButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_disconnectButton setFrame:CGRectMake(BUTTON_LOCATE_X,150,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
@@ -157,20 +159,20 @@
         
     }
 }
-/*
+
 //////////////////////////////////////////////////////////////
 //  ボタンクリックイベント
 //////////////////////////////////////////////////////////////
 -(IBAction)onButtonClick:(UIButton*)sender{
     if(sender.tag==CONNECT_BUTTON){
         [self connect];
-    }else if(sender.tag==DISCONNECT_BUTTON){
+    }/*else if(sender.tag==DISCONNECT_BUTTON){
         [self disconnect];
-    }
+    }*/
 }
-*/
 
-/*
+
+
 //////////////////////////////////////////////////////////////
 //  connect
 //////////////////////////////////////////////////////////////
@@ -187,7 +189,7 @@
         
          //ボタンの状態変更
          _connectButton.enabled = FALSE;
-         _disconnectButton.enabled = TRUE;
+       //  _disconnectButton.enabled = TRUE;
 
         //	tx(Device->iPhone)のnotifyをセット
         CBCharacteristic*	tx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_TX];
@@ -195,9 +197,11 @@
             //            [_Device readRequest:tx];
             [_Device notifyRequest:tx];
         }
+        ControllView *ControllView = [self.storyboard instantiateViewControllerWithIdentifier:@"ControllView"];
+        [self presentViewController:ControllView animated:YES completion:nil];
     }
 }
-
+/*
 //------------------------------------------------------------------------------------------
 //	disconnectボタンを押したとき
 //------------------------------------------------------------------------------------------
@@ -218,5 +222,6 @@
     }
 }
  */
+- (IBAction)goBack:(UIStoryboardSegue *)sender{}
 @end
 

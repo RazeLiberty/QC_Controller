@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ControllView.h"
 
 #ifndef BLESerial_test_iPhone5_ConnectView_h
 #define BLESerial_test_iPhone5_ConnectView_h
@@ -15,9 +16,9 @@
 @interface ConnectView : UIViewController{
     
     UITextField* _textField;
-    /*
+    
     UIButton* _connectButton;
-    UIButton* _disconnectButton;
+    /*UIButton* _disconnectButton;
     
      UIButton* _flightModeButton;
      UIButton* _emergencyStopButton;

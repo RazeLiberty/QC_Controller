@@ -12,6 +12,7 @@
 #import "ControllView.h"
 #import "BLEBaseClass.h"
 #import <CoreBluetooth/CoreBluetooth.h>
+//#import "ConnectView.h"
 
 //ボタンタグ
 #define CONNECT_BUTTON 0
@@ -83,6 +84,12 @@
 - (IBAction)aKeyTouchUpInside:(id)sender;
 - (IBAction)sKeyTouchUpInside:(id)sender;
 - (IBAction)dKeyTouchUpInside:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UILabel *label;
+
+//test
+- (IBAction)button:(id)sender;
+
 
 @end
 
@@ -770,4 +777,9 @@
 - (IBAction)dKeyTouchUpInside:(id)sender {
     _textField.text = (@"dKeyTUI");
 }
+
+- (IBAction)button:(id)sender {
+    self.label.text = @"Hello!!";
+}
+
 @end

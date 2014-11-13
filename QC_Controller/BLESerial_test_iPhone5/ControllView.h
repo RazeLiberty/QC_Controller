@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ConnectView.h"
 
 @interface ControllView : UIViewController{
     UITextField* _textField;
@@ -36,6 +37,8 @@
     UIImage *_key_left;
     UIButton *button;
      */
+    
+    
 }
 
 @end
