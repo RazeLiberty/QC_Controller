@@ -222,6 +222,8 @@
     }
 }
  */
+
+//前画面に戻る
 - (IBAction)goBack:(UIStoryboardSegue *)sender{}
 @end
 
