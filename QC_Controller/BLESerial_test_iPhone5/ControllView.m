@@ -779,7 +779,7 @@
 }
 
 - (IBAction)button:(id)sender {
-    self.label.text = @"Hello!!";
+    self.label.text = @"Hello!";
 }
 
 @end
