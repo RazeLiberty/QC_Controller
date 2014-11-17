@@ -62,8 +62,8 @@
 #define UUID_TX								@"569a2000-b87f-490c-92cb-11ba5ea5167c" //TX
 
 @interface ControllView () <BLEDeviceClassDelegate>
-@property (strong)		BLEBaseClass*	BaseClass;
-@property (readwrite)	BLEDeviceClass*	Device;
+//@property (strong)		BLEBaseClass*	BaseClass;
+//@property (readwrite)	BLEDeviceClass*	Device;
 
 - (IBAction)flightModeKeyTouchUpInside:(id)sender;
 - (IBAction)emergencyKeyTouchUpInside:(id)sender;

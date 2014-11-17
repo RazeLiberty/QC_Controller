@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BLESerial_test_iPhone5/ConnectView.m"
-            timestampString = "437541940.109132"
+            timestampString = "437881959.349562"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
             landmarkName = "@implementation ConnectView"
             landmarkType = "3">
          </BreakpointContent>

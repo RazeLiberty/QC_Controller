@@ -49,6 +49,7 @@
 @property (readwrite)	BLEDeviceClass*	Device;
 
 @property (weak, nonatomic) IBOutlet UILabel *connectStatus;
+- (IBAction)connectButton:(id)sender;
 
 @end
 
@@ -162,20 +163,20 @@
         
     }
 }
-
+/*
 //////////////////////////////////////////////////////////////
 //  ボタンクリックイベント
 //////////////////////////////////////////////////////////////
 -(IBAction)onButtonClick:(UIButton*)sender{
     if(sender.tag==CONNECT_BUTTON){
         [self connect];
-    }/*else if(sender.tag==DISCONNECT_BUTTON){
+    }else if(sender.tag==DISCONNECT_BUTTON){
         [self disconnect];
-    }*/
+    }
 }
+*/
 
-
-
+/*
 //////////////////////////////////////////////////////////////
 //  connect
 //////////////////////////////////////////////////////////////
@@ -203,7 +204,7 @@
         ControllView *ControllView = [self.storyboard instantiateViewControllerWithIdentifier:@"ControllView"];
         [self presentViewController:ControllView animated:YES completion:nil];
     }
-}
+}*/
 /*
 //------------------------------------------------------------------------------------------
 //	disconnectボタンを押したとき
@@ -228,5 +229,31 @@
 
 //前画面に戻る
 - (IBAction)goBack:(UIStoryboardSegue *)sender{}
+- (IBAction)connectButton:(id)sender {
+    
+    //	UUID_DEMO_SERVICEサービスを持っているデバイスに接続する
+    _Device = [_BaseClass connectService:UUID_VSP_SERVICE];
+    if (_Device)	{
+        //	接続されたのでスキャンを停止する
+        [_BaseClass scanStop];
+        //	キャラクタリスティックの値を読み込んだときに自身をデリゲートに指定
+        _Device.delegate = self;
+        
+        //        [_BaseClass printDevices];
+        
+        //ボタンの状態変更
+        _connectButton.enabled = FALSE;
+        //  _disconnectButton.enabled = TRUE;
+        
+        //	tx(Device->iPhone)のnotifyをセット
+        CBCharacteristic*	tx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_TX];
+        if (tx)	{
+            //            [_Device readRequest:tx];
+            [_Device notifyRequest:tx];
+        }
+        ControllView *ControllView = [self.storyboard instantiateViewControllerWithIdentifier:@"ControllView"];
+        [self presentViewController:ControllView animated:YES completion:nil];
+    }
+}
 @end
 
