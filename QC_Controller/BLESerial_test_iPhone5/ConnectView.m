@@ -48,6 +48,7 @@
 @property (strong)		BLEBaseClass*	BaseClass;
 @property (readwrite)	BLEDeviceClass*	Device;
 
+@property (weak, nonatomic) IBOutlet UILabel *connectStatus;
 
 @end
 
@@ -72,7 +73,7 @@
      _key_w = [UIImage imageNamed:@"key_w.png"];
      */
     
-    
+    /*
     //---センサー値結果のテキストフィールド生成---
     _textField=[[UITextField alloc] init];
     [_textField setFrame:CGRectMake(10,50,300,50)];  //位置と大きさ設定
@@ -81,9 +82,11 @@
     [_textField setBorderStyle:UITextBorderStyleRoundedRect];
     _textField.font = [UIFont fontWithName:@"Helvetica" size:30];
     //テキストフィールドタッチ無効化
-     
     _textField.enabled = NO;
     [self.view addSubview:_textField];
+    */
+    
+    
     
     //------------------------------------------------------------------------------------------
     //	ストーリーボード使わないなら　/**/
