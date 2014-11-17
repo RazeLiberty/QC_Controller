@@ -202,7 +202,7 @@
     
     //---ボタンの状態設定---
     _connectButton.enabled = TRUE;
-    _disconnectButton.enabled = FALSE;
+    _disconnectButton.enabled = TRUE;
     _flightModeButton.enabled = FALSE;
     _emergencyStopButton.enabled = FALSE;
     _defaultButton.enabled = FALSE;
