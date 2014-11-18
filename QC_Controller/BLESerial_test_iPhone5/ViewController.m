@@ -384,10 +384,11 @@
 		_Device.delegate = self;
         
         //        [_BaseClass printDevices];
-        /*
+        
         //ボタンの状態変更
 		_connectButton.enabled = FALSE;
 		_disconnectButton.enabled = TRUE;
+        /*
         _flightModeButton.enabled = TRUE;
         _emergencyStopButton.enabled = TRUE;
         _defaultButton.enabled = TRUE;
@@ -418,10 +419,11 @@
 		//	UUID_DEMO_SERVICEサービスを持っているデバイスから切断する
 		[_BaseClass disconnectService:UUID_VSP_SERVICE];
 		_Device = 0;
-        /*
+        
         //ボタンの状態変更
 		_connectButton.enabled = TRUE;
 		_disconnectButton.enabled = FALSE;
+        /*
         _flightModeButton.enabled = FALSE;
         _emergencyStopButton.enabled = FALSE;
         _defaultButton.enabled = FALSE;
