@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BLESerial_test_iPhone5/ViewController.m"
-            timestampString = "437452758.624546"
+            timestampString = "437973888.091119"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
+            startingLineNumber = "250"
+            endingLineNumber = "250"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BLESerial_test_iPhone5/ViewController.m"
-            timestampString = "437452758.624546"
+            timestampString = "437973888.091119"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BLESerial_test_iPhone5/ViewController.m"
-            timestampString = "437452758.624546"
+            timestampString = "437973888.091119"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BLESerial_test_iPhone5/ViewController.m"
-            timestampString = "437452758.624546"
+            timestampString = "437973888.091119"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
