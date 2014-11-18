@@ -23,11 +23,16 @@
 #define THROTTLE_PLUS_BUTTON 6
 #define THROTTLE_MINUS_BUTTON 7
 #define ROLL_BUTTON 8
-#define PITCH_BUTTON 9
-#define YAW_BUTTON 10
-#define YAW_PLUS_BUTTON 11
-#define YAW_MINUS_BUTTON 12
+#define ROLL_PLUS_BUTTON 9
+#define ROLL_MINUS_BUTTON 10
+#define PITCH_BUTTON 11
+#define PITCH_PLUS_BUTTON 12
+#define PITCH_MINUS_BUTTON 13
+#define YAW_BUTTON 14
+#define YAW_PLUS_BUTTON 15
+#define YAW_MINUS_BUTTON 16
 
+/* 前の送信データ
 //送るデータ
 #define FLIGHT_MODE_DATA 0xd1
 #define EMERGENCY_STOP_DATA 0xe1
@@ -36,6 +41,25 @@
 #define THROTTLE_PLUS_DATA 0x71
 #define THROTTLE_MINUS_DATA 0x72
 #define ROLL_DATA 0x20
+#define PITCH_DATA 0x30
+#define YAW_DATA 0x40
+#define YAW_PLUS_DATA 0x81
+#define YAW_MINUS_DATA 0x82
+*/
+
+// 11/18　送信データ
+#define FLIGHT_MODE_DATA 0xd1
+#define EMERGENCY_STOP_DATA 0xe1
+#define DEFAULT_VALUE_DATA 0xe1
+#define THROTTLE_DATA 0xe1
+#define THROTTLE_PLUS_DATA 0x71
+#define THROTTLE_MINUS_DATA 0x72
+#define ROLL_DATA 0x20
+#define ROLL_PLUS_DATA 0x91     //→
+#define ROLL_MINUS_DATA 0x92    //←
+#define CURRENT_STOP_DATA 0x93  //今の位置で停まる
+#define PITCH_PLUS_DATA 0x94    //↑
+#define PITCH_MINUS_DATA 0x95   //↓
 #define PITCH_DATA 0x30
 #define YAW_DATA 0x40
 #define YAW_PLUS_DATA 0x81
@@ -73,7 +97,7 @@
     
     //---センサー値結果のテキストフィールド生成---
     _textField=[[UITextField alloc] init];
-    [_textField setFrame:CGRectMake(10,50,300,50)];  //位置と大きさ設定
+    [_textField setFrame:CGRectMake(10,20,300,30)];  //位置と大きさ設定
     [_textField setText:@"OFFLINE"];
     [_textField setBackgroundColor:[UIColor whiteColor]];
     [_textField setBorderStyle:UITextBorderStyleRoundedRect];
@@ -84,7 +108,7 @@
     
     //---CONNECTボタン生成---
     _connectButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_connectButton setFrame:CGRectMake(BUTTON_LOCATE_X,120,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
+    [_connectButton setFrame:CGRectMake(BUTTON_LOCATE_X,60,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
     [_connectButton setTitle:@"CONNECT" forState:UIControlStateNormal];
     [_connectButton setTag:CONNECT_BUTTON];           //ボタン識別タグ
     [_connectButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
@@ -93,7 +117,7 @@
     
     //---DISCONNECTボタン生成---
     _disconnectButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_disconnectButton setFrame:CGRectMake(BUTTON_LOCATE_X,150,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
+    [_disconnectButton setFrame:CGRectMake(BUTTON_LOCATE_X,90,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
     [_disconnectButton setTitle:@"DIS CONNECT" forState:UIControlStateNormal];
     [_disconnectButton setTag:DISCONNECT_BUTTON];           //ボタン識別タグ
     [_disconnectButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
@@ -102,7 +126,7 @@
     
     //---FLIGHT MODEボタン生成---
     _flightModeButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_flightModeButton setFrame:CGRectMake(BUTTON_LOCATE_X,180,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
+    [_flightModeButton setFrame:CGRectMake(BUTTON_LOCATE_X,120,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
     [_flightModeButton setTitle:@"FLIGHT MODE" forState:UIControlStateNormal];
     [_flightModeButton setTag:FLIGHT_MODE_BUTTON];           //ボタン識別タグ
     [_flightModeButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
@@ -111,25 +135,25 @@
     
     //---EMERGENCY STOPボタン生成---
     _emergencyStopButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_emergencyStopButton setFrame:CGRectMake(BUTTON_LOCATE_X,210,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
+    [_emergencyStopButton setFrame:CGRectMake(BUTTON_LOCATE_X,150,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
     [_emergencyStopButton setTitle:@"EMERGENCY" forState:UIControlStateNormal];
     [_emergencyStopButton setTag:EMERGENCY_STOP_BUTTON];           //ボタン識別タグ
     [_emergencyStopButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
     _emergencyStopButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
     [self.view addSubview:_emergencyStopButton];
-
+/*
     //---初期値ボタン生成---
     _defaultButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_defaultButton setFrame:CGRectMake(BUTTON_LOCATE_X,240,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
+    [_defaultButton setFrame:CGRectMake(BUTTON_LOCATE_X,210,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
     [_defaultButton setTitle:@"DEFAULT" forState:UIControlStateNormal];
     [_defaultButton setTag:DEFAULT_BUTTON];           //ボタン識別タグ
     [_defaultButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
     _defaultButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
     [self.view addSubview:_defaultButton];
-
+*/
     //---スロットルボタン生成---
     _throttleButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_throttleButton setFrame:CGRectMake(BUTTON_LOCATE_X,270,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
+    [_throttleButton setFrame:CGRectMake(BUTTON_LOCATE_X,180,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
     [_throttleButton setTitle:@"THROTTLE" forState:UIControlStateNormal];
     [_throttleButton setTag:THROTTLE_BUTTON];           //ボタン識別タグ
     [_throttleButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
@@ -138,7 +162,7 @@
     
     //---スロットル＋２ボタン生成---
     _throttlePlusButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_throttlePlusButton setFrame:CGRectMake(BUTTON_LOCATE_X,300,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
+    [_throttlePlusButton setFrame:CGRectMake(BUTTON_LOCATE_X,210,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
     [_throttlePlusButton setTitle:@"THROTTLE_PLUS" forState:UIControlStateNormal];
     [_throttlePlusButton setTag:THROTTLE_PLUS_BUTTON];           //ボタン識別タグ
     [_throttlePlusButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
@@ -147,7 +171,7 @@
     
     //---スロットルー２ボタン生成---
     _throttleMinusButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_throttleMinusButton setFrame:CGRectMake(BUTTON_LOCATE_X,330,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
+    [_throttleMinusButton setFrame:CGRectMake(BUTTON_LOCATE_X,240,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
     [_throttleMinusButton setTitle:@"THROTTLE_MINUS" forState:UIControlStateNormal];
     [_throttleMinusButton setTag:THROTTLE_MINUS_BUTTON];           //ボタン識別タグ
     [_throttleMinusButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
@@ -156,25 +180,61 @@
     
     //---ロールボタン生成---
     _rollButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_rollButton setFrame:CGRectMake(BUTTON_LOCATE_X,360,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
+    [_rollButton setFrame:CGRectMake(BUTTON_LOCATE_X,270,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
     [_rollButton setTitle:@"ROLL" forState:UIControlStateNormal];
     [_rollButton setTag:ROLL_BUTTON];           //ボタン識別タグ
     [_rollButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリック_defaultButton登録
     _rollButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
     [self.view addSubview:_rollButton];
     
+    //---ロールプラスボタン生成---
+    _rollPlusButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_rollPlusButton setFrame:CGRectMake(BUTTON_LOCATE_X,300,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
+    [_rollPlusButton setTitle:@"ROLL_PLUS" forState:UIControlStateNormal];
+    [_rollPlusButton setTag:ROLL_PLUS_BUTTON];           //ボタン識別タグ
+    [_rollPlusButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリック_defaultButton登録
+    _rollPlusButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
+    [self.view addSubview:_rollPlusButton];
+    
+    //---ロールマイナスボタン生成---
+    _rollMinusButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_rollMinusButton setFrame:CGRectMake(BUTTON_LOCATE_X,330,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
+    [_rollMinusButton setTitle:@"ROLL_MINUS" forState:UIControlStateNormal];
+    [_rollMinusButton setTag:ROLL_MINUS_BUTTON];           //ボタン識別タグ
+    [_rollMinusButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリック_defaultButton登録
+    _rollMinusButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
+    [self.view addSubview:_rollMinusButton];
+    
     //---ピッチボタン生成---
     _pitchButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_pitchButton setFrame:CGRectMake(BUTTON_LOCATE_X,390,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
+    [_pitchButton setFrame:CGRectMake(BUTTON_LOCATE_X,360,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
     [_pitchButton setTitle:@"PITCH" forState:UIControlStateNormal];
     [_pitchButton setTag:PITCH_BUTTON];           //ボタン識別タグ
     [_pitchButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
     _pitchButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
     [self.view addSubview:_pitchButton];
     
+    //---ピッチプラスボタン生成---
+    _pitchPlusButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_pitchPlusButton setFrame:CGRectMake(BUTTON_LOCATE_X,390,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
+    [_pitchPlusButton setTitle:@"PITCH_PLUS" forState:UIControlStateNormal];
+    [_pitchPlusButton setTag:PITCH_PLUS_BUTTON];           //ボタン識別タグ
+    [_pitchPlusButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
+    _pitchPlusButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
+    [self.view addSubview:_pitchPlusButton];
+    
+    //---ピッチマイナスボタン生成---
+    _pitchMinusButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_pitchMinusButton setFrame:CGRectMake(BUTTON_LOCATE_X,420,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
+    [_pitchMinusButton setTitle:@"PITCH_MINUS" forState:UIControlStateNormal];
+    [_pitchMinusButton setTag:PITCH_MINUS_BUTTON];           //ボタン識別タグ
+    [_pitchMinusButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
+    _pitchMinusButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
+    [self.view addSubview:_pitchMinusButton];
+    
     //---ヨーボタン生成---
     _yawButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_yawButton setFrame:CGRectMake(BUTTON_LOCATE_X,420,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
+    [_yawButton setFrame:CGRectMake(BUTTON_LOCATE_X,450,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
     [_yawButton setTitle:@"YAW" forState:UIControlStateNormal];
     [_yawButton setTag:YAW_BUTTON];           //ボタン識別タグ
     [_yawButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
@@ -183,7 +243,7 @@
     
     //---ヨー＋２ボタン生成---
     _yawPlusButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_yawPlusButton setFrame:CGRectMake(BUTTON_LOCATE_X,450,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
+    [_yawPlusButton setFrame:CGRectMake(BUTTON_LOCATE_X,480,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
     [_yawPlusButton setTitle:@"YAW_PLUS" forState:UIControlStateNormal];
     [_yawPlusButton setTag:YAW_PLUS_BUTTON];           //ボタン識別タグ
     [_yawPlusButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
@@ -193,7 +253,7 @@
     //---ヨー-２ボタン生成---
     _yawMinusButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_yawMinusButton
-     setFrame:CGRectMake(BUTTON_LOCATE_X,480,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
+     setFrame:CGRectMake(BUTTON_LOCATE_X,510,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
     [_yawMinusButton setTitle:@"YAW_MINUS" forState:UIControlStateNormal];
     [_yawMinusButton setTag:YAW_MINUS_BUTTON];           //ボタン識別タグ
     [_yawMinusButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
@@ -202,7 +262,7 @@
     
     //---ボタンの状態設定---
     _connectButton.enabled = TRUE;
-    _disconnectButton.enabled = TRUE;
+    _disconnectButton.enabled = FALSE;
     _flightModeButton.enabled = FALSE;
     _emergencyStopButton.enabled = FALSE;
     _defaultButton.enabled = FALSE;
@@ -210,7 +270,11 @@
     _throttlePlusButton.enabled = FALSE;
     _throttleMinusButton.enabled = FALSE;
     _rollButton.enabled = FALSE;
+    _rollPlusButton.enabled = FALSE;
+    _rollMinusButton.enabled = FALSE;
     _pitchButton.enabled = FALSE;
+    _pitchPlusButton.enabled = FALSE;
+    _pitchMinusButton.enabled = FALSE;
     _yawButton.enabled = FALSE;
     _yawPlusButton.enabled = FALSE;
     _yawMinusButton.enabled = FALSE;
@@ -275,7 +339,7 @@
     }else if(sender.tag==EMERGENCY_STOP_BUTTON){
         [self emergencyStop];
     }else if(sender.tag==DEFAULT_BUTTON){
-        [self defaultValue];
+    //    [self defaultValue];
     }else if(sender.tag==THROTTLE_BUTTON){
         [self throttle];
     }else if(sender.tag==THROTTLE_PLUS_BUTTON){
@@ -284,8 +348,16 @@
         [self throttleMinus];
     }else if(sender.tag==ROLL_BUTTON){
         [self roll];
+    }else if(sender.tag==ROLL_PLUS_BUTTON){
+        [self rollPlus];
+    }else if(sender.tag==ROLL_BUTTON){
+        [self rollMinus];
     }else if(sender.tag==PITCH_BUTTON){
         [self pitch];
+    }else if(sender.tag==PITCH_PLUS_BUTTON){
+        [self pitchPlus];
+    }else if(sender.tag==PITCH_MINUS_BUTTON){
+        [self pitchMinus];
     }else if(sender.tag==YAW_BUTTON){
         [self yaw];
     }else if(sender.tag==YAW_PLUS_BUTTON){
@@ -321,7 +393,11 @@
         _throttlePlusButton.enabled = TRUE;
         _throttleMinusButton.enabled = TRUE;
         _rollButton.enabled = TRUE;
+        _rollPlusButton.enabled = TRUE;
+        _rollMinusButton.enabled = TRUE;
         _pitchButton.enabled = TRUE;
+        _pitchPlusButton.enabled = TRUE;
+        _pitchMinusButton.enabled = TRUE;
         _yawButton.enabled = TRUE;
         _yawPlusButton.enabled = TRUE;
         _yawMinusButton.enabled = TRUE;
@@ -349,12 +425,16 @@
 		_disconnectButton.enabled = FALSE;
         _flightModeButton.enabled = FALSE;
         _emergencyStopButton.enabled = FALSE;
-        _defaultButton.enabled = FALSE;
+    //    _defaultButton.enabled = FALSE;
         _throttleButton.enabled = FALSE;
         _throttlePlusButton.enabled = FALSE;
         _throttleMinusButton.enabled = FALSE;
         _rollButton.enabled = FALSE;
+        _rollPlusButton.enabled = FALSE;
+        _rollMinusButton.enabled = FALSE;
         _pitchButton.enabled = FALSE;
+        _pitchPlusButton.enabled = FALSE;
+        _pitchMinusButton.enabled = FALSE;
         _yawButton.enabled = FALSE;
         _yawPlusButton.enabled = FALSE;
         _yawMinusButton.enabled = FALSE;
@@ -396,7 +476,7 @@
 		[_Device writeWithoutResponse:rx value:data];
 	}
 }
-
+/*
 //================================================================================
 // 初期値　コマンド　（ストップ）
 //================================================================================
@@ -412,7 +492,7 @@
         [_Device writeWithoutResponse:rx value:data];
     }
 }
-
+*/
 //================================================================================
 // スロットル　コマンド
 //================================================================================
@@ -481,6 +561,37 @@
     }
 }
 
+//================================================================================
+// ロール　プラス　コマンド
+//================================================================================
+-(void)rollPlus{
+    if (_Device)	{
+        //	iPhone->Device
+        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
+        //	ダミーデータ
+        uint8_t	buf[1];
+        buf[0] = ROLL_PLUS_DATA;
+        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
+        //_textField.text = (@"ROLL_PLUS");
+        [_Device writeWithoutResponse:rx value:data];
+    }
+}
+
+//================================================================================
+// ロール　マイナス　コマンド
+//================================================================================
+-(void)rollMinus{
+    if (_Device)	{
+        //	iPhone->Device
+        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
+        //	ダミーデータ
+        uint8_t	buf[1];
+        buf[0] = ROLL_MINUS_DATA;
+        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
+        //_textField.text = (@"ROLL_MINUS");
+        [_Device writeWithoutResponse:rx value:data];
+    }
+}
 
 //================================================================================
 // ピッチ　コマンド
@@ -498,6 +609,37 @@
     }
 }
 
+//================================================================================
+// ピッチ　プラス　コマンド
+//================================================================================
+-(void)pitchPlus{
+    if (_Device)	{
+        //	iPhone->Device
+        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
+        //	ダミーデータ
+        uint8_t	buf[1];
+        buf[0] = PITCH_PLUS_DATA;
+        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
+        //_textField.text = (@"PITCH_PLUS");
+        [_Device writeWithoutResponse:rx value:data];
+    }
+}
+
+//================================================================================
+// ピッチ　マイナス　コマンド
+//================================================================================
+-(void)pitchMinus{
+    if (_Device)	{
+        //	iPhone->Device
+        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
+        //	ダミーデータ
+        uint8_t	buf[1];
+        buf[0] = PITCH_MINUS_DATA;
+        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
+        //_textField.text = (@"PITCH_MINUS");
+        [_Device writeWithoutResponse:rx value:data];
+    }
+}
 
 //================================================================================
 // ヨー　コマンド

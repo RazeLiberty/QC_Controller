@@ -19,7 +19,11 @@
     UIButton* _throttlePlusButton;
     UIButton* _throttleMinusButton;
     UIButton* _rollButton;
+    UIButton* _rollPlusButton;
+    UIButton* _rollMinusButton;
     UIButton* _pitchButton;
+    UIButton* _pitchPlusButton;
+    UIButton* _pitchMinusButton;
     UIButton* _yawButton;
     UIButton* _yawPlusButton;
     UIButton* _yawMinusButton;
