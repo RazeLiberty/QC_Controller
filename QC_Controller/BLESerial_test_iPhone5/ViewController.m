@@ -103,6 +103,9 @@
 - (IBAction)dKeyTouchDown:(id)sender;
 
 //タップ
+- (IBAction)connectTouchUpInside:(id)sender;
+- (IBAction)disconnectTouchUpInside:(id)sender;
+
 - (IBAction)flightModeKeyTouchUpInside:(id)sender;
 - (IBAction)emergencyKeyTouchUpInside:(id)sender;
 
@@ -757,6 +760,72 @@
 //================================================================================
 // タップ
 //================================================================================
+- (IBAction)connectTouchUpInside:(id)sender {
+    //	UUID_DEMO_SERVICEサービスを持っているデバイスに接続する
+    _Device = [_BaseClass connectService:UUID_VSP_SERVICE];
+    if (_Device)	{
+        //	接続されたのでスキャンを停止する
+        [_BaseClass scanStop];
+        //	キャラクタリスティックの値を読み込んだときに自身をデリゲートに指定
+        _Device.delegate = self;
+        
+        //        [_BaseClass printDevices];
+        
+        //ボタンの状態変更
+        _connectButton.enabled = FALSE;
+        _disconnectButton.enabled = TRUE;
+        /*
+         _flightModeButton.enabled = TRUE;
+         _emergencyStopButton.enabled = TRUE;
+         _defaultButton.enabled = TRUE;
+         _throttleButton.enabled = TRUE;
+         _throttlePlusButton.enabled = TRUE;
+         _throttleMinusButton.enabled = TRUE;
+         _rollButton.enabled = TRUE;
+         _pitchButton.enabled = TRUE;
+         _yawButton.enabled = TRUE;
+         _yawPlusButton.enabled = TRUE;
+         _yawMinusButton.enabled = TRUE;
+         _textField.text = @"ONLINE";
+         */
+        //	tx(Device->iPhone)のnotifyをセット
+        CBCharacteristic*	tx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_TX];
+        if (tx)	{
+            //            [_Device readRequest:tx];
+            [_Device notifyRequest:tx];
+        }
+    }
+}
+
+- (IBAction)disconnectTouchUpInside:(id)sender {
+    if (_Device)	{
+        //	UUID_DEMO_SERVICEサービスを持っているデバイスから切断する
+        [_BaseClass disconnectService:UUID_VSP_SERVICE];
+        _Device = 0;
+        
+        //ボタンの状態変更
+        _connectButton.enabled = TRUE;
+        _disconnectButton.enabled = FALSE;
+        /*
+         _flightModeButton.enabled = FALSE;
+         _emergencyStopButton.enabled = FALSE;
+         _defaultButton.enabled = FALSE;
+         _throttleButton.enabled = FALSE;
+         _throttlePlusButton.enabled = FALSE;
+         _throttleMinusButton.enabled = FALSE;
+         _rollButton.enabled = FALSE;
+         _pitchButton.enabled = FALSE;
+         _yawButton.enabled = FALSE;
+         _yawPlusButton.enabled = FALSE;
+         _yawMinusButton.enabled = FALSE;
+         */
+        _textField.text = @"OFFLINE";
+        
+        //	周りのBLEデバイスからのadvertise情報のスキャンを開始する
+        [_BaseClass scanDevices:nil];
+    }
+}
+
 - (IBAction)flightModeKeyTouchUpInside:(id)sender {
     _textField.text = (@"FLIGHT_MODE_ON");
     
