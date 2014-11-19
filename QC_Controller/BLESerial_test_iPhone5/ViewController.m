@@ -167,6 +167,8 @@
     _connectButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
     [self.view addSubview:_connectButton];
     
+    [_disconnectButton setEnabled:NO];//ボタン3を有効にする
+    
     //---DISCONNECTボタン生成---
     _disconnectButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_disconnectButton setFrame:CGRectMake(BUTTON_LOCATE_X,150,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
@@ -772,8 +774,11 @@
         //        [_BaseClass printDevices];
         
         //ボタンの状態変更
-        _connectButton.enabled = FALSE;
-        _disconnectButton.enabled = TRUE;
+//        _connectButton.enabled = FALSE;
+  //      _disconnectButton.enabled = TRUE;
+        [_connectButton setEnabled:NO];//ボタン3を有効にする
+        [_disconnectButton setEnabled:YES];//ボタン3を有効にする
+        NO
         /*
          _flightModeButton.enabled = TRUE;
          _emergencyStopButton.enabled = TRUE;
@@ -804,8 +809,10 @@
         _Device = 0;
         
         //ボタンの状態変更
-        _connectButton.enabled = TRUE;
-        _disconnectButton.enabled = FALSE;
+//        _connectButton.enabled = TRUE;
+  //      _disconnectButton.enabled = FALSE;
+        [_connectButton setEnabled:YES];//ボタン3を有効にする
+        [_disconnectButton setEnabled:NO];//ボタン3を有効にする
         /*
          _flightModeButton.enabled = FALSE;
          _emergencyStopButton.enabled = FALSE;
