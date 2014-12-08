@@ -14,38 +14,37 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 
 //ボタンタグ
-#define CONNECT_BUTTON 0
-#define DISCONNECT_BUTTON 1
+#define CONNECT_BUTTON      0
+#define DISCONNECT_BUTTON   1
 
 // 11/18　送信データ
-#define FLIGHT_MODE_DATA 0xd1
+#define FLIGHT_MODE_DATA    0xd1
 #define EMERGENCY_STOP_DATA 0xe1
 
-#define THROTTLE_PLUS_DATA 0x71 //↑
-#define THROTTLE_MINUS_DATA 0x72//↓
-#define YAW_PLUS_DATA 0x81      //→
-#define YAW_MINUS_DATA 0x82     //←
-#define ROLL_PLUS_DATA 0x91     //D
-#define ROLL_MINUS_DATA 0x92    //A
-#define CURRENT_STOP_DATA 0x93  //今の位置で停まる
-#define PITCH_PLUS_DATA 0x94    //W
-#define PITCH_MINUS_DATA 0x95   //S
-
+#define THROTTLE_PLUS_DATA  0x71                                   //↑
+#define THROTTLE_MINUS_DATA 0x72                                   //↓
+#define YAW_PLUS_DATA       0x81                                   //→
+#define YAW_MINUS_DATA      0x82                                   //←
+#define ROLL_PLUS_DATA      0x91                                   //D
+#define ROLL_MINUS_DATA     0x92                                   //A
+#define CURRENT_STOP_DATA   0x93                                   //今の位置で停まる
+#define PITCH_PLUS_DATA     0x94                                   //W
+#define PITCH_MINUS_DATA    0x95                                   //S
 
 //テキストサイズ
-#define TEXT_SIZE 20
+#define TEXT_SIZE           20
 
 //ボタンサイズ
-#define BUTTON_SIZE_X 200
-#define BUTTON_SIZE_Y 10
+#define BUTTON_SIZE_X       200
+#define BUTTON_SIZE_Y       10
 
 //ボタン位置
-#define BUTTON_LOCATE_X 60
+#define BUTTON_LOCATE_X     60
 
 //UUID
-#define UUID_VSP_SERVICE					@"569a1101-b87f-490c-92cb-11ba5ea5167c" //VSP
-#define UUID_RX                             @"569a2001-b87f-490c-92cb-11ba5ea5167c" //RX
-#define UUID_TX								@"569a2000-b87f-490c-92cb-11ba5ea5167c" //TX
+#define UUID_VSP_SERVICE    @"569a1101-b87f-490c-92cb-11ba5ea5167c"//VSP
+#define UUID_RX             @"569a2001-b87f-490c-92cb-11ba5ea5167c"//RX
+#define UUID_TX             @"569a2000-b87f-490c-92cb-11ba5ea5167c"//TX
 
 @interface ViewController () <BLEDeviceClassDelegate>
 @property (strong)		BLEBaseClass*	BaseClass;
@@ -76,6 +75,8 @@
 - (IBAction)aKeyTouchUpInside:(id)sender;
 - (IBAction)sKeyTouchUpInside:(id)sender;
 - (IBAction)dKeyTouchUpInside:(id)sender;
+
+//ボタンステータス
 @property (weak, nonatomic) IBOutlet UIButton *connectButtonStatus;
 @property (weak, nonatomic) IBOutlet UIButton *disconnectButtonStatus;
 
@@ -99,10 +100,7 @@
     //テキストフィールドタッチ無効化
     _textField.enabled = NO;
     [self.view addSubview:_textField];
-    
-    //コネクトボタン状態セット
-    _connectButtonStatus.enabled = TRUE;
-    _disconnectButtonStatus.enabled = FALSE;
+
     
     //---CONNECTボタン生成---
     _connectButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -124,8 +122,11 @@
     [self.view addSubview:_disconnectButton];
 
     //---ボタンの状態設定---
-    _connectButton.enabled = TRUE;
-    _disconnectButton.enabled = FALSE;
+    _connectButton.enabled          = TRUE;
+    _disconnectButton.enabled       = FALSE;
+    //コネクトボタン状態セット
+    _connectButtonStatus.enabled    = TRUE;
+    _disconnectButtonStatus.enabled = FALSE;
     
     //	BLEBaseClassの初期化
 	_BaseClass = [[BLEBaseClass alloc] init];
@@ -142,10 +143,9 @@
 }
 
 
-
-//------------------------------------------------------------------------------------------
-//	readもしくはindicateもしくはnotifyにてキャラクタリスティックの値を読み込んだ時に呼ばれる
-//------------------------------------------------------------------------------------------
+//================================================================================
+// readもしくはindicateもしくはnotifyにてキャラクタリスティックの値を読み込んだ時に呼ばれる
+//================================================================================
 - (void)didUpdateValueForCharacteristic:(BLEDeviceClass *)device Characteristic:(CBCharacteristic *)characteristic
 {
 	if (device == _Device)	{
@@ -209,10 +209,10 @@
         //        [_BaseClass printDevices];
         
         //ボタンの状態変更
-		_connectButton.enabled = FALSE;
-		_disconnectButton.enabled = TRUE;
+        _connectButton.enabled          = FALSE;
+        _disconnectButton.enabled       = TRUE;
         //IBActionの方
-        _connectButtonStatus.enabled = FALSE;
+        _connectButtonStatus.enabled    = FALSE;
         _disconnectButtonStatus.enabled = TRUE;
         
 		//	tx(Device->iPhone)のnotifyをセット
@@ -234,12 +234,12 @@
 		_Device = 0;
         
         //ボタンの状態変更
-		_connectButton.enabled = TRUE;
-		_disconnectButton.enabled = FALSE;
+        _connectButton.enabled          = TRUE;
+        _disconnectButton.enabled       = FALSE;
         //IBActionの方
-        _connectButtonStatus.enabled = TRUE;
+        _connectButtonStatus.enabled    = TRUE;
         _disconnectButtonStatus.enabled = FALSE;
-        _textField.text = @"OFFLINE";
+        _textField.text                 = @"OFFLINE";
          
 		//	周りのBLEデバイスからのadvertise情報のスキャンを開始する
 		[_BaseClass scanDevices:nil];
