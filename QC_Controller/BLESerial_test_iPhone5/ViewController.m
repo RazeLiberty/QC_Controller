@@ -173,7 +173,7 @@
 }
 
 //================================================================================
-// CONNECTボタン、DISCONNECTボタン
+// ボタンタップイベント
 //================================================================================
 -(IBAction)onButtonClick:(UIButton*)sender{
     if(sender.tag==CONNECT_BUTTON){
@@ -183,21 +183,29 @@
     }
 }
 
-//ボタンタップイベント
+// CONNECT
 - (IBAction)connectTouchUpInside:(id)sender{
     //connect処理呼び出す
     [self connect];
 }
 
+// DISCONNECT
 - (IBAction)disconnectTouchUpInside:(id)sender {
     //disconnect処理呼び出す
     [self disconnect];
 }
 
+// EMERGENCYSTOP
+- (IBAction)emergencyKeyTouchUpInside:(id)sender {
+    //緊急停止処理呼び出す
+    [self emergencyStop];
+}
+
+
 //================================================================================
 // connect処理
 //================================================================================
--(void)connect{
+-(void)connect {
     //	UUID_DEMO_SERVICEサービスを持っているデバイスに接続する
 	_Device = [_BaseClass connectService:UUID_VSP_SERVICE];
 	if (_Device)	{
@@ -246,12 +254,26 @@
 	}
 }
 
+//================================================================================
+// 緊急停止処理
+//================================================================================
+- (void)emergencyStop {
+    _textField.text = (@"EMERGENCY");
+    
+    if (_Device)	{
+        //	iPhone->Device
+        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
+        //	ダミーデータ
+        uint8_t	buf[1];
+        buf[0] = EMERGENCY_STOP_DATA;
+        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
+        [_Device writeWithoutResponse:rx value:data];
+    }
+}
 
 //================================================================================
-// フライトモード、緊急停止ボタン
+// フライトモードボタン
 //================================================================================
-
-
 - (IBAction)flightModeKeyTouchUpInside:(id)sender {
     _textField.text = (@"FLIGHT_MODE_ON");
     
@@ -261,20 +283,6 @@
         //	ダミーデータ
         uint8_t	buf[1];
         buf[0] = FLIGHT_MODE_DATA;
-        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        [_Device writeWithoutResponse:rx value:data];
-    }
-}
-
-- (IBAction)emergencyKeyTouchUpInside:(id)sender {
-    _textField.text = (@"EMERGENCY");
-    
-    if (_Device)	{
-        //	iPhone->Device
-        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	ダミーデータ
-        uint8_t	buf[1];
-        buf[0] = EMERGENCY_STOP_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
         [_Device writeWithoutResponse:rx value:data];
     }
