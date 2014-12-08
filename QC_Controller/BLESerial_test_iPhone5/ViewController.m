@@ -42,8 +42,6 @@
 //ボタン位置
 #define BUTTON_LOCATE_X 60
 
-
-
 //UUID
 #define UUID_VSP_SERVICE					@"569a1101-b87f-490c-92cb-11ba5ea5167c" //VSP
 #define UUID_RX                             @"569a2001-b87f-490c-92cb-11ba5ea5167c" //RX
@@ -78,6 +76,8 @@
 - (IBAction)aKeyTouchUpInside:(id)sender;
 - (IBAction)sKeyTouchUpInside:(id)sender;
 - (IBAction)dKeyTouchUpInside:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *connectButtonStatus;
+@property (weak, nonatomic) IBOutlet UIButton *disconnectButtonStatus;
 
 @end
 
@@ -100,6 +100,9 @@
     _textField.enabled = NO;
     [self.view addSubview:_textField];
     
+    //コネクトボタン状態セット
+    _connectButtonStatus.enabled = TRUE;
+    _disconnectButtonStatus.enabled = FALSE;
     
     //---CONNECTボタン生成---
     _connectButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -110,7 +113,6 @@
     _connectButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
     [self.view addSubview:_connectButton];
     
-    //[_disconnectButton setEnabled:NO];//ボタン3を有効にする
     
     //---DISCONNECTボタン生成---
     _disconnectButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -170,9 +172,9 @@
 	}
 }
 
-//////////////////////////////////////////////////////////////
-//  ボタンクリックイベント
-//////////////////////////////////////////////////////////////
+//================================================================================
+// CONNECTボタン、DISCONNECTボタン
+//================================================================================
 -(IBAction)onButtonClick:(UIButton*)sender{
     if(sender.tag==CONNECT_BUTTON){
         [self connect];
@@ -181,7 +183,16 @@
     }
 }
 
+//ボタンタップイベント
+- (IBAction)connectTouchUpInside:(id)sender{
+    //connect処理呼び出す
+    [self connect];
+}
 
+- (IBAction)disconnectTouchUpInside:(id)sender {
+    //disconnect処理呼び出す
+    [self disconnect];
+}
 
 //================================================================================
 // connect処理
@@ -200,6 +211,9 @@
         //ボタンの状態変更
 		_connectButton.enabled = FALSE;
 		_disconnectButton.enabled = TRUE;
+        //IBActionの方
+        _connectButtonStatus.enabled = FALSE;
+        _disconnectButtonStatus.enabled = TRUE;
         
 		//	tx(Device->iPhone)のnotifyをセット
 		CBCharacteristic*	tx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_TX];
@@ -222,6 +236,9 @@
         //ボタンの状態変更
 		_connectButton.enabled = TRUE;
 		_disconnectButton.enabled = FALSE;
+        //IBActionの方
+        _connectButtonStatus.enabled = TRUE;
+        _disconnectButtonStatus.enabled = FALSE;
         _textField.text = @"OFFLINE";
          
 		//	周りのBLEデバイスからのadvertise情報のスキャンを開始する
@@ -230,10 +247,41 @@
 }
 
 
+//================================================================================
+// フライトモード、緊急停止ボタン
+//================================================================================
 
+
+- (IBAction)flightModeKeyTouchUpInside:(id)sender {
+    _textField.text = (@"FLIGHT_MODE_ON");
+    
+    if (_Device)	{
+        //	iPhone->Device
+        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
+        //	ダミーデータ
+        uint8_t	buf[1];
+        buf[0] = FLIGHT_MODE_DATA;
+        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
+        [_Device writeWithoutResponse:rx value:data];
+    }
+}
+
+- (IBAction)emergencyKeyTouchUpInside:(id)sender {
+    _textField.text = (@"EMERGENCY");
+    
+    if (_Device)	{
+        //	iPhone->Device
+        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
+        //	ダミーデータ
+        uint8_t	buf[1];
+        buf[0] = EMERGENCY_STOP_DATA;
+        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
+        [_Device writeWithoutResponse:rx value:data];
+    }
+}
 
 //================================================================================
-// タッチダウン　操作ボタン
+// 操作キー　タッチダウンイベント QuadCopter移動
 //================================================================================
 - (IBAction)rightKeyTouchDown:(id)sender {
     _textField.text = (@"YAW_PLUS");
@@ -353,78 +401,7 @@
 }
 
 //================================================================================
-// タップ
-//================================================================================
-- (IBAction)connectTouchUpInside:(id)sender {
-    //	UUID_DEMO_SERVICEサービスを持っているデバイスに接続する
-    _Device = [_BaseClass connectService:UUID_VSP_SERVICE];
-    if (_Device)	{
-        //	接続されたのでスキャンを停止する
-        [_BaseClass scanStop];
-        //	キャラクタリスティックの値を読み込んだときに自身をデリゲートに指定
-        _Device.delegate = self;
-        
-        //        [_BaseClass printDevices];
-        
-        //ボタンの状態変更
-        [self connect];
-        
-        //	tx(Device->iPhone)のnotifyをセット
-        CBCharacteristic*	tx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_TX];
-        if (tx)	{
-            //            [_Device readRequest:tx];
-            [_Device notifyRequest:tx];
-        }
-    }
-}
-
-- (IBAction)disconnectTouchUpInside:(id)sender {
-    if (_Device)	{
-        //	UUID_DEMO_SERVICEサービスを持っているデバイスから切断する
-        [_BaseClass disconnectService:UUID_VSP_SERVICE];
-        _Device = 0;
-        
-        //ボタンの状態変更
-        [_connectButton setEnabled:YES];//ボタン3を有効にする
-        [_disconnectButton setEnabled:NO];//ボタン3を有効にする
-
-        _textField.text = @"OFFLINE";
-        
-        //	周りのBLEデバイスからのadvertise情報のスキャンを開始する
-        [_BaseClass scanDevices:nil];
-    }
-}
-
-- (IBAction)flightModeKeyTouchUpInside:(id)sender {
-    _textField.text = (@"FLIGHT_MODE_ON");
-    
-    if (_Device)	{
-        //	iPhone->Device
-        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	ダミーデータ
-        uint8_t	buf[1];
-        buf[0] = FLIGHT_MODE_DATA;
-        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        [_Device writeWithoutResponse:rx value:data];
-    }
-}
-
-- (IBAction)emergencyKeyTouchUpInside:(id)sender {
-    _textField.text = (@"EMERGENCY");
-    
-    if (_Device)	{
-        //	iPhone->Device
-        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	ダミーデータ
-        uint8_t	buf[1];
-        buf[0] = EMERGENCY_STOP_DATA;
-        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        [_Device writeWithoutResponse:rx value:data];
-    }
-}
-
-//================================================================================
-// タップ　そこで停める処理
+// 操作キーを離した時の処理　　　タップ　　離した場所でQuadCopter停止処理
 //================================================================================
 - (IBAction)rightKeyTouchUpInside:(id)sender {
     _textField.text = (@"rightKeyTUI");
