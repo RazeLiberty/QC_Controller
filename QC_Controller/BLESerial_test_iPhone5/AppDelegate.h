@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+@class ViewController;  //ViewController はクラス名。それ以上のことは気にせずコンパイル
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (retain, nonatomic) ViewController *viewController;
 @end

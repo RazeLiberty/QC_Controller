@@ -12,6 +12,7 @@
 #import "ViewController.h"
 #import "BLEBaseClass.h"
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "AppDelegate.h"
 
 //ボタンタグ
 #define CONNECT_BUTTON      0
@@ -88,7 +89,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+	//AppDelegateのviewController 変数に自分(ViewController)を代入
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    appDelegate.viewController = self;
+
     
     //---センサー値結果のテキストフィールド生成---
     _textField=[[UITextField alloc] init];
