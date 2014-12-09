@@ -240,6 +240,9 @@
 // disconnect処理
 //================================================================================
 - (void)disconnect {
+    //disconnectする前に緊急停止を行う
+    [self emergencyStop];
+    
 	if (_Device)	{
 		//	UUID_DEMO_SERVICEサービスを持っているデバイスから切断する
 		[_BaseClass disconnectService:UUID_VSP_SERVICE];
