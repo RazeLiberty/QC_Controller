@@ -13,6 +13,8 @@
     UIButton* _connectButton;
     UIButton* _disconnectButton;
     
+    //マルチスレッド処理　キュー
+    dispatch_queue_t loop_queue;
     
 }
 

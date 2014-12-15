@@ -89,6 +89,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //---マルチスレッドで実行するキューを定義する---
+    loop_queue = dispatch_queue_create("loopSendData", NULL);
+    
+    dispatch_async(loop_queue, ^{
+        //ループでデータを送り続ける処理
+        [self loopSendData];
+    });
+    
+    
 	//AppDelegateのviewController 変数に自分(ViewController)を代入
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.viewController = self;
@@ -144,6 +154,13 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+//================================================================================
+// マルチスレッド処理
+//================================================================================
+- (void)loopSendData {
+    
 }
 
 
