@@ -14,10 +14,6 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "AppDelegate.h"
 
-//ボタンタグ
-#define CONNECT_BUTTON      0
-#define DISCONNECT_BUTTON   1
-
 // 11/18　送信データ
 #define FLIGHT_MODE_DATA    0xd1
 #define EMERGENCY_STOP_DATA 0xe1
@@ -118,29 +114,6 @@
     _textField.enabled = NO;
     [self.view addSubview:_textField];
 
-    
-    //---CONNECTボタン生成---
-    _connectButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_connectButton setFrame:CGRectMake(BUTTON_LOCATE_X,120,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
-    [_connectButton setTitle:@"CONNECT" forState:UIControlStateNormal];
-    [_connectButton setTag:CONNECT_BUTTON];           //ボタン識別タグ
-    [_connectButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
-    _connectButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
-    [self.view addSubview:_connectButton];
-    
-    
-    //---DISCONNECTボタン生成---
-    _disconnectButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_disconnectButton setFrame:CGRectMake(BUTTON_LOCATE_X,150,BUTTON_SIZE_X,BUTTON_SIZE_Y)];  //位置と大きさ設定
-    [_disconnectButton setTitle:@"DIS CONNECT" forState:UIControlStateNormal];
-    [_disconnectButton setTag:DISCONNECT_BUTTON];           //ボタン識別タグ
-    [_disconnectButton addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];             //ボタンクリックイベント登録
-    _disconnectButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:TEXT_SIZE];
-    [self.view addSubview:_disconnectButton];
-
-    //---ボタンの状態設定---
-    _connectButton.enabled          = TRUE;
-    _disconnectButton.enabled       = FALSE;
     //コネクトボタン状態セット
     _connectButtonStatus.enabled    = TRUE;
     _disconnectButtonStatus.enabled = FALSE;
@@ -190,8 +163,6 @@
                 [_Device writeWithoutResponse:rx value:data];
             }
         }
-        
-        NSLog(@"%02d:%02d:%05.2f",hh,mm,ss);
     }
 }
 
@@ -228,13 +199,6 @@
 //================================================================================
 // ボタンタップイベント
 //================================================================================
--(IBAction)onButtonClick:(UIButton*)sender{
-    if(sender.tag==CONNECT_BUTTON){
-        [self connect];
-    }else if(sender.tag==DISCONNECT_BUTTON){
-        [self disconnect];
-    }
-}
 
 // CONNECT
 - (IBAction)connectTouchUpInside:(id)sender{
@@ -270,9 +234,6 @@
         //        [_BaseClass printDevices];
         
         //ボタンの状態変更
-        _connectButton.enabled          = FALSE;
-        _disconnectButton.enabled       = TRUE;
-        //IBActionの方
         _connectButtonStatus.enabled    = FALSE;
         _disconnectButtonStatus.enabled = TRUE;
         
@@ -298,9 +259,6 @@
 		_Device = 0;
         
         //ボタンの状態変更
-        _connectButton.enabled          = TRUE;
-        _disconnectButton.enabled       = FALSE;
-        //IBActionの方
         _connectButtonStatus.enabled    = TRUE;
         _disconnectButtonStatus.enabled = FALSE;
         _textField.text                 = @"OFFLINE";
