@@ -50,6 +50,9 @@
 @property (strong)		BLEBaseClass*	BaseClass;
 @property (readwrite)	BLEDeviceClass*	Device;
 
+@property NSDate *now;    //今の時刻
+@property BOOL connectFlag;
+
 //タッチダウン
 - (IBAction)rightKeyTouchDown:(id)sender;
 - (IBAction)leftKeyTouchDown:(id)sender;
@@ -88,6 +91,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _connectFlag = FALSE;   //コネクトフラグをFALSE
+    _now = [NSDate date];    //今の時刻
     
     //---マルチスレッドで実行するキューを定義する---
     loop_queue = dispatch_queue_create("loopSendData", NULL);
@@ -137,19 +143,22 @@
 //================================================================================
 - (void)loopSendData {
     
-    NSDate *date = [NSDate date];   //最初の時刻
-    NSDate *now = [NSDate date];    //今の時刻
+                    //NSLog(@"データ送信");
     
-    while(_Device) {
-        // オーバーフロー後の処理
-        if(date < now){
-            now = [NSDate date];
-        }
+    while(_connectFlag) {
         
-        float tmp= [now timeIntervalSinceDate:date]; //差分をfloatで取得
+        NSLog(@"データ送信");
+        
+        //差分をfloatで取得
+        float tmp= [_now timeIntervalSinceDate:[NSDate date]];
         int hh = (int)(tmp / 3600);
         int mm = (int)((tmp-hh) / 60);
         float ss = tmp -(float)(hh * 3600 + mm * 60);
+        
+        // オーバーフロー後の処理
+        if([NSDate date] < _now) {
+            _now = [NSDate date];    //時刻更新
+        }
         
         //3秒経っていれば　空データ送信
         if(ss > 3.0f) {
@@ -161,7 +170,10 @@
                 buf[0] = EMPTY_DATA;
                 NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
                 [_Device writeWithoutResponse:rx value:data];
+                
+
             }
+            _now = [NSDate date];    //時刻更新
         }
     }
 }
@@ -228,6 +240,8 @@
 	if (_Device)	{
 		//	接続されたのでスキャンを停止する
 		[_BaseClass scanStop];
+        //connectフラグ
+        _connectFlag = TRUE;
         //	キャラクタリスティックの値を読み込んだときに自身をデリゲートに指定
 		_Device.delegate = self;
         
@@ -257,6 +271,8 @@
 		//	UUID_DEMO_SERVICEサービスを持っているデバイスから切断する
 		[_BaseClass disconnectService:UUID_VSP_SERVICE];
 		_Device = 0;
+        //connectフラグ
+        _connectFlag = FALSE;
         
         //ボタンの状態変更
         _connectButtonStatus.enabled    = TRUE;
