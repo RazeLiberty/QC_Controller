@@ -32,6 +32,9 @@
 #define PITCH_PLUS_DATA     0x94                                   //W
 #define PITCH_MINUS_DATA    0x95                                   //S
 
+//空データ
+#define EMPTY_DATA          0xc1
+
 //テキストサイズ
 #define TEXT_SIZE           20
 
@@ -157,10 +160,39 @@
 }
 
 //================================================================================
-// マルチスレッド処理
+// マルチスレッド処理    空データを送り続ける
 //================================================================================
 - (void)loopSendData {
     
+    NSDate *date = [NSDate date];   //最初の時刻
+    NSDate *now = [NSDate date];    //今の時刻
+    
+    while(_Device) {
+        // オーバーフロー後の処理
+        if(date < now){
+            now = [NSDate date];
+        }
+        
+        float tmp= [now timeIntervalSinceDate:date]; //差分をfloatで取得
+        int hh = (int)(tmp / 3600);
+        int mm = (int)((tmp-hh) / 60);
+        float ss = tmp -(float)(hh * 3600 + mm * 60);
+        
+        //3秒経っていれば　空データ送信
+        if(ss > 3.0f) {
+            if (_Device) {
+                //	iPhone->Device
+                CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
+                //	送信データ
+                uint8_t	buf[1];
+                buf[0] = EMPTY_DATA;
+                NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
+                [_Device writeWithoutResponse:rx value:data];
+            }
+        }
+        
+        NSLog(@"%02d:%02d:%05.2f",hh,mm,ss);
+    }
 }
 
 
@@ -287,7 +319,7 @@
     if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	ダミーデータ
+        //	送信データ
         uint8_t	buf[1];
         buf[0] = EMERGENCY_STOP_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
@@ -304,7 +336,7 @@
     if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	ダミーデータ
+        //	送信データ
         uint8_t	buf[1];
         buf[0] = FLIGHT_MODE_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
@@ -321,7 +353,7 @@
     if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	ダミーデータ
+        //	送信データ
         uint8_t	buf[1];
         buf[0] = YAW_PLUS_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
@@ -335,7 +367,7 @@
     if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	ダミーデータ
+        //	送信データ
         uint8_t	buf[1];
         buf[0] = YAW_MINUS_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
@@ -349,7 +381,7 @@
     if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	ダミーデータ
+        //	送信データ
         uint8_t	buf[1];
         buf[0] = THROTTLE_PLUS_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
@@ -363,7 +395,7 @@
     if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	ダミーデータ
+        //	送信データ
         uint8_t	buf[1];
         buf[0] = THROTTLE_MINUS_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
@@ -377,7 +409,7 @@
     if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	ダミーデータ
+        //	送信データ
         uint8_t	buf[1];
         buf[0] = PITCH_PLUS_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
@@ -392,7 +424,7 @@
     if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	ダミーデータ
+        //	送信データ
         uint8_t	buf[1];
         buf[0] = ROLL_MINUS_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
@@ -407,7 +439,7 @@
     if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	ダミーデータ
+        //	送信データ
         uint8_t	buf[1];
         buf[0] = PITCH_MINUS_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
@@ -422,7 +454,7 @@
     if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	ダミーデータ
+        //	送信データ
         uint8_t	buf[1];
         buf[0] = ROLL_PLUS_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
@@ -441,7 +473,7 @@
     if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	ダミーデータ
+        //	送信データ
         uint8_t	buf[1];
         buf[0] = CURRENT_STOP_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
@@ -455,7 +487,7 @@
     if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	ダミーデータ
+        //	送信データ
         uint8_t	buf[1];
         buf[0] = CURRENT_STOP_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
@@ -469,7 +501,7 @@
     if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	ダミーデータ
+        //	送信データ
         uint8_t	buf[1];
         buf[0] = CURRENT_STOP_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
@@ -483,7 +515,7 @@
     if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	ダミーデータ
+        //	送信データ
         uint8_t	buf[1];
         buf[0] = CURRENT_STOP_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
@@ -497,7 +529,7 @@
     if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	ダミーデータ
+        //	送信データ
         uint8_t	buf[1];
         buf[0] = CURRENT_STOP_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
@@ -511,7 +543,7 @@
     if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	ダミーデータ
+        //	送信データ
         uint8_t	buf[1];
         buf[0] = CURRENT_STOP_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
@@ -525,7 +557,7 @@
     if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	ダミーデータ
+        //	送信データ
         uint8_t	buf[1];
         buf[0] = CURRENT_STOP_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
@@ -539,7 +571,7 @@
     if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	ダミーデータ
+        //	送信データ
         uint8_t	buf[1];
         buf[0] = CURRENT_STOP_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
