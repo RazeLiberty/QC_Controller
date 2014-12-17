@@ -30,6 +30,7 @@
 
 //空データ
 #define EMPTY_DATA          0xc1
+//何秒毎空データ送信
 #define SEND_FREQUENCY      3.0f
 
 //テキストサイズ
