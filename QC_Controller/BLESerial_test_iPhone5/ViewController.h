@@ -14,12 +14,15 @@
     UIButton* _disconnectButton;
     
     //マルチスレッド処理　キュー
-    dispatch_queue_t loop_queue;
+    //dispatch_queue_t loop_queue;
     
 }
 
 - (void)connect;
 - (void)disconnect;
 - (void)emergencyStop;
+
+- (void)foo;
+- (void)method;
 
 @end

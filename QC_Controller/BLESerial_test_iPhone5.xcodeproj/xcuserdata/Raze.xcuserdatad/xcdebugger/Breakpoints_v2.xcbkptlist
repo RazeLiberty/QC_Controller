@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BLESerial_test_iPhone5/ViewController.m"
-            timestampString = "440395517.675123"
+            timestampString = "440478367.932924"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -22,7 +22,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BLEBaseClass.m"
@@ -33,13 +33,13 @@
             endingLineNumber = "117">
             <Locations>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[BLEBaseClass CentralManager]"
                   moduleName = "BLESerial_test_iPhone5"
                   urlString = "file:///Users/Raze/apps/Controller_QC/QC_Controller/BLEBaseClass.m"
-                  timestampString = "440395688.50875"
+                  timestampString = "440410198.420686"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "122"
@@ -47,13 +47,13 @@
                   offsetFromSymbolStart = "8">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[BLEBaseClass setCentralManager:]"
                   moduleName = "BLESerial_test_iPhone5"
                   urlString = "file:///Users/Raze/apps/Controller_QC/QC_Controller/BLEBaseClass.m"
-                  timestampString = "440395688.509086"
+                  timestampString = "440410198.421015"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "122"
