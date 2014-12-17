@@ -324,8 +324,8 @@
 //================================================================================
 - (IBAction)rightKeyTouchDown:(id)sender {
     _textField.text = (@"YAW_PLUS");
-    _connectFlag = TRUE;
-    NSLog(@"接続したぜ");
+    //_connectFlag = TRUE;
+    //NSLog(@"接続したぜ");
 
     if (_Device)	{
         //	iPhone->Device
@@ -446,8 +446,8 @@
 //================================================================================
 - (IBAction)rightKeyTouchUpInside:(id)sender {
     _textField.text = (@"rightKeyTUI");
-    _connectFlag = FALSE;
-    NSLog(@"接続切ったぜ");
+    //_connectFlag = FALSE;
+    //NSLog(@"接続切ったぜ");
     
     if (_Device)	{
         //	iPhone->Device
