@@ -22,7 +22,7 @@
 - (void)disconnect;
 - (void)emergencyStop;
 
-- (void)foo;
-- (void)method;
+- (void)otherThread;
+- (void)loopBackground;
 
 @end

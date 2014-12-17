@@ -30,6 +30,7 @@
 
 //空データ
 #define EMPTY_DATA          0xc1
+#define SEND_FREQUENCY      3.0f
 
 //テキストサイズ
 #define TEXT_SIZE           20
@@ -50,8 +51,8 @@
 @property (strong)		BLEBaseClass*	BaseClass;
 @property (readwrite)	BLEDeviceClass*	Device;
 
-@property NSDate *now;    //今の時刻
-@property BOOL connectFlag;
+@property NSDate *now;          //今の時刻
+@property BOOL connectFlag;     //接続フラグ
 
 //タッチダウン
 - (IBAction)rightKeyTouchDown:(id)sender;
@@ -92,24 +93,15 @@
 {
     [super viewDidLoad];
     
-    _connectFlag = FALSE;   //コネクトフラグをFALSE
+    //マルチスレッド起動
+    [self otherThread];
+    
+    _connectFlag = FALSE;   //接続フラグをFALSE
     _now = [NSDate date];    //今の時刻
-    /*
-    //---マルチスレッドで実行するキューを定義する---
-    loop_queue = dispatch_queue_create("loopSendData", NULL);
-    
-    dispatch_async(loop_queue, ^{
-        //ループでデータを送り続ける処理
-        [self loopSendData];
-    });
-    */
-    
-    [self foo];
     
 	//AppDelegateのviewController 変数に自分(ViewController)を代入
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.viewController = self;
-
     
     //---センサー値結果のテキストフィールド生成---
     _textField=[[UITextField alloc] init];
@@ -140,86 +132,41 @@
     // Dispose of any resources that can be recreated.
 }
 
-
--(void)foo {
+//================================================================================
+// マルチスレッド処理    空データを送り続ける
+//================================================================================
+-(void)otherThread {
     NSLog(@"ふううううううううううう");
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self performSelectorInBackground:@selector(method) withObject:nil /*waitUntilDone:YES*/];
+        [self performSelectorInBackground:@selector(loopBackground) withObject:nil /*waitUntilDone:YES*/];
     });
 }
-
--(void)method {
+//バックグラウンドでループ処理
+-(void)loopBackground {
+    NSLog(@"サブスレッド開始");
+    //起動したまま待機
     while (YES) {
-        //何かの処理
         
         //NSLog(@"マルチスレッド処理　通過");
         
+        //接続されていれば
         while (_connectFlag) {
             
             //NSLog(@"ループ処理　通過");
             
-            //差分をfloatで取得
-            float tmp= [_now timeIntervalSinceDate:[NSDate date]];
-            int hh = (int)(tmp / 3600);
-            int mm = (int)((tmp-hh) / 60);
-            float ss = tmp -(float)(hh * 3600 + mm * 60);
-            
-            // オーバーフロー後の処理
-            if([NSDate date] < _now) {
-                _now = [NSDate date];    //時刻更新
-            }
-            
-            //3秒経っていれば　空データ送信
-            if(ss > 3.0f) {
-                [self sendEmptyData];
-                NSLog(@"空データ送信");
-            }
-            if (_connectFlag == FALSE) {
-                break;
-            }
-        }
-        
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
-    }
-}
-/*
-//================================================================================
-// マルチスレッド処理    空データを送り続ける
-//================================================================================
-- (void)loopSendData {
-    
-    NSLog(@"マルチスレッド処理　通過");
-    
-    while (_connectFlag) {
-
-        NSLog(@"ループ処理　通過");
-        
-        //差分をfloatで取得
-        float tmp= [_now timeIntervalSinceDate:[NSDate date]];
-        int hh = (int)(tmp / 3600);
-        int mm = (int)((tmp-hh) / 60);
-        float ss = tmp -(float)(hh * 3600 + mm * 60);
-        
-        // オーバーフロー後の処理
-        if([NSDate date] < _now) {
-            _now = [NSDate date];    //時刻更新
-        }
-        
-        //3秒経っていれば　空データ送信
-        if(ss > 3.0f) {
-            [self sendEmptyData];
-        }
-        if (_connectFlag == FALSE) {
-            break;
+            //３秒毎に空データ送信処理　実行
+            NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(sendEmptyData)userInfo:nil repeats:YES];
+            //3秒に一回だけ実行させる
+            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:3.0f]];
         }
     }
-
+    NSLog(@"サブスレッド終了");
 }
- */
+//空データ送信
 - (void)sendEmptyData {
     
-    NSLog(@"３秒経ったら処理　通過");
-    if (_Device) {
+    NSLog(@"３秒経ったら処理　はじめるよ");
+    if (_connectFlag) {
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
         //	送信データ
@@ -228,8 +175,8 @@
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
         [_Device writeWithoutResponse:rx value:data];
         
-        NSLog(@"データ送信処理　通過");
-        _now = [NSDate date];    //時刻更新
+        NSLog(@"データ送信処理　完了");
+        
     }
 }
 
@@ -378,6 +325,7 @@
 - (IBAction)rightKeyTouchDown:(id)sender {
     _textField.text = (@"YAW_PLUS");
     _connectFlag = TRUE;
+    NSLog(@"接続したぜ");
 
     if (_Device)	{
         //	iPhone->Device
@@ -498,6 +446,8 @@
 //================================================================================
 - (IBAction)rightKeyTouchUpInside:(id)sender {
     _textField.text = (@"rightKeyTUI");
+    _connectFlag = FALSE;
+    NSLog(@"接続切ったぜ");
     
     if (_Device)	{
         //	iPhone->Device
