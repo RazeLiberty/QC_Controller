@@ -138,7 +138,12 @@
 //================================================================================
 -(void)otherThread {
     NSLog(@"ふううううううううううう");
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    //TO-DO 操作キー押下かデータ送信時にフラグを切り替えて⇓処理実行させる　ディレイ制御
+    
+    // 3秒後に処理を実行
+    dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
+
+    dispatch_after(time, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         [self performSelectorInBackground:@selector(loopBackground) withObject:nil /*waitUntilDone:YES*/];
     });
 }
