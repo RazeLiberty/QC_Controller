@@ -1,9 +1,9 @@
 //
 //  ViewController.m
-//  BLESerial_test_iPhone5
+//  QC_Controller
 //
-//  Created by 石井 孝佳 on 2013/11/12.
-//  Copyright (c) 2013年 浅草ギ研. All rights reserved.
+//  Created by Takehiro Kawahara on 2014/11/4.
+//  Copyright (c) 2014年 Takehiro Kawahara. All rights reserved.
 //
 //　ロール：ｘ軸まわりの回転、進行方向軸まわりの回転
 //　ピッチ：y軸まわりの回転、上下回転
@@ -14,46 +14,37 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "AppDelegate.h"
 
-// 11/18　送信データ
-#define FLIGHT_MODE_DATA    0xd1
-#define EMERGENCY_STOP_DATA 0xe1
+// 送信データ
+#define EMPTY_DATA          0xc1                                   // 空データ
+#define FLIGHT_MODE_DATA    0xd1                                   // フライトモード
+#define EMERGENCY_STOP_DATA 0xe1                                   // 緊急停止
+#define THROTTLE_PLUS_DATA  0x71                                   // ↑
+#define THROTTLE_MINUS_DATA 0x72                                   // ↓
+#define YAW_PLUS_DATA       0x81                                   // →
+#define YAW_MINUS_DATA      0x82                                   // ←
+#define ROLL_PLUS_DATA      0x91                                   // D
+#define ROLL_MINUS_DATA     0x92                                   // A
+#define CURRENT_STOP_DATA   0x93                                   // 今の位置で停まる
+#define PITCH_PLUS_DATA     0x94                                   // W
+#define PITCH_MINUS_DATA    0x95                                   // S
 
-#define THROTTLE_PLUS_DATA  0x71                                   //↑
-#define THROTTLE_MINUS_DATA 0x72                                   //↓
-#define YAW_PLUS_DATA       0x81                                   //→
-#define YAW_MINUS_DATA      0x82                                   //←
-#define ROLL_PLUS_DATA      0x91                                   //D
-#define ROLL_MINUS_DATA     0x92                                   //A
-#define CURRENT_STOP_DATA   0x93                                   //今の位置で停まる
-#define PITCH_PLUS_DATA     0x94                                   //W
-#define PITCH_MINUS_DATA    0x95                                   //S
-
-//空データ
-#define EMPTY_DATA          0xc1
-//何秒毎空データ送信
+// 何秒毎に空データ送信
 #define SEND_FREQUENCY      3.0f
 
-//テキストサイズ
-#define TEXT_SIZE           20
-
-//ボタンサイズ
-#define BUTTON_SIZE_X       200
-#define BUTTON_SIZE_Y       10
-
-//ボタン位置
-#define BUTTON_LOCATE_X     60
-
 //UUID
-#define UUID_VSP_SERVICE    @"569a1101-b87f-490c-92cb-11ba5ea5167c"//VSP
-#define UUID_RX             @"569a2001-b87f-490c-92cb-11ba5ea5167c"//RX
-#define UUID_TX             @"569a2000-b87f-490c-92cb-11ba5ea5167c"//TX
+#define UUID_VSP_SERVICE    @"569a1101-b87f-490c-92cb-11ba5ea5167c"// VSP
+#define UUID_RX             @"569a2001-b87f-490c-92cb-11ba5ea5167c"// RX
+#define UUID_TX             @"569a2000-b87f-490c-92cb-11ba5ea5167c"// TX
 
 @interface ViewController () <BLEDeviceClassDelegate>
 @property (strong)		BLEBaseClass*	BaseClass;
 @property (readwrite)	BLEDeviceClass*	Device;
 
-@property NSDate *now;          //今の時刻
 @property BOOL connectFlag;     //接続フラグ
+
+//ボタンステータス
+@property (weak, nonatomic) IBOutlet UIButton *connectButtonStatus;
+@property (weak, nonatomic) IBOutlet UIButton *disconnectButtonStatus;
 
 //タッチダウン
 - (IBAction)rightKeyTouchDown:(id)sender;
@@ -68,7 +59,6 @@
 //タップ
 - (IBAction)connectTouchUpInside:(id)sender;
 - (IBAction)disconnectTouchUpInside:(id)sender;
-
 - (IBAction)flightModeKeyTouchUpInside:(id)sender;
 - (IBAction)emergencyKeyTouchUpInside:(id)sender;
 
@@ -81,14 +71,9 @@
 - (IBAction)sKeyTouchUpInside:(id)sender;
 - (IBAction)dKeyTouchUpInside:(id)sender;
 
-//ボタンステータス
-@property (weak, nonatomic) IBOutlet UIButton *connectButtonStatus;
-@property (weak, nonatomic) IBOutlet UIButton *disconnectButtonStatus;
-
 @end
 
 @implementation ViewController
-
 
 - (void)viewDidLoad
 {
@@ -96,9 +81,6 @@
     
     //マルチスレッド起動
     [self otherThread];
-    
-    _connectFlag = FALSE;   //接続フラグをFALSE
-    _now = [NSDate date];    //今の時刻
     
 	//AppDelegateのviewController 変数に自分(ViewController)を代入
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -115,6 +97,9 @@
     _textField.enabled = NO;
     [self.view addSubview:_textField];
 
+    //connectフラグをFALSEにセット
+    _connectFlag = FALSE;
+    
     //コネクトボタン状態セット
     _connectButtonStatus.enabled    = TRUE;
     _disconnectButtonStatus.enabled = FALSE;
@@ -168,7 +153,7 @@
     }
     NSLog(@"サブスレッド終了");
 }
-//空データ送信
+// 空データ送信
 - (void)sendEmptyData {
     
     NSLog(@"３秒経ったら処理　はじめるよ");
@@ -186,10 +171,13 @@
     }
 }
 
+//================================================================================
+// データ送信処理
+//================================================================================
 - (void)sendData:(uint8_t)u_data{
     
     NSLog(@"sendData");
-    //if (_Device)	{
+    if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
         //	送信データ
@@ -198,7 +186,7 @@
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
         [_Device writeWithoutResponse:rx value:data];
         NSLog(@"%hhu", u_data);
-    //}
+    }
 }
 
 //================================================================================
@@ -226,16 +214,15 @@
             _textField.text = [NSString stringWithFormat:@"%x", buf[0]];
 			return;
 		}
-        
 	}
 }
 
 //================================================================================
-// ボタンタップイベント
+// ボタンタップイベント   (操作キー以外)
 //================================================================================
 
 // CONNECT
-- (IBAction)connectTouchUpInside:(id)sender{
+- (IBAction)connectTouchUpInside:(id)sender {
     //connect処理呼び出す
     [self connect];
 }
@@ -257,13 +244,17 @@
 // connect処理
 //================================================================================
 -(void)connect {
+
     //	UUID_DEMO_SERVICEサービスを持っているデバイスに接続する
 	_Device = [_BaseClass connectService:UUID_VSP_SERVICE];
-	if (_Device)	{
+	
+    if (_Device)	{
 		//	接続されたのでスキャンを停止する
 		[_BaseClass scanStop];
+    
         //connectフラグ
         _connectFlag = TRUE;
+        
         //	キャラクタリスティックの値を読み込んだときに自身をデリゲートに指定
 		_Device.delegate = self;
         
@@ -286,6 +277,7 @@
 // disconnect処理
 //================================================================================
 - (void)disconnect {
+
     //disconnectする前に緊急停止を行う
     [self emergencyStop];
     
@@ -293,6 +285,7 @@
 		//	UUID_DEMO_SERVICEサービスを持っているデバイスから切断する
 		[_BaseClass disconnectService:UUID_VSP_SERVICE];
 		_Device = 0;
+
         //connectフラグ
         _connectFlag = FALSE;
         
@@ -310,275 +303,117 @@
 // 緊急停止処理
 //================================================================================
 - (void)emergencyStop {
+
     _textField.text = (@"EMERGENCY");
+    [self sendData:EMERGENCY_STOP_DATA];
     
-    if (_Device)	{
-        //	iPhone->Device
-        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	送信データ
-        uint8_t	buf[1];
-        buf[0] = EMERGENCY_STOP_DATA;
-        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        [_Device writeWithoutResponse:rx value:data];
-    }
 }
 
 //================================================================================
 // フライトモードボタン
 //================================================================================
 - (IBAction)flightModeKeyTouchUpInside:(id)sender {
-    _textField.text = (@"FLIGHT_MODE_ON");
     
-    if (_Device)	{
-        //	iPhone->Device
-        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	送信データ
-        uint8_t	buf[1];
-        buf[0] = FLIGHT_MODE_DATA;
-        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        [_Device writeWithoutResponse:rx value:data];
-    }
+    _textField.text = (@"FLIGHT_MODE_ON");
+    [self sendData:FLIGHT_MODE_DATA];
 }
 
 //================================================================================
 // 操作キー　タッチダウンイベント QuadCopter移動
 //================================================================================
 - (IBAction)rightKeyTouchDown:(id)sender {
-   // _textField.text = (@"YAW_PLUS");
+    
     //_connectFlag = TRUE;
     //NSLog(@"接続したぜ");
-    
+    _textField.text = (@"YAW_PLUS");
     [self sendData:YAW_PLUS_DATA];
-/*
-    if (_Device)	{
-        //	iPhone->Device
-        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	送信データ
-        uint8_t	buf[1];
-        buf[0] = YAW_PLUS_DATA;
-        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        [_Device writeWithoutResponse:rx value:data];
-    }*/
 }
 
 - (IBAction)leftKeyTouchDown:(id)sender {
+    
     _textField.text = (@"YAW_MINUS");
-
-    if (_Device)	{
-        //	iPhone->Device
-        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	送信データ
-        uint8_t	buf[1];
-        buf[0] = YAW_MINUS_DATA;
-        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        [_Device writeWithoutResponse:rx value:data];
-    }
+    [self sendData:YAW_MINUS_DATA];
 }
 
 - (IBAction)upKeyTouchDown:(id)sender {
+    
     _textField.text = (@"THROTTLE_PLUS");
-
-    if (_Device)	{
-        //	iPhone->Device
-        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	送信データ
-        uint8_t	buf[1];
-        buf[0] = THROTTLE_PLUS_DATA;
-        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        [_Device writeWithoutResponse:rx value:data];
-    }
+    [self sendData:THROTTLE_PLUS_DATA];
 }
 
 - (IBAction)downKeyTouchDown:(id)sender {
+    
     _textField.text = (@"THROTTLE_MINUS");
-
-    if (_Device)	{
-        //	iPhone->Device
-        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	送信データ
-        uint8_t	buf[1];
-        buf[0] = THROTTLE_MINUS_DATA;
-        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        [_Device writeWithoutResponse:rx value:data];
-    }
+    [self sendData:THROTTLE_MINUS_DATA];
 }
 
 - (IBAction)wKeyTouchDown:(id)sender {
-    _textField.text = (@"PITCH_PLUS");
 
-    if (_Device)	{
-        //	iPhone->Device
-        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	送信データ
-        uint8_t	buf[1];
-        buf[0] = PITCH_PLUS_DATA;
-        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        //_textField.text = (@"PITCH_PLUS");
-        [_Device writeWithoutResponse:rx value:data];
-    }
+    _textField.text = (@"PITCH_PLUS");
+    [self sendData:PITCH_PLUS_DATA];
 }
 
 - (IBAction)aKeyTouchDown:(id)sender {
-    _textField.text = (@"ROLL_MINUS");
     
-    if (_Device)	{
-        //	iPhone->Device
-        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	送信データ
-        uint8_t	buf[1];
-        buf[0] = ROLL_MINUS_DATA;
-        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        //_textField.text = (@"ROLL_MINUS");
-        [_Device writeWithoutResponse:rx value:data];
-    }
+    _textField.text = (@"ROLL_MINUS");
+    [self sendData:ROLL_MINUS_DATA];
 }
 
 - (IBAction)sKeyTouchDown:(id)sender {
-    _textField.text = (@"PITCH_MINUS");
     
-    if (_Device)	{
-        //	iPhone->Device
-        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	送信データ
-        uint8_t	buf[1];
-        buf[0] = PITCH_MINUS_DATA;
-        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        //_textField.text = (@"PITCH_MINUS");
-        [_Device writeWithoutResponse:rx value:data];
-    }
+    _textField.text = (@"PITCH_MINUS");
+    [self sendData:PITCH_MINUS_DATA];
 }
 
 - (IBAction)dKeyTouchDown:(id)sender {
-    _textField.text = (@"ROLL_PLUS");
-
-    if (_Device)	{
-        //	iPhone->Device
-        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	送信データ
-        uint8_t	buf[1];
-        buf[0] = ROLL_PLUS_DATA;
-        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        //_textField.text = (@"ROLL_PLUS");
-        [_Device writeWithoutResponse:rx value:data];
-    }
     
+    _textField.text = (@"ROLL_PLUS");
+    [self sendData:ROLL_PLUS_DATA];
 }
 
 //================================================================================
 // 操作キーを離した時の処理　　　タップ　　離した場所でQuadCopter停止処理
 //================================================================================
 - (IBAction)rightKeyTouchUpInside:(id)sender {
+
     _textField.text = (@"rightKeyTUI");
     //_connectFlag = FALSE;
     //NSLog(@"接続切ったぜ");
-    
-    if (_Device)	{
-        //	iPhone->Device
-        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	送信データ
-        uint8_t	buf[1];
-        buf[0] = CURRENT_STOP_DATA;
-        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        //_textField.text = (@"ROLL_PLUS");
-        [_Device writeWithoutResponse:rx value:data];
-    }
+    [self sendData:CURRENT_STOP_DATA];
 }
 - (IBAction)leftKeyTouchUpInside:(id)sender {
+
     _textField.text = (@"leftKeyTUI");
-    
-    if (_Device)	{
-        //	iPhone->Device
-        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	送信データ
-        uint8_t	buf[1];
-        buf[0] = CURRENT_STOP_DATA;
-        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        //_textField.text = (@"ROLL_PLUS");
-        [_Device writeWithoutResponse:rx value:data];
-    }
+    [self sendData:CURRENT_STOP_DATA];
 }
 - (IBAction)upKeyTouchUpInside:(id)sender {
-    _textField.text = (@"upKeyTUI");
     
-    if (_Device)	{
-        //	iPhone->Device
-        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	送信データ
-        uint8_t	buf[1];
-        buf[0] = CURRENT_STOP_DATA;
-        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        //_textField.text = (@"ROLL_PLUS");
-        [_Device writeWithoutResponse:rx value:data];
-    }
+    _textField.text = (@"upKeyTUI");
+    [self sendData:CURRENT_STOP_DATA];
 }
 - (IBAction)downKeyTouchUpInside:(id)sender {
-    _textField.text = (@"downKeyTUI");
     
-    if (_Device)	{
-        //	iPhone->Device
-        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	送信データ
-        uint8_t	buf[1];
-        buf[0] = CURRENT_STOP_DATA;
-        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        //_textField.text = (@"ROLL_PLUS");
-        [_Device writeWithoutResponse:rx value:data];
-    }
+    _textField.text = (@"downKeyTUI");
+    [self sendData:CURRENT_STOP_DATA];
 }
 - (IBAction)wKeyTouchUpInside:(id)sender {
-    _textField.text = (@"wKeyTUI");
     
-    if (_Device)	{
-        //	iPhone->Device
-        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	送信データ
-        uint8_t	buf[1];
-        buf[0] = CURRENT_STOP_DATA;
-        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        //_textField.text = (@"ROLL_PLUS");
-        [_Device writeWithoutResponse:rx value:data];
-    }
+    _textField.text = (@"wKeyTUI");
+    [self sendData:CURRENT_STOP_DATA];
 }
 - (IBAction)aKeyTouchUpInside:(id)sender {
-    _textField.text = (@"aKeyTUI");
     
-    if (_Device)	{
-        //	iPhone->Device
-        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	送信データ
-        uint8_t	buf[1];
-        buf[0] = CURRENT_STOP_DATA;
-        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        //_textField.text = (@"ROLL_PLUS");
-        [_Device writeWithoutResponse:rx value:data];
-    }
+    _textField.text = (@"aKeyTUI");
+    [self sendData:CURRENT_STOP_DATA];
 }
 - (IBAction)sKeyTouchUpInside:(id)sender {
-    _textField.text = (@"sKeyTUI");
     
-    if (_Device)	{
-        //	iPhone->Device
-        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	送信データ
-        uint8_t	buf[1];
-        buf[0] = CURRENT_STOP_DATA;
-        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        //_textField.text = (@"ROLL_PLUS");
-        [_Device writeWithoutResponse:rx value:data];
-    }
+    _textField.text = (@"sKeyTUI");
+    [self sendData:CURRENT_STOP_DATA];
 }
 - (IBAction)dKeyTouchUpInside:(id)sender {
-    _textField.text = (@"dKeyTUI");
     
-    if (_Device)	{
-        //	iPhone->Device
-        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-        //	送信データ
-        uint8_t	buf[1];
-        buf[0] = CURRENT_STOP_DATA;
-        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
-        //_textField.text = (@"ROLL_PLUS");
-        [_Device writeWithoutResponse:rx value:data];
-    }
+    _textField.text = (@"dKeyTUI");
+    [self sendData:CURRENT_STOP_DATA];
 }
 @end

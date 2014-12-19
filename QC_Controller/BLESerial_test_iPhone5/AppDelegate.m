@@ -1,9 +1,9 @@
 //
 //  AppDelegate.m
-//  BLESerial_test_iPhone5
+//  QC_Controller
 //
-//  Created by 石井 孝佳 on 2013/11/12.
-//  Copyright (c) 2013年 石井 孝佳. All rights reserved.
+//  Created by Takehiro Kawahara on 2014/11/4.
+//  Copyright (c) 2014年 Takehiro Kawahara. All rights reserved.
 //
 
 #import "AppDelegate.h"

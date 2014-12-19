@@ -2,9 +2,10 @@
 //  BLEBaseClass.m
 //  QC_Controller
 //
-//  Created by 川原岳大 on 2014/11/6.
+//  Created by Takehiro Kawahara on 2014/11/4.
+//  Copyright (c) 2014年 Takehiro Kawahara. All rights reserved.
 //
-//
+
 /*
  BLEの管理と通信を行う２つのクラス
 
