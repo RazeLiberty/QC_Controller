@@ -31,36 +31,6 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "117"
             endingLineNumber = "117">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[BLEBaseClass CentralManager]"
-                  moduleName = "BLESerial_test_iPhone5"
-                  urlString = "file:///Users/Raze/apps/Controller_QC/QC_Controller/BLEBaseClass.m"
-                  timestampString = "440605548.797972"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "122"
-                  endingLineNumber = "122"
-                  offsetFromSymbolStart = "8">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[BLEBaseClass setCentralManager:]"
-                  moduleName = "BLESerial_test_iPhone5"
-                  urlString = "file:///Users/Raze/apps/Controller_QC/QC_Controller/BLEBaseClass.m"
-                  timestampString = "440605548.798237"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "122"
-                  endingLineNumber = "122"
-                  offsetFromSymbolStart = "28">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

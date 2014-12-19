@@ -186,6 +186,21 @@
     }
 }
 
+- (void)sendData:(uint8_t)u_data{
+    
+    NSLog(@"sendData");
+    //if (_Device)	{
+        //	iPhone->Device
+        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
+        //	送信データ
+        uint8_t	buf[1];
+        buf[0] = u_data;
+        NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
+        [_Device writeWithoutResponse:rx value:data];
+        NSLog(@"%hhu", u_data);
+    //}
+}
+
 //================================================================================
 // readもしくはindicateもしくはnotifyにてキャラクタリスティックの値を読み込んだ時に呼ばれる
 //================================================================================
@@ -329,10 +344,12 @@
 // 操作キー　タッチダウンイベント QuadCopter移動
 //================================================================================
 - (IBAction)rightKeyTouchDown:(id)sender {
-    _textField.text = (@"YAW_PLUS");
+   // _textField.text = (@"YAW_PLUS");
     //_connectFlag = TRUE;
     //NSLog(@"接続したぜ");
-
+    
+    [self sendData:YAW_PLUS_DATA];
+/*
     if (_Device)	{
         //	iPhone->Device
         CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
@@ -341,7 +358,7 @@
         buf[0] = YAW_PLUS_DATA;
         NSData*	data = [NSData dataWithBytes:&buf length:sizeof(buf)];
         [_Device writeWithoutResponse:rx value:data];
-    }
+    }*/
 }
 
 - (IBAction)leftKeyTouchDown:(id)sender {
