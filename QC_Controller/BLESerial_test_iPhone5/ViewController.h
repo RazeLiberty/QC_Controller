@@ -13,6 +13,7 @@
 
     UITextField* _textField;
     MPMoviePlayerController* theMovie;
+    //Boolean* cameraFlag;     //カメラ接続フラグ
 }
 
 - (void)connect;
@@ -23,5 +24,6 @@
 - (void)loopBackground;
 
 - (void)play;
+- (void)stop;
 
 @end
