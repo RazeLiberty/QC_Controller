@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface ViewController : UIViewController{
 
     UITextField* _textField;
-
+    MPMoviePlayerController* theMovie;
 }
 
 - (void)connect;
@@ -20,5 +21,7 @@
 
 - (void)otherThread;
 - (void)loopBackground;
+
+- (void)play;
 
 @end

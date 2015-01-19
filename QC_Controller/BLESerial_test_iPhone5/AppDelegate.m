@@ -13,6 +13,7 @@
 @implementation AppDelegate
 
 @synthesize viewController; //viewController 変数へのアクセサ (accessor)を自動生成
+@synthesize playerView; //playerView 変数へのアクセサ (accessor)を自動生成
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -47,6 +48,9 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    [playerView play];
+    
 }
 
 //アプリがバックグラウンド実行中に終了された時に呼ばれる

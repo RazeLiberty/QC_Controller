@@ -13,7 +13,7 @@
 #import "BLEBaseClass.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "AppDelegate.h"
-#import <MediaPlayer/MediaPlayer.h>
+
 
 // 送信データ
 #define EMPTY_DATA          0xc1                                   // 空データ
@@ -128,10 +128,14 @@
 {
     [super viewDidAppear:animated];
     
+    //AppDelegateのviewController 変数に自分(ViewController)を代入
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    appDelegate.playerView = self;
+    
     // MPMoviePlayerViewController作成
     MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:@"http://10.5.5.9:8080/live/amba.m3u8"]];
     
-    MPMoviePlayerController* theMovie = [player moviePlayer];
+    theMovie = [player moviePlayer];
     theMovie.scalingMode = MPMovieScalingModeAspectFit;
     theMovie.fullscreen = TRUE;
     theMovie.controlStyle = MPMovieControlStyleNone;
@@ -145,9 +149,14 @@
     
     player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
     
+//    [theMovie play];
     // モーダルとして表示させる
     //[self presentMoviePlayerViewControllerAnimated:player];
     
+}
+-(void)play
+{
+    [theMovie play];
 }
 -(void)logm3u8
 {

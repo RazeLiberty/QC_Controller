@@ -14,4 +14,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (retain, nonatomic) ViewController *viewController;
+@property (retain, nonatomic) ViewController *playerView;
+
 @end
