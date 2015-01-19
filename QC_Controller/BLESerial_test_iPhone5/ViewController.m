@@ -72,6 +72,9 @@
 - (IBAction)sKeyTouchUpInside:(id)sender;
 - (IBAction)dKeyTouchUpInside:(id)sender;
 
+- (IBAction)cameraOn:(id)sender;
+- (IBAction)cameraOff:(id)sender;
+
 @end
 
 @implementation ViewController
@@ -149,7 +152,9 @@
     
     player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
     
-//    [theMovie play];
+    //再生準備
+//    [theMovie prepareToPlay];
+    
     // モーダルとして表示させる
     //[self presentMoviePlayerViewControllerAnimated:player];
     
@@ -157,6 +162,18 @@
 -(void)play
 {
     [theMovie play];
+    //cameraFlag = TRUE;
+}
+- (void)stop
+{
+    [theMovie stop];
+    //cameraFlag = FALSE;
+}
+- (IBAction)cameraOn:(id)sender {
+    [self play];
+}
+- (IBAction)cameraOff:(id)sender {
+    [self stop];
 }
 -(void)logm3u8
 {
@@ -466,4 +483,5 @@
     _textField.text = (@"dKeyTUI");
     [self sendData:CURRENT_STOP_DATA];
 }
+
 @end
