@@ -87,6 +87,7 @@
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.viewController = self;
     
+    /*
     //---センサー値結果のテキストフィールド生成---
     _textField=[[UITextField alloc] init];
     [_textField setFrame:CGRectMake(10,50,300,50)];  //位置と大きさ設定
@@ -97,7 +98,8 @@
     //テキストフィールドタッチ無効化
     _textField.enabled = NO;
     [self.view addSubview:_textField];
-
+     */
+    
     //connectフラグをFALSEにセット
     _connectFlag = FALSE;
     
