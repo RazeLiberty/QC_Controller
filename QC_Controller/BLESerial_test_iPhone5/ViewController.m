@@ -13,6 +13,7 @@
 #import "BLEBaseClass.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "AppDelegate.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 // 送信データ
 #define EMPTY_DATA          0xc1                                   // 空データ
@@ -117,6 +118,44 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+//================================================================================
+// GoPro　ストリーミング処理
+//================================================================================
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // MPMoviePlayerViewController作成
+    MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:@"http://10.5.5.9:8080/live/amba.m3u8"]];
+    
+    MPMoviePlayerController* theMovie = [player moviePlayer];
+    theMovie.scalingMode = MPMovieScalingModeAspectFit;
+    theMovie.fullscreen = TRUE;
+    theMovie.controlStyle = MPMovieControlStyleNone;
+    theMovie.shouldAutoplay = TRUE;
+    theMovie.view.frame = /*self.view.bounds;*/CGRectMake(0, 0, 1024, 768);//WVGA 800 480   //1024 768
+    
+    //プログラムからビューを生成
+    [self.view addSubview:player.view];
+    // 重なり順を最背面に
+    [self.view sendSubviewToBack:player.view];
+    
+    player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
+    
+    // モーダルとして表示させる
+    //[self presentMoviePlayerViewControllerAnimated:player];
+    
+}
+-(void)logm3u8
+{
+    NSError *error;
+    NSString *str = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://10.5.5.9:8080/live/amba.m3u8"] encoding:NSUTF8StringEncoding error:&error];
+    
+    NSLog(@"error:%@", error);
+    NSLog(@"m3u8:\n\n%@\n\n\n", str);
+}
+
 
 //================================================================================
 // マルチスレッド処理    空データを送り続ける
