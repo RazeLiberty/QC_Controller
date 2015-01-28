@@ -14,6 +14,8 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "AppDelegate.h"
 
+#import "RightSlideMenuView.h"
+
 
 // 送信データ
 #define EMPTY_DATA          0xc1                                   // 空データ
@@ -38,8 +40,14 @@
 #define UUID_TX             @"569a2000-b87f-490c-92cb-11ba5ea5167c"// TX
 
 @interface ViewController () <BLEDeviceClassDelegate>
+{
+    RightSlideMenuView* sideMenuView_;
+    UIView* viewForClosingSideMenu_;
+}
 @property (strong)		BLEBaseClass*	BaseClass;
 @property (readwrite)	BLEDeviceClass*	Device;
+
+
 
 @property BOOL connectFlag;     //接続フラグ
 
@@ -83,6 +91,12 @@
 {
     [super viewDidLoad];
     
+    
+    
+    sideMenuView_ = [[RightSlideMenuView alloc] initWithFrame: self.view.frame];
+    [self.view addSubview: sideMenuView_];
+    
+    
     //マルチスレッド起動
     [self otherThread];
     
@@ -122,6 +136,72 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+//================================================================================
+// スライドさせてメニューを表示させる
+//================================================================================
+//
+- (IBAction)showSideMenu:(id)sender
+{
+    // show side menu with animation
+    CGRect sideMenuFrame = sideMenuView_.frame;
+    [UIView animateWithDuration:0.3f
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         // アニメーションをする処理
+                         sideMenuView_.frame = CGRectMake( insideSideMenuX,
+                                                          sideMenuFrame.origin.y,
+                                                          sideMenuFrame.size.width,
+                                                          sideMenuFrame.size.height);
+                     } completion:^(BOOL finished) {
+                         // アニメーションが終わった後実行する処理
+                     }];
+    
+    // メニュー外をタップしたら、メニューを閉じるようにする
+    // そのためのUIViewをメニュー外に設置し、これをタップしたらメニューを閉じるようにする
+    if (!viewForClosingSideMenu_)
+    {
+        viewForClosingSideMenu_ = [[UIView alloc] initWithFrame:
+                                   CGRectMake(0,
+                                              0,
+                                              self.view.frame.size.width
+                                              - sideMenuFrame.size.width,
+                                              self.view.frame.size.height)];
+        viewForClosingSideMenu_.backgroundColor = [UIColor clearColor];
+        UITapGestureRecognizer *closeSideMenuTap =
+        [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                action:@selector(closeSideMenu:)];
+        [viewForClosingSideMenu_ addGestureRecognizer:closeSideMenuTap];
+        [self.view addSubview: viewForClosingSideMenu_];
+    }
+}
+
+//メニュー外をタップしたときに呼び出されるメソッド
+-(void)closeSideMenu:(int)destination
+{
+    CGRect sideMenuFrame = sideMenuView_.frame;
+    [UIView animateWithDuration:0.3f
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         // アニメーションをする処理
+                         sideMenuView_.frame = CGRectMake( outsideSideMenuX,
+                                                          sideMenuFrame.origin.y,
+                                                          sideMenuFrame.size.width,
+                                                          sideMenuFrame.size.height);
+                     } completion:^(BOOL finished) {
+                         // アニメーションが終わった後実行する処理
+                     }];
+    
+    // メニューを閉じるためのUIViewを削除
+    if (viewForClosingSideMenu_)
+    {
+        [viewForClosingSideMenu_ removeFromSuperview];
+        viewForClosingSideMenu_ = nil;
+    }
 }
 
 //================================================================================

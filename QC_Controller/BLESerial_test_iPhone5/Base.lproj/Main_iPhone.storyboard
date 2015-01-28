@@ -8,6 +8,7 @@
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
                 <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Tbp-Sc-7RR"/>
@@ -33,23 +34,6 @@
                                     <action selector="emergencyKeyTouchUpInside:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="iyq-mx-Lwd"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9XB-r2-ymj">
-                                <rect key="frame" x="227" y="0.0" width="115" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Flight Mode ON"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="flightModeKeyTouchUpInside:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="JIb-fW-NP3"/>
-                                </connections>
-                            </button>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="top_bar_line.png" translatesAutoresizingMaskIntoConstraints="NO" id="gXT-13-pNs">
-                                <rect key="frame" x="-196" y="28" width="960" height="2"/>
-                            </imageView>
                             <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0jD-u4-73G">
                                 <rect key="frame" x="434" y="248" width="64" height="64"/>
                                 <state key="normal" title="Button" image="key_down.png">
@@ -130,6 +114,23 @@
                                     <action selector="upKeyTouchUpInside:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="3S3-ca-dOB"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9XB-r2-ymj">
+                                <rect key="frame" x="227" y="0.0" width="115" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Flight Mode ON"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="flightModeKeyTouchUpInside:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="JIb-fW-NP3"/>
+                                </connections>
+                            </button>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="top_bar_line.png" translatesAutoresizingMaskIntoConstraints="NO" id="gXT-13-pNs">
+                                <rect key="frame" x="-196" y="28" width="960" height="2"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O63-ff-gMJ">
                                 <rect key="frame" x="7" y="0.0" width="74" height="30"/>
                                 <state key="normal" title="CONNECT">
@@ -147,12 +148,6 @@
                                 <connections>
                                     <action selector="disconnectTouchUpInside:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="pW7-6W-9ql"/>
                                 </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WhJ-dJ-pFM">
-                                <rect key="frame" x="219" y="56" width="30" height="30"/>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Vi-sU-mGP">
                                 <rect key="frame" x="108" y="0.0" width="91" height="30"/>
@@ -182,7 +177,6 @@
                         <outlet property="view" destination="kh9-bI-dsS" id="qEk-cq-ubc"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="278" y="272"/>
         </scene>

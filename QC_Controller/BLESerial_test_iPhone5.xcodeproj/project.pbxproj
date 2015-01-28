@@ -16,6 +16,7 @@
 		772EFA211A12043D008C169E /* key_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 772EFA1D1A12043D008C169E /* key_up.png */; };
 		772EFA231A12047E008C169E /* top_bar_line.png in Resources */ = {isa = PBXBuildFile; fileRef = 772EFA221A12047E008C169E /* top_bar_line.png */; };
 		77FABE561A12471000A03858 /* key_w.png in Resources */ = {isa = PBXBuildFile; fileRef = 77FABE551A12471000A03858 /* key_w.png */; };
+		7AACCB891A78F99600443168 /* RightSlideMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AACCB881A78F99600443168 /* RightSlideMenuView.m */; };
 		CD39CDD218322D0900B137E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39CDD118322D0900B137E6 /* Foundation.framework */; };
 		CD39CDD418322D0900B137E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39CDD318322D0900B137E6 /* CoreGraphics.framework */; };
 		CD39CDD618322D0900B137E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39CDD518322D0900B137E6 /* UIKit.framework */; };
@@ -55,6 +56,8 @@
 		772EFA1D1A12043D008C169E /* key_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_up.png; sourceTree = "<group>"; };
 		772EFA221A12047E008C169E /* top_bar_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = top_bar_line.png; sourceTree = "<group>"; };
 		77FABE551A12471000A03858 /* key_w.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_w.png; sourceTree = "<group>"; };
+		7AACCB881A78F99600443168 /* RightSlideMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightSlideMenuView.m; sourceTree = "<group>"; };
+		7AACCB8A1A78F9A400443168 /* RightSlideMenuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RightSlideMenuView.h; sourceTree = "<group>"; };
 		CD39CDD118322D0900B137E6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CD39CDD318322D0900B137E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		CD39CDD518322D0900B137E6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -146,6 +149,8 @@
 				CD39CDE318322D0900B137E6 /* Main_iPhone.storyboard */,
 				CD39CDE618322D0900B137E6 /* Main_iPad.storyboard */,
 				CD39CDE918322D0900B137E6 /* ViewController.h */,
+				7AACCB8A1A78F9A400443168 /* RightSlideMenuView.h */,
+				7AACCB881A78F99600443168 /* RightSlideMenuView.m */,
 				CD39CDEA18322D0A00B137E6 /* ViewController.m */,
 				CD39CDEC18322D0A00B137E6 /* Images.xcassets */,
 				CD39CE0F18322FCB00B137E6 /* BLEBaseClass.h */,
@@ -294,6 +299,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AACCB891A78F99600443168 /* RightSlideMenuView.m in Sources */,
 				CD39CDEB18322D0A00B137E6 /* ViewController.m in Sources */,
 				CD39CE1118322FCB00B137E6 /* BLEBaseClass.m in Sources */,
 				CD39CDE218322D0900B137E6 /* AppDelegate.m in Sources */,
