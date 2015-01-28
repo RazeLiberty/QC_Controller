@@ -75,6 +75,9 @@
 - (IBAction)cameraOn:(id)sender;
 - (IBAction)cameraOff:(id)sender;
 
+//設定ボタン
+- (IBAction)setting:(id)sender;
+
 @end
 
 @implementation ViewController
@@ -175,6 +178,71 @@
 - (IBAction)cameraOff:(id)sender {
     [self stop];
 }
+
+- (IBAction)setting:(id)sender {
+    [self setting];
+}
+-(void)setting
+{
+    //アクションシート表示
+    // コントローラを生成
+    UIAlertController * ac =
+    [UIAlertController alertControllerWithTitle:nil
+                                        message:nil
+                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    // Cancel用のアクションを生成
+    UIAlertAction * cancelAction =
+    [UIAlertAction actionWithTitle:@"NO"
+                             style:UIAlertActionStyleDefault
+                           handler:^(UIAlertAction * action) {
+                               // ボタンタップ時の処理
+                               NSLog(@"Cancel button tapped.");
+                           }];
+    
+    UIAlertAction * thlottleAction =
+    [UIAlertAction actionWithTitle:@"スロットル補正"
+                             style:UIAlertActionStyleDefault
+                           handler:^(UIAlertAction * action) {
+                               // ボタンタップ時の処理
+                               NSLog(@"Thlottle button tapped.");
+                               
+                               
+                           }];
+    
+    /*
+    // Destructive用のアクションを生成
+    UIAlertAction * destructiveAction =
+    [UIAlertAction actionWithTitle:@"YES"
+                             style:UIAlertActionStyleDestructive
+                           handler:^(UIAlertAction * action) {
+                               // ボタンタップ時の処理
+                               NSLog(@"Destructive button tapped.");
+                               
+                               //ここに処理を書く
+                           }];
+    */
+     /*
+     // OK用のアクションを生成
+     UIAlertAction * okAction =
+     [UIAlertAction actionWithTitle:@"OK"
+     style:UIAlertActionStyleDefault
+     handler:^(UIAlertAction * action) {
+     // ボタンタップ時の処理
+     NSLog(@"OK button tapped.");
+     }];
+     */
+    // コントローラにアクションを追加
+    [ac addAction:cancelAction];
+    [ac addAction:thlottleAction];
+    //[ac addAction:destructiveAction];
+    // [ac addAction:okAction];
+    
+    // アクションシート表示処理
+    [self presentViewController:ac animated:YES completion:nil];
+
+}
+
 -(void)logm3u8
 {
     NSError *error;

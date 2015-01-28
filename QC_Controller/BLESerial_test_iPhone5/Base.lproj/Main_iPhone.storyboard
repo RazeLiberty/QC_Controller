@@ -148,12 +148,6 @@
                                     <action selector="disconnectTouchUpInside:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="pW7-6W-9ql"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WhJ-dJ-pFM">
-                                <rect key="frame" x="219" y="56" width="30" height="30"/>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Vi-sU-mGP">
                                 <rect key="frame" x="108" y="0.0" width="91" height="30"/>
                                 <state key="normal" title="CAMERA ON">
@@ -170,6 +164,15 @@
                                 </state>
                                 <connections>
                                     <action selector="cameraOff:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="qKH-dH-VVV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g2B-l1-OJ9">
+                                <rect key="frame" x="488" y="58" width="49" height="30"/>
+                                <state key="normal" title="Setting">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="setting:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="RY5-eb-BaH"/>
                                 </connections>
                             </button>
                         </subviews>
