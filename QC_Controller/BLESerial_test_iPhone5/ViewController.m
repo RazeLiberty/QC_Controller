@@ -91,16 +91,16 @@
     appDelegate.viewController = self;
     
     /*
-    //---センサー値結果のテキストフィールド生成---
-    _textField=[[UITextField alloc] init];
-    [_textField setFrame:CGRectMake(10,50,300,50)];  //位置と大きさ設定
-    [_textField setText:@"OFFLINE"];
-    [_textField setBackgroundColor:[UIColor whiteColor]];
-    [_textField setBorderStyle:UITextBorderStyleRoundedRect];
-    _textField.font = [UIFont fontWithName:@"Helvetica" size:30];
-    //テキストフィールドタッチ無効化
-    _textField.enabled = NO;
-    [self.view addSubview:_textField];
+     //---センサー値結果のテキストフィールド生成---
+     _textField=[[UITextField alloc] init];
+     [_textField setFrame:CGRectMake(10,50,300,50)];  //位置と大きさ設定
+     [_textField setText:@"OFFLINE"];
+     [_textField setBackgroundColor:[UIColor whiteColor]];
+     [_textField setBorderStyle:UITextBorderStyleRoundedRect];
+     _textField.font = [UIFont fontWithName:@"Helvetica" size:30];
+     //テキストフィールドタッチ無効化
+     _textField.enabled = NO;
+     [self.view addSubview:_textField];
      */
     
     //connectフラグをFALSEにセット
