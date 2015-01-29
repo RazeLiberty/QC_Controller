@@ -86,21 +86,21 @@
     //マルチスレッド起動
     [self otherThread];
     
-	//AppDelegateのviewController 変数に自分(ViewController)を代入
+    //AppDelegateのviewController 変数に自分(ViewController)を代入
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.viewController = self;
     
     /*
-    //---センサー値結果のテキストフィールド生成---
-    _textField=[[UITextField alloc] init];
-    [_textField setFrame:CGRectMake(10,50,300,50)];  //位置と大きさ設定
-    [_textField setText:@"OFFLINE"];
-    [_textField setBackgroundColor:[UIColor whiteColor]];
-    [_textField setBorderStyle:UITextBorderStyleRoundedRect];
-    _textField.font = [UIFont fontWithName:@"Helvetica" size:30];
-    //テキストフィールドタッチ無効化
-    _textField.enabled = NO;
-    [self.view addSubview:_textField];
+     //---センサー値結果のテキストフィールド生成---
+     _textField=[[UITextField alloc] init];
+     [_textField setFrame:CGRectMake(10,50,300,50)];  //位置と大きさ設定
+     [_textField setText:@"OFFLINE"];
+     [_textField setBackgroundColor:[UIColor whiteColor]];
+     [_textField setBorderStyle:UITextBorderStyleRoundedRect];
+     _textField.font = [UIFont fontWithName:@"Helvetica" size:30];
+     //テキストフィールドタッチ無効化
+     _textField.enabled = NO;
+     [self.view addSubview:_textField];
      */
     
     //connectフラグをFALSEにセット
@@ -111,10 +111,10 @@
     _disconnectButtonStatus.enabled = FALSE;
     
     //	BLEBaseClassの初期化
-	_BaseClass = [[BLEBaseClass alloc] init];
-	//	周りのBLEデバイスからのadvertise情報のスキャンを開始する
-	[_BaseClass scanDevices:nil];
-	_Device = 0;
+    _BaseClass = [[BLEBaseClass alloc] init];
+    //	周りのBLEデバイスからのadvertise情報のスキャンを開始する
+    [_BaseClass scanDevices:nil];
+    _Device = 0;
     NSLog(@"viewdidload");
 }
 
@@ -123,6 +123,72 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+//================================================================================
+// メニュー実装
+//================================================================================
+// 「選択」ボタンがタップされたときに呼び出されるメソッド
+- (IBAction)openTableView:(id)sender {
+    // PickerViewControllerのインスタンスをStoryboardから取得し
+    self.tableViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"TableViewController"];
+    self.tableViewController.delegate = self;
+    
+    // PickerViewをサブビューとして表示する
+    // 表示するときはアニメーションをつけて下から上にゆっくり表示させる
+    
+    // アニメーション完了時のPickerViewの位置を計算
+    UIView *tableView = self.tableViewController.view;
+    CGPoint middleCenter = tableView.center;
+    
+    // アニメーション開始時のPickerViewの位置を計算
+    UIWindow* mainWindow = (((AppDelegate*) [UIApplication sharedApplication].delegate).window);
+    CGSize offSize = [UIScreen mainScreen].bounds.size;
+    CGPoint offScreenCenter = CGPointMake(offSize.width / 2.0, offSize.height * 1.5);
+    tableView.center = offScreenCenter;
+    
+    [mainWindow addSubview:tableView];
+    
+    // アニメーションを使ってPickerViewをアニメーション完了時の位置に表示されるようにする
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.5];
+    tableView.center = middleCenter;
+    [UIView commitAnimations];
+}
+/*
+ // PickerViewのある行が選択されたときに呼び出されるPickerViewControllerDelegateプロトコルのデリゲートメソッド
+ - (void)applySelectedString:(NSString *)str
+ {
+ self.selectedStringLabel.text = str;
+ }
+ */
+// PickerViewController上にある透明ボタンがタップされたときに呼び出されるPickerViewControllerDelegateプロトコルのデリゲートメソッド
+- (void)closeTableView:(TableViewController *)controller
+{
+    // PickerViewをアニメーションを使ってゆっくり非表示にする
+    UIView *tableView = controller.view;
+    
+    // アニメーション完了時のPickerViewの位置を計算
+    CGSize offSize = [UIScreen mainScreen].bounds.size;
+    CGPoint offScreenCenter = CGPointMake(offSize.width / 2.0, offSize.height * 1.5);
+    
+    [UIView beginAnimations:nil context:(void *)tableView];
+    [UIView setAnimationDuration:0.3];
+    [UIView setAnimationDelegate:self];
+    // アニメーション終了時に呼び出す処理を設定
+    [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+    tableView.center = offScreenCenter;
+    [UIView commitAnimations];
+}
+
+// 単位のPickerViewを閉じるアニメーションが終了したときに呼び出されるメソッド
+- (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+    // PickerViewをサブビューから削除
+    UIView *tableView = (__bridge UIView *)context;
+    [tableView removeFromSuperview];
+}
+
 
 //================================================================================
 // GoPro　ストリーミング処理
@@ -153,7 +219,7 @@
     player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
     
     //再生準備
-//    [theMovie prepareToPlay];
+    //    [theMovie prepareToPlay];
     
     // モーダルとして表示させる
     //[self presentMoviePlayerViewControllerAnimated:player];
@@ -194,7 +260,7 @@
     
     // 3秒後に処理を実行
     dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC));
-
+    
     dispatch_after(time, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         [self performSelectorInBackground:@selector(loopBackground) withObject:nil /*waitUntilDone:YES*/];
     });
@@ -261,27 +327,27 @@
 //================================================================================
 - (void)didUpdateValueForCharacteristic:(BLEDeviceClass *)device Characteristic:(CBCharacteristic *)characteristic
 {
-	if (device == _Device)	{
-		//	キャラクタリスティックを扱う為のクラスを取得し
-		//	通知されたキャラクタリスティックと比較し同じであれば
-		//	bufに結果を格納
+    if (device == _Device)	{
+        //	キャラクタリスティックを扱う為のクラスを取得し
+        //	通知されたキャラクタリスティックと比較し同じであれば
+        //	bufに結果を格納
         //iPhone->Device
-		CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
-		if (characteristic == rx)	{
+        CBCharacteristic*	rx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_RX];
+        if (characteristic == rx)	{
             //			uint8_t*	buf = (uint8_t*)[characteristic.value bytes]; //bufに結果が入る
             //            NSLog(@"value=%@",characteristic.value);
-			return;
-		}
+            return;
+        }
         
         //Device->iPhone
-		CBCharacteristic*	tx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_TX];
-		if (characteristic == tx)	{
-//            NSLog(@"Receive value=%@",characteristic.value);
+        CBCharacteristic*	tx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_TX];
+        if (characteristic == tx)	{
+            //            NSLog(@"Receive value=%@",characteristic.value);
             uint8_t*	buf = (uint8_t*)[characteristic.value bytes]; //bufに結果が入る
             _textField.text = [NSString stringWithFormat:@"%x", buf[0]];
-			return;
-		}
-	}
+            return;
+        }
+    }
 }
 
 //================================================================================
@@ -311,19 +377,19 @@
 // connect処理
 //================================================================================
 -(void)connect {
-
-    //	UUID_DEMO_SERVICEサービスを持っているデバイスに接続する
-	_Device = [_BaseClass connectService:UUID_VSP_SERVICE];
-	
-    if (_Device)	{
-		//	接続されたのでスキャンを停止する
-		[_BaseClass scanStop];
     
+    //	UUID_DEMO_SERVICEサービスを持っているデバイスに接続する
+    _Device = [_BaseClass connectService:UUID_VSP_SERVICE];
+    
+    if (_Device)	{
+        //	接続されたのでスキャンを停止する
+        [_BaseClass scanStop];
+        
         //connectフラグ
         _connectFlag = TRUE;
         
         //	キャラクタリスティックの値を読み込んだときに自身をデリゲートに指定
-		_Device.delegate = self;
+        _Device.delegate = self;
         
         //        [_BaseClass printDevices];
         
@@ -331,28 +397,28 @@
         _connectButtonStatus.enabled    = FALSE;
         _disconnectButtonStatus.enabled = TRUE;
         
-		//	tx(Device->iPhone)のnotifyをセット
-		CBCharacteristic*	tx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_TX];
-		if (tx)	{
+        //	tx(Device->iPhone)のnotifyをセット
+        CBCharacteristic*	tx = [_Device getCharacteristic:UUID_VSP_SERVICE characteristic:UUID_TX];
+        if (tx)	{
             //            [_Device readRequest:tx];
-			[_Device notifyRequest:tx];
-		}
-	}
+            [_Device notifyRequest:tx];
+        }
+    }
 }
 
 //================================================================================
 // disconnect処理
 //================================================================================
 - (void)disconnect {
-
+    
     //disconnectする前に緊急停止を行う
     [self emergencyStop];
     
-	if (_Device)	{
-		//	UUID_DEMO_SERVICEサービスを持っているデバイスから切断する
-		[_BaseClass disconnectService:UUID_VSP_SERVICE];
-		_Device = 0;
-
+    if (_Device)	{
+        //	UUID_DEMO_SERVICEサービスを持っているデバイスから切断する
+        [_BaseClass disconnectService:UUID_VSP_SERVICE];
+        _Device = 0;
+        
         //connectフラグ
         _connectFlag = FALSE;
         
@@ -360,17 +426,17 @@
         _connectButtonStatus.enabled    = TRUE;
         _disconnectButtonStatus.enabled = FALSE;
         _textField.text                 = @"OFFLINE";
-         
-		//	周りのBLEデバイスからのadvertise情報のスキャンを開始する
-		[_BaseClass scanDevices:nil];
-	}
+        
+        //	周りのBLEデバイスからのadvertise情報のスキャンを開始する
+        [_BaseClass scanDevices:nil];
+    }
 }
 
 //================================================================================
 // 緊急停止処理
 //================================================================================
 - (void)emergencyStop {
-
+    
     _textField.text = (@"EMERGENCY");
     [self sendData:EMERGENCY_STOP_DATA];
     
@@ -415,7 +481,7 @@
 }
 
 - (IBAction)wKeyTouchDown:(id)sender {
-
+    
     _textField.text = (@"PITCH_PLUS");
     [self sendData:PITCH_PLUS_DATA];
 }
@@ -442,14 +508,14 @@
 // 操作キーを離した時の処理　　　タップ　　離した場所でQuadCopter停止処理
 //================================================================================
 - (IBAction)rightKeyTouchUpInside:(id)sender {
-
+    
     _textField.text = (@"rightKeyTUI");
     //_connectFlag = FALSE;
     //NSLog(@"接続切ったぜ");
     [self sendData:CURRENT_STOP_DATA];
 }
 - (IBAction)leftKeyTouchUpInside:(id)sender {
-
+    
     _textField.text = (@"leftKeyTUI");
     [self sendData:CURRENT_STOP_DATA];
 }
@@ -482,6 +548,52 @@
     
     _textField.text = (@"dKeyTUI");
     [self sendData:CURRENT_STOP_DATA];
+}
+
+@end
+
+
+
+@interface TableViewController ()
+
+@end
+
+@implementation TableViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    // TableViewのデリゲート先とデータソースをこのクラスに設定
+    self.table.delegate = self;
+    //self.table.dataSource = self;
+}
+/*
+ // TableViewで要素が選択されたときに呼び出されるメソッド
+ - (void)tableView:(UITableView *)tableView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+ // デリゲート先の処理を呼び出し、選択された文字列を親Viewに表示させる
+ [self.delegate applySelectedString:[NSString stringWithFormat:@"%d", row]];
+ }
+ */
+// TableViewの列数を指定するメソッド
+- (NSInteger)numberOfComponentsInTableView:(UITableView*)tableView {
+    return 1;
+}
+
+// TableViewに表示する行数を指定するメソッド
+-(NSInteger)tableView:(UITableView*)tableView numberOfRowsInComponent:(NSInteger)component {
+    return 10;
+}
+
+// TableViewの各行に表示する文字列を指定するメソッド
+-(NSString*)tableView:(UITableView*)tableView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    return [NSString stringWithFormat:@"%d", row];
+}
+
+// 空の領域にある透明なボタンがタップされたときに呼び出されるメソッド
+- (IBAction)closeTableView:(id)sender {
+    // TableViewを閉じるための処理を呼び出す
+    [self.delegate closeTableView:self];
 }
 
 @end
