@@ -16,13 +16,13 @@
 		772EFA211A12043D008C169E /* key_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 772EFA1D1A12043D008C169E /* key_up.png */; };
 		772EFA231A12047E008C169E /* top_bar_line.png in Resources */ = {isa = PBXBuildFile; fileRef = 772EFA221A12047E008C169E /* top_bar_line.png */; };
 		77FABE561A12471000A03858 /* key_w.png in Resources */ = {isa = PBXBuildFile; fileRef = 77FABE551A12471000A03858 /* key_w.png */; };
+		7A731DFE1A7A3F260056ED85 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A731DFD1A7A3F260056ED85 /* Main_iPhone.storyboard */; };
 		CD39CDD218322D0900B137E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39CDD118322D0900B137E6 /* Foundation.framework */; };
 		CD39CDD418322D0900B137E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39CDD318322D0900B137E6 /* CoreGraphics.framework */; };
 		CD39CDD618322D0900B137E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39CDD518322D0900B137E6 /* UIKit.framework */; };
 		CD39CDDC18322D0900B137E6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD39CDDA18322D0900B137E6 /* InfoPlist.strings */; };
 		CD39CDDE18322D0900B137E6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CD39CDDD18322D0900B137E6 /* main.m */; };
 		CD39CDE218322D0900B137E6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CD39CDE118322D0900B137E6 /* AppDelegate.m */; };
-		CD39CDE518322D0900B137E6 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD39CDE318322D0900B137E6 /* Main_iPhone.storyboard */; };
 		CD39CDE818322D0900B137E6 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD39CDE618322D0900B137E6 /* Main_iPad.storyboard */; };
 		CD39CDEB18322D0A00B137E6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD39CDEA18322D0A00B137E6 /* ViewController.m */; };
 		CD39CDED18322D0A00B137E6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD39CDEC18322D0A00B137E6 /* Images.xcassets */; };
@@ -55,6 +55,7 @@
 		772EFA1D1A12043D008C169E /* key_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_up.png; sourceTree = "<group>"; };
 		772EFA221A12047E008C169E /* top_bar_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = top_bar_line.png; sourceTree = "<group>"; };
 		77FABE551A12471000A03858 /* key_w.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_w.png; sourceTree = "<group>"; };
+		7A731DFD1A7A3F260056ED85 /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		CD39CDD118322D0900B137E6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CD39CDD318322D0900B137E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		CD39CDD518322D0900B137E6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -64,7 +65,6 @@
 		CD39CDDF18322D0900B137E6 /* BLESerial_test_iPhone5-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BLESerial_test_iPhone5-Prefix.pch"; sourceTree = "<group>"; };
 		CD39CDE018322D0900B137E6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CD39CDE118322D0900B137E6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		CD39CDE418322D0900B137E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		CD39CDE718322D0900B137E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		CD39CDE918322D0900B137E6 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		CD39CDEA18322D0A00B137E6 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
@@ -143,7 +143,7 @@
 			children = (
 				CD39CDE018322D0900B137E6 /* AppDelegate.h */,
 				CD39CDE118322D0900B137E6 /* AppDelegate.m */,
-				CD39CDE318322D0900B137E6 /* Main_iPhone.storyboard */,
+				7A731DFD1A7A3F260056ED85 /* Main_iPhone.storyboard */,
 				CD39CDE618322D0900B137E6 /* Main_iPad.storyboard */,
 				CD39CDE918322D0900B137E6 /* ViewController.h */,
 				CD39CDEA18322D0A00B137E6 /* ViewController.m */,
@@ -267,12 +267,12 @@
 				772EFA181A12008B008C169E /* key_s.png in Resources */,
 				772EFA161A12008B008C169E /* key_a.png in Resources */,
 				77FABE561A12471000A03858 /* key_w.png in Resources */,
+				7A731DFE1A7A3F260056ED85 /* Main_iPhone.storyboard in Resources */,
 				772EFA1F1A12043D008C169E /* key_left.png in Resources */,
 				CD39CDE818322D0900B137E6 /* Main_iPad.storyboard in Resources */,
 				CD39CDED18322D0A00B137E6 /* Images.xcassets in Resources */,
 				772EFA211A12043D008C169E /* key_up.png in Resources */,
 				772EFA1E1A12043D008C169E /* key_down.png in Resources */,
-				CD39CDE518322D0900B137E6 /* Main_iPhone.storyboard in Resources */,
 				772EFA201A12043D008C169E /* key_right.png in Resources */,
 				772EFA191A12008B008C169E /* key_d.png in Resources */,
 				CD39CDDC18322D0900B137E6 /* InfoPlist.strings in Resources */,
@@ -326,14 +326,6 @@
 				CD39CDDB18322D0900B137E6 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		CD39CDE318322D0900B137E6 /* Main_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CD39CDE418322D0900B137E6 /* Base */,
-			);
-			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
 		};
 		CD39CDE618322D0900B137E6 /* Main_iPad.storyboard */ = {
