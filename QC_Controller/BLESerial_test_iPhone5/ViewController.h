@@ -16,14 +16,19 @@
     //Boolean* cameraFlag;     //カメラ接続フラグ
 }
 
+//Bluetooth通信
 - (void)connect;
 - (void)disconnect;
 - (void)emergencyStop;
 
+//マルチスレッド
 - (void)otherThread;
 - (void)loopBackground;
 
+//カメラストリーミング
 - (void)play;
 - (void)stop;
+
+- (void)inputMenuview;  //メニュービュー
 
 @end

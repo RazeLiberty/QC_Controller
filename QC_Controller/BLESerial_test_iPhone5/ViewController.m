@@ -41,11 +41,14 @@
 @property (strong)		BLEBaseClass*	BaseClass;
 @property (readwrite)	BLEDeviceClass*	Device;
 
-@property BOOL connectFlag;     //接続フラグ
+//メニュービュー
+@property (strong, nonatomic) IBOutlet UIView* menuView;
+
 
 //ボタンステータス
 @property (weak, nonatomic) IBOutlet UIButton *connectButtonStatus;
 @property (weak, nonatomic) IBOutlet UIButton *disconnectButtonStatus;
+@property BOOL connectFlag;     //接続フラグ
 
 //タッチダウン
 - (IBAction)rightKeyTouchDown:(id)sender;
@@ -82,6 +85,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //inputSubViewを実行
+    [self inputMenuview];
     
     //マルチスレッド起動
     [self otherThread];
@@ -122,6 +128,16 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+//メニュー表示
+- (void)inputMenuview
+{
+    //ビューの座標指定、サイズ指定
+    _menuView =[[UIView alloc] initWithFrame:CGRectMake(100,100,100,100)];
+    //背景色設定
+    _menuView.backgroundColor =  [UIColor colorWithRed:0.0 green:0.0 blue:0.4 alpha:0.4];
+    [self.view addSubview:_menuView];
 }
 
 //================================================================================
