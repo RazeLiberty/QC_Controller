@@ -45,17 +45,32 @@
 @interface ViewController : UIViewController <TableViewControllerDelegate> {
     
     UITextField* _textField;
+    
+    
+    
+    MPMoviePlayerViewController *player;
     MPMoviePlayerController* theMovie;
+    
+    
     //Boolean* cameraFlag;     //カメラ接続フラグ
+    //メインスレッド用のキューを定義
+   // dispatch_queue_t main_queue;
+    dispatch_queue_t stream_queue;
     
 }
+//Bluetooth　データ送信
 - (void)connect;
 - (void)disconnect;
 - (void)emergencyStop;
 
+//マルチスレッド
 - (void)otherThread;
 - (void)loopBackground;
 
+- (void)streamThread;
+
+
+//ストリーミング
 - (void)play;
 - (void)stop;
 

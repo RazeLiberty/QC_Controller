@@ -109,6 +109,14 @@
     //マルチスレッド起動
     [self otherThread];
     
+    
+    //メインスレッド用のキューを取得する
+    //main_queue  = dispatch_get_main_queue();
+    //別スレッド用のキューを作成する(第1引数は任意の文字列、第2引数は0固定)
+    // ストリーミング　スレッド作成
+    stream_queue = dispatch_queue_create("Streaming", 0);
+    [self streamThread];
+    
     //AppDelegateのviewController 変数に自分(ViewController)を代入
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.viewController = self;
@@ -212,14 +220,14 @@
     [tableView removeFromSuperview];
 }
 
-
+//#if 0
 //================================================================================
 // GoPro　ストリーミング処理
 //================================================================================
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+#if 0
     //AppDelegateのviewController 変数に自分(ViewController)を代入
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.playerView = self;
@@ -233,7 +241,7 @@
     theMovie.controlStyle = MPMovieControlStyleNone;
     theMovie.shouldAutoplay = TRUE;
     theMovie.view.frame = /*self.view.bounds;*/CGRectMake(0, 0, 1024, 768);//WVGA 800 480   //1024 768
-    
+#endif
     //プログラムからビューを生成
     [self.view addSubview:player.view];
     // 重なり順を最背面に
@@ -248,6 +256,7 @@
     //[self presentMoviePlayerViewControllerAnimated:player];
     
 }
+//#endif
 -(void)play
 {
     [theMovie play];
@@ -275,7 +284,7 @@
 
 
 //================================================================================
-// マルチスレッド処理    空データを送り続ける
+// マルチスレッド処理    ・空データを送り続ける
 //================================================================================
 -(void)otherThread {
     NSLog(@"ふううううううううううう");
@@ -287,10 +296,11 @@
     dispatch_after(time, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         [self performSelectorInBackground:@selector(loopBackground) withObject:nil /*waitUntilDone:YES*/];
     });
+    
 }
 //バックグラウンドでループ処理
 -(void)loopBackground {
-    NSLog(@"サブスレッド開始");
+    NSLog(@"ループスレッド開始");
     //起動したまま待機
     while (YES) {
         
@@ -325,6 +335,64 @@
         NSLog(@"データ送信処理　完了");
         
     }
+}
+//================================================================================
+// マルチスレッド処理    ストリーミング
+//================================================================================
+- (void)streamThread
+{
+    NSLog(@"ストリームスレッド開始");
+    //別スレッド処理を本ブロック内に記述する
+    dispatch_async(stream_queue, ^{
+        
+        //時間を要する処理を以下に記述する
+        
+        NSLog(@"ストリームスレッドで処理開始");
+        
+        //AppDelegateのviewController 変数に自分(ViewController)を代入
+        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        appDelegate.playerView = self;
+        
+        // MPMoviePlayerViewController作成
+        player = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:@"http://10.5.5.9:8080/live/amba.m3u8"]];
+        
+        theMovie = [player moviePlayer];
+        theMovie.scalingMode = MPMovieScalingModeAspectFit;
+        theMovie.fullscreen = TRUE;
+        theMovie.controlStyle = MPMovieControlStyleNone;
+        theMovie.shouldAutoplay = TRUE;
+        theMovie.view.frame = /*self.view.bounds;*/CGRectMake(0, 0, 1024, 768);//WVGA 800 480   //1024 768
+        /*
+        //プログラムからビューを生成
+        [self.view addSubview:player.view];
+        // 重なり順を最背面に
+        [self.view sendSubviewToBack:player.view];
+        */
+        player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
+        
+        //再生準備
+        //    [theMovie prepareToPlay];
+        
+        // モーダルとして表示させる
+        //[self presentMoviePlayerViewControllerAnimated:player];
+        
+        //↑↑↑ 例として時間を要する意味の無い処理を実行 ↑↑↑
+#if 0
+        //画面に結果を返却する場合はメインスレッド上で行う必要がある
+        dispatch_async(main_queue, ^{
+            
+            //別スレッドの処理結果を画面に表示する処理を記述する
+            //プログラムからビューを生成
+            [self.view addSubview:player.view];
+            // 重なり順を最背面に
+            [self.view sendSubviewToBack:player.view];
+            
+          //  [theMovie prepareToPlay];
+            
+            NSLog(@"処理完了");
+        });
+#endif
+    });
 }
 
 //================================================================================
