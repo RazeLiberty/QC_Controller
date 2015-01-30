@@ -21,8 +21,10 @@
 #define EMERGENCY_STOP_DATA 0xe1                                   // 緊急停止
 #define THROTTLE_PLUS_DATA  0x71                                   // ↑
 #define THROTTLE_MINUS_DATA 0x72                                   // ↓
+#define THROTTLE_CURRENT_DATA 0x73                                   // 今の位置で止まる
 #define YAW_PLUS_DATA       0x81                                   // →
 #define YAW_MINUS_DATA      0x82                                   // ←
+#define YAW_CURRENT_DATA    0x83                                   // 今の位置で止まる
 #define ROLL_PLUS_DATA      0x91                                   // D
 #define ROLL_MINUS_DATA     0x92                                   // A
 #define CURRENT_STOP_DATA   0x93                                   // 今の位置で停まる
@@ -512,22 +514,22 @@
     _textField.text = (@"rightKeyTUI");
     //_connectFlag = FALSE;
     //NSLog(@"接続切ったぜ");
-    [self sendData:CURRENT_STOP_DATA];
+    [self sendData:YAW_CURRENT_DATA];
 }
 - (IBAction)leftKeyTouchUpInside:(id)sender {
     
     _textField.text = (@"leftKeyTUI");
-    [self sendData:CURRENT_STOP_DATA];
+    [self sendData:YAW_CURRENT_DATA];
 }
 - (IBAction)upKeyTouchUpInside:(id)sender {
     
     _textField.text = (@"upKeyTUI");
-    [self sendData:CURRENT_STOP_DATA];
+    [self sendData:THROTTLE_CURRENT_DATA];
 }
 - (IBAction)downKeyTouchUpInside:(id)sender {
     
     _textField.text = (@"downKeyTUI");
-    [self sendData:CURRENT_STOP_DATA];
+    [self sendData:THROTTLE_CURRENT_DATA];
 }
 - (IBAction)wKeyTouchUpInside:(id)sender {
     
