@@ -27,7 +27,7 @@
 #define YAW_CURRENT_DATA    0x83                                   // 今の位置で止まる
 #define ROLL_PLUS_DATA      0x91                                   // D
 #define ROLL_MINUS_DATA     0x92                                   // A
-#define CURRENT_STOP_DATA   0x93                                   // 今の位置で停まる
+#define YAW_PITCH_CURRENT_STOP_DATA   0x93                                   // 今の位置で停まる
 #define PITCH_PLUS_DATA     0x94                                   // W
 #define PITCH_MINUS_DATA    0x95                                   // S
 
@@ -441,7 +441,7 @@
     
     _textField.text = (@"EMERGENCY");
     [self sendData:EMERGENCY_STOP_DATA];
-    
+    NSLog(@"FLIGHT_MODE_DATA");
 }
 
 //================================================================================
@@ -451,6 +451,7 @@
     
     _textField.text = (@"FLIGHT_MODE_ON");
     [self sendData:FLIGHT_MODE_DATA];
+    NSLog(@"FLIGHT_MODE_DATA");
 }
 
 //================================================================================
@@ -462,48 +463,56 @@
     //NSLog(@"接続したぜ");
     _textField.text = (@"YAW_PLUS");
     [self sendData:YAW_PLUS_DATA];
+    NSLog(@"YAW_PLUS");
 }
 
 - (IBAction)leftKeyTouchDown:(id)sender {
     
     _textField.text = (@"YAW_MINUS");
     [self sendData:YAW_MINUS_DATA];
+    NSLog(@"YAW_MINUS");
 }
 
 - (IBAction)upKeyTouchDown:(id)sender {
     
     _textField.text = (@"THROTTLE_PLUS");
     [self sendData:THROTTLE_PLUS_DATA];
+    NSLog(@"THROTTLE_PLUS");
 }
 
 - (IBAction)downKeyTouchDown:(id)sender {
     
     _textField.text = (@"THROTTLE_MINUS");
     [self sendData:THROTTLE_MINUS_DATA];
+    NSLog(@"THROTTLE_MINUS");
 }
 
 - (IBAction)wKeyTouchDown:(id)sender {
     
     _textField.text = (@"PITCH_PLUS");
     [self sendData:PITCH_PLUS_DATA];
+    NSLog(@"PITCH_PLUS");
 }
 
 - (IBAction)aKeyTouchDown:(id)sender {
     
     _textField.text = (@"ROLL_MINUS");
     [self sendData:ROLL_MINUS_DATA];
+    NSLog(@"ROLL_MINUS");
 }
 
 - (IBAction)sKeyTouchDown:(id)sender {
     
     _textField.text = (@"PITCH_MINUS");
     [self sendData:PITCH_MINUS_DATA];
+    NSLog(@"PITCH_MINUS");
 }
 
 - (IBAction)dKeyTouchDown:(id)sender {
     
     _textField.text = (@"ROLL_PLUS");
     [self sendData:ROLL_PLUS_DATA];
+    NSLog(@"ROLL_PLUS");
 }
 
 //================================================================================
@@ -515,41 +524,49 @@
     //_connectFlag = FALSE;
     //NSLog(@"接続切ったぜ");
     [self sendData:YAW_CURRENT_DATA];
+    NSLog(@"YAW_CURRENT_DATA");
 }
 - (IBAction)leftKeyTouchUpInside:(id)sender {
     
     _textField.text = (@"leftKeyTUI");
     [self sendData:YAW_CURRENT_DATA];
+    NSLog(@"YAW_CURRENT_DATA");
 }
 - (IBAction)upKeyTouchUpInside:(id)sender {
     
     _textField.text = (@"upKeyTUI");
     [self sendData:THROTTLE_CURRENT_DATA];
+    NSLog(@"THROTTLE_CURRENT_DATA");
 }
 - (IBAction)downKeyTouchUpInside:(id)sender {
     
     _textField.text = (@"downKeyTUI");
     [self sendData:THROTTLE_CURRENT_DATA];
+    NSLog(@"THROTTLE_CURRENT_DATA");
 }
 - (IBAction)wKeyTouchUpInside:(id)sender {
     
     _textField.text = (@"wKeyTUI");
-    [self sendData:CURRENT_STOP_DATA];
+    [self sendData:YAW_PITCH_CURRENT_STOP_DATA];
+    NSLog(@"YAW_PITCH_CURRENT_STOP_DATA");
 }
 - (IBAction)aKeyTouchUpInside:(id)sender {
     
     _textField.text = (@"aKeyTUI");
-    [self sendData:CURRENT_STOP_DATA];
+    [self sendData:YAW_PITCH_CURRENT_STOP_DATA];
+    NSLog(@"YAW_PITCH_CURRENT_STOP_DATA");
 }
 - (IBAction)sKeyTouchUpInside:(id)sender {
     
     _textField.text = (@"sKeyTUI");
-    [self sendData:CURRENT_STOP_DATA];
+    [self sendData:YAW_PITCH_CURRENT_STOP_DATA];
+    NSLog(@"YAW_PITCH_CURRENT_STOP_DATA");
 }
 - (IBAction)dKeyTouchUpInside:(id)sender {
     
     _textField.text = (@"dKeyTUI");
-    [self sendData:CURRENT_STOP_DATA];
+    [self sendData:YAW_PITCH_CURRENT_STOP_DATA];
+    NSLog(@"YAW_PITCH_CURRENT_STOP_DATA");
 }
 
 @end
