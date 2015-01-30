@@ -48,6 +48,8 @@
     MPMoviePlayerController* theMovie;
     //Boolean* cameraFlag;     //カメラ接続フラグ
     
+    dispatch_queue_t sub_queue;
+    
 }
 - (void)connect;
 - (void)disconnect;

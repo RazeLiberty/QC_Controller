@@ -216,6 +216,7 @@
 //================================================================================
 // GoPro　ストリーミング処理
 //================================================================================
+#if 0
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -245,9 +246,57 @@
     //    [theMovie prepareToPlay];
     
     // モーダルとして表示させる
-    //[self presentMoviePlayerViewControllerAnimated:player];
+    [self presentMoviePlayerViewControllerAnimated:player];
     
 }
+#endif
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    //AppDelegateのviewController 変数に自分(ViewController)を代入
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    appDelegate.playerView = self;
+    /*
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    if (!documentsDirectory) {
+        NSLog(@"Documents directory not found!");
+    }
+     */
+    NSString *name = @"GetMovie";
+    //NSString *appFile = [documentsDirectory stringByAppendingPathComponent:name];
+    NSFileManager *fileMgr=[NSFileManager defaultManager];
+    NSURL *url;
+    MPMoviePlayerViewController *mymovie;
+   /* if ([fileMgr fileExistsAtPath:appFile]) {   // ローカルに動画が存在する時
+        url = [NSURL fileURLWithPath:appFile];
+        mymovie = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+        [self presentMoviePlayerViewControllerAnimated:mymovie];
+    }else{      // ローカルに動画が存在しない場合
+    */
+        name = @"http://10.5.5.9:8080/live/amba.m3u8";
+        url = [NSURL URLWithString:name];
+        
+        // サブスレッドで実行するキューを定義する
+        sub_queue = dispatch_queue_create("movie", 0);
+        
+        dispatch_async(sub_queue, ^{    // 非同期で行いたい処理
+        /*    // 動画ファイルの保存
+            NSData *imageData;
+            if (url) {
+                imageData = [NSData dataWithContentsOfURL:url];
+            }
+            [imageData writeToFile:appFile atomically:YES];*/
+        });
+        
+        mymovie = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+        [self presentMoviePlayerViewControllerAnimated:mymovie];
+    //}
+}
+
 -(void)play
 {
     [theMovie play];

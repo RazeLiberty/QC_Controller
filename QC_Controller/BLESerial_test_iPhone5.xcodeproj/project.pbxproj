@@ -19,6 +19,7 @@
 		7A731DFE1A7A3F260056ED85 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A731DFD1A7A3F260056ED85 /* Main_iPhone.storyboard */; };
 		7A731E061A7A507E0056ED85 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A731E051A7A507E0056ED85 /* settings.png */; };
 		7A85D6451A7A517600B0DF86 /* settings_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A85D6441A7A517600B0DF86 /* settings_light.png */; };
+		7AAA999E1A7BD1AE00D137AD /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AAA999D1A7BD1AE00D137AD /* MediaPlayer.framework */; };
 		CD39CDD218322D0900B137E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39CDD118322D0900B137E6 /* Foundation.framework */; };
 		CD39CDD418322D0900B137E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39CDD318322D0900B137E6 /* CoreGraphics.framework */; };
 		CD39CDD618322D0900B137E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD39CDD518322D0900B137E6 /* UIKit.framework */; };
@@ -60,6 +61,7 @@
 		7A731DFD1A7A3F260056ED85 /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		7A731E051A7A507E0056ED85 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		7A85D6441A7A517600B0DF86 /* settings_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_light.png; sourceTree = "<group>"; };
+		7AAA999D1A7BD1AE00D137AD /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		CD39CDD118322D0900B137E6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CD39CDD318322D0900B137E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		CD39CDD518322D0900B137E6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -85,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AAA999E1A7BD1AE00D137AD /* MediaPlayer.framework in Frameworks */,
 				CD39CDD418322D0900B137E6 /* CoreGraphics.framework in Frameworks */,
 				CD39CDD618322D0900B137E6 /* UIKit.framework in Frameworks */,
 				CD39CDD218322D0900B137E6 /* Foundation.framework in Frameworks */,
@@ -137,6 +140,7 @@
 		CD39CDD018322D0900B137E6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7AAA999D1A7BD1AE00D137AD /* MediaPlayer.framework */,
 				CD39CDD118322D0900B137E6 /* Foundation.framework */,
 				CD39CDD318322D0900B137E6 /* CoreGraphics.framework */,
 				CD39CDD518322D0900B137E6 /* UIKit.framework */,
