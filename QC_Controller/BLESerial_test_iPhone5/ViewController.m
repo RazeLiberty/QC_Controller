@@ -31,6 +31,27 @@
 #define PITCH_PLUS_DATA     0x94                                   // W
 #define PITCH_MINUS_DATA    0x95                                   // S
 
+// メニュー　→　設定
+#define YAW_HOME_ERROR_P_1_CODE 0xa1
+#define YAW_HOME_ERROR_P_3_CODE 0xa2
+#define YAW_HOME_ERROR_P_5_CODE 0xa3
+#define YAW_HOME_ERROR_P_10_CODE 0xa4
+#define YAW_HOME_ERROR_0_CODE 0xa5
+#define YAW_HOME_ERROR_M_1_CODE 0xa6
+#define YAW_HOME_ERROR_M_3_CODE 0xa7
+#define YAW_HOME_ERROR_M_5_CODE 0xa8
+#define YAW_HOME_ERROR_M_10_CODE 0xa9
+#define THROTTLE_HOME_ERROR_P_1_CODE 0xb1
+#define THROTTLE_HOME_ERROR_P_3_CODE 0xb2
+#define THROTTLE_HOME_ERROR_P_5_CODE 0xb3
+#define THROTTLE_HOME_ERROR_P_10_CODE 0xb4
+#define THROTTLE_HOME_ERROR_NO_COVER_CODE 0xb5
+#define THROTTLE_HOME_ERROR_M_1_CODE 0xb6
+#define THROTTLE_HOME_ERROR_M_3_CODE 0xb7
+#define THROTTLE_HOME_ERROR_M_5_CODE 0xb8
+#define THROTTLE_HOME_ERROR_M_10_CODE 0xb9
+#define THROTTLE_HOME_ERROR_COVER_CODE 0xba
+
 // 何秒毎に空データ送信
 #define SEND_FREQUENCY      3.0f
 
@@ -572,6 +593,10 @@
 @end
 
 
+
+//================================================================================
+// メニュー　テーブルビュー実装
+//================================================================================
 
 @interface TableViewController ()
 
