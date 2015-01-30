@@ -610,7 +610,7 @@
     
     // TableViewのデリゲート先とデータソースをこのクラスに設定
     self.table.delegate = self;
-    self.table.dataSource = self;
+   // self.table.dataSource = self;
     self.table.allowsSelection = YES;   //行選択の可否
 }
 /*
@@ -620,14 +620,14 @@
  [self.delegate applySelectedString:[NSString stringWithFormat:@"%d", row]];
  }
  */
-
+/*
 // セクション数
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
     return 1;
 }
-
+*/
 // TableViewの列数を指定するメソッド
 - (NSInteger)numberOfComponentsInTableView:(UITableView*)tableView {
     return 1;
@@ -637,7 +637,8 @@
 -(NSInteger)tableView:(UITableView*)tableView numberOfRowsInComponent:(NSInteger)component {
     return 10;
 }
-// 
+//
+/*
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     AppDelegate *appdelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
@@ -654,7 +655,7 @@
     UITableViewCell * cell = [[ UITableViewCell alloc ]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     cell.textLabel = [appdelegate.aryDataSource objectAtIndex:indexPath.row];
 }
-
+*/
 
 /*
 // TableViewの各行に表示する文字列を指定するメソッド

@@ -16,7 +16,7 @@
 //================================================================================
 @protocol TableViewControllerDelegate;
 
-@interface TableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface TableViewController : UIViewController <UITableViewDelegate/*, UITableViewDataSource*/>
 
 @property (weak, nonatomic) IBOutlet UITableView *table;
 
