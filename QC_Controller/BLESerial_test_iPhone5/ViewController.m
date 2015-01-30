@@ -21,13 +21,36 @@
 #define EMERGENCY_STOP_DATA 0xe1                                   // 緊急停止
 #define THROTTLE_PLUS_DATA  0x71                                   // ↑
 #define THROTTLE_MINUS_DATA 0x72                                   // ↓
+#define THROTTLE_CURRENT_DATA 0x73                                   // 今の位置で止まる
 #define YAW_PLUS_DATA       0x81                                   // →
 #define YAW_MINUS_DATA      0x82                                   // ←
+#define YAW_CURRENT_DATA    0x83                                   // 今の位置で止まる
 #define ROLL_PLUS_DATA      0x91                                   // D
 #define ROLL_MINUS_DATA     0x92                                   // A
-#define CURRENT_STOP_DATA   0x93                                   // 今の位置で停まる
+#define YAW_PITCH_CURRENT_STOP_DATA   0x93                                   // 今の位置で停まる
 #define PITCH_PLUS_DATA     0x94                                   // W
 #define PITCH_MINUS_DATA    0x95                                   // S
+
+// メニュー　→　設定
+#define YAW_HOME_ERROR_P_1_CODE 0xa1
+#define YAW_HOME_ERROR_P_3_CODE 0xa2
+#define YAW_HOME_ERROR_P_5_CODE 0xa3
+#define YAW_HOME_ERROR_P_10_CODE 0xa4
+#define YAW_HOME_ERROR_0_CODE 0xa5
+#define YAW_HOME_ERROR_M_1_CODE 0xa6
+#define YAW_HOME_ERROR_M_3_CODE 0xa7
+#define YAW_HOME_ERROR_M_5_CODE 0xa8
+#define YAW_HOME_ERROR_M_10_CODE 0xa9
+#define THROTTLE_HOME_ERROR_P_1_CODE 0xb1
+#define THROTTLE_HOME_ERROR_P_3_CODE 0xb2
+#define THROTTLE_HOME_ERROR_P_5_CODE 0xb3
+#define THROTTLE_HOME_ERROR_P_10_CODE 0xb4
+#define THROTTLE_HOME_ERROR_NO_COVER_CODE 0xb5
+#define THROTTLE_HOME_ERROR_M_1_CODE 0xb6
+#define THROTTLE_HOME_ERROR_M_3_CODE 0xb7
+#define THROTTLE_HOME_ERROR_M_5_CODE 0xb8
+#define THROTTLE_HOME_ERROR_M_10_CODE 0xb9
+#define THROTTLE_HOME_ERROR_COVER_CODE 0xba
 
 // 何秒毎に空データ送信
 #define SEND_FREQUENCY      3.0f
@@ -439,7 +462,7 @@
     
     _textField.text = (@"EMERGENCY");
     [self sendData:EMERGENCY_STOP_DATA];
-    
+    NSLog(@"FLIGHT_MODE_DATA");
 }
 
 //================================================================================
@@ -449,6 +472,7 @@
     
     _textField.text = (@"FLIGHT_MODE_ON");
     [self sendData:FLIGHT_MODE_DATA];
+    NSLog(@"FLIGHT_MODE_DATA");
 }
 
 //================================================================================
@@ -460,48 +484,56 @@
     //NSLog(@"接続したぜ");
     _textField.text = (@"YAW_PLUS");
     [self sendData:YAW_PLUS_DATA];
+    NSLog(@"YAW_PLUS");
 }
 
 - (IBAction)leftKeyTouchDown:(id)sender {
     
     _textField.text = (@"YAW_MINUS");
     [self sendData:YAW_MINUS_DATA];
+    NSLog(@"YAW_MINUS");
 }
 
 - (IBAction)upKeyTouchDown:(id)sender {
     
     _textField.text = (@"THROTTLE_PLUS");
     [self sendData:THROTTLE_PLUS_DATA];
+    NSLog(@"THROTTLE_PLUS");
 }
 
 - (IBAction)downKeyTouchDown:(id)sender {
     
     _textField.text = (@"THROTTLE_MINUS");
     [self sendData:THROTTLE_MINUS_DATA];
+    NSLog(@"THROTTLE_MINUS");
 }
 
 - (IBAction)wKeyTouchDown:(id)sender {
     
     _textField.text = (@"PITCH_PLUS");
     [self sendData:PITCH_PLUS_DATA];
+    NSLog(@"PITCH_PLUS");
 }
 
 - (IBAction)aKeyTouchDown:(id)sender {
     
     _textField.text = (@"ROLL_MINUS");
     [self sendData:ROLL_MINUS_DATA];
+    NSLog(@"ROLL_MINUS");
 }
 
 - (IBAction)sKeyTouchDown:(id)sender {
     
     _textField.text = (@"PITCH_MINUS");
     [self sendData:PITCH_MINUS_DATA];
+    NSLog(@"PITCH_MINUS");
 }
 
 - (IBAction)dKeyTouchDown:(id)sender {
     
     _textField.text = (@"ROLL_PLUS");
     [self sendData:ROLL_PLUS_DATA];
+    NSLog(@"ROLL_PLUS");
 }
 
 //================================================================================
@@ -512,47 +544,59 @@
     _textField.text = (@"rightKeyTUI");
     //_connectFlag = FALSE;
     //NSLog(@"接続切ったぜ");
-    [self sendData:CURRENT_STOP_DATA];
+    [self sendData:YAW_CURRENT_DATA];
+    NSLog(@"YAW_CURRENT_DATA");
 }
 - (IBAction)leftKeyTouchUpInside:(id)sender {
     
     _textField.text = (@"leftKeyTUI");
-    [self sendData:CURRENT_STOP_DATA];
+    [self sendData:YAW_CURRENT_DATA];
+    NSLog(@"YAW_CURRENT_DATA");
 }
 - (IBAction)upKeyTouchUpInside:(id)sender {
     
     _textField.text = (@"upKeyTUI");
-    [self sendData:CURRENT_STOP_DATA];
+    [self sendData:THROTTLE_CURRENT_DATA];
+    NSLog(@"THROTTLE_CURRENT_DATA");
 }
 - (IBAction)downKeyTouchUpInside:(id)sender {
     
     _textField.text = (@"downKeyTUI");
-    [self sendData:CURRENT_STOP_DATA];
+    [self sendData:THROTTLE_CURRENT_DATA];
+    NSLog(@"THROTTLE_CURRENT_DATA");
 }
 - (IBAction)wKeyTouchUpInside:(id)sender {
     
     _textField.text = (@"wKeyTUI");
-    [self sendData:CURRENT_STOP_DATA];
+    [self sendData:YAW_PITCH_CURRENT_STOP_DATA];
+    NSLog(@"YAW_PITCH_CURRENT_STOP_DATA");
 }
 - (IBAction)aKeyTouchUpInside:(id)sender {
     
     _textField.text = (@"aKeyTUI");
-    [self sendData:CURRENT_STOP_DATA];
+    [self sendData:YAW_PITCH_CURRENT_STOP_DATA];
+    NSLog(@"YAW_PITCH_CURRENT_STOP_DATA");
 }
 - (IBAction)sKeyTouchUpInside:(id)sender {
     
     _textField.text = (@"sKeyTUI");
-    [self sendData:CURRENT_STOP_DATA];
+    [self sendData:YAW_PITCH_CURRENT_STOP_DATA];
+    NSLog(@"YAW_PITCH_CURRENT_STOP_DATA");
 }
 - (IBAction)dKeyTouchUpInside:(id)sender {
     
     _textField.text = (@"dKeyTUI");
-    [self sendData:CURRENT_STOP_DATA];
+    [self sendData:YAW_PITCH_CURRENT_STOP_DATA];
+    NSLog(@"YAW_PITCH_CURRENT_STOP_DATA");
 }
 
 @end
 
 
+
+//================================================================================
+// メニュー　テーブルビュー実装
+//================================================================================
 
 @interface TableViewController ()
 
@@ -566,7 +610,8 @@
     
     // TableViewのデリゲート先とデータソースをこのクラスに設定
     self.table.delegate = self;
-    //self.table.dataSource = self;
+   // self.table.dataSource = self;
+    self.table.allowsSelection = YES;   //行選択の可否
 }
 /*
  // TableViewで要素が選択されたときに呼び出されるメソッド
@@ -575,6 +620,14 @@
  [self.delegate applySelectedString:[NSString stringWithFormat:@"%d", row]];
  }
  */
+/*
+// セクション数
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return 1;
+}
+*/
 // TableViewの列数を指定するメソッド
 - (NSInteger)numberOfComponentsInTableView:(UITableView*)tableView {
     return 1;
@@ -584,12 +637,32 @@
 -(NSInteger)tableView:(UITableView*)tableView numberOfRowsInComponent:(NSInteger)component {
     return 10;
 }
+//
+/*
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    AppDelegate *appdelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+    
+    // Return the number of rows in the section.
+    return [appdelegate.aryDataSource count];
+}
 
+//セルの設定
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    AppDelegate *appdelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+    static NSString *CellIdentifier = @”Cell”;
+    UITableViewCell * cell = [[ UITableViewCell alloc ]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    cell.textLabel = [appdelegate.aryDataSource objectAtIndex:indexPath.row];
+}
+*/
+
+/*
 // TableViewの各行に表示する文字列を指定するメソッド
 -(NSString*)tableView:(UITableView*)tableView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
     return [NSString stringWithFormat:@"%d", row];
 }
-
+*/
 // 空の領域にある透明なボタンがタップされたときに呼び出されるメソッド
 - (IBAction)closeTableView:(id)sender {
     // TableViewを閉じるための処理を呼び出す
