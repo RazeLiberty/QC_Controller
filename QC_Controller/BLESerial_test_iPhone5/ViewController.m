@@ -66,6 +66,8 @@
 
 @property BOOL connectFlag;     //接続フラグ
 
+@property MPMoviePlayerController* player;
+
 //ボタンステータス
 @property (weak, nonatomic) IBOutlet UIButton *connectButtonStatus;
 @property (weak, nonatomic) IBOutlet UIButton *disconnectButtonStatus;
@@ -224,8 +226,17 @@
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.playerView = self;
     
+    
+    NSURL *url = [NSURL URLWithString:@"http://10.5.5.9:8080/live/aaba.m3u8"];
+    
+    MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:url];
+    
+    // MoviePlayerを保持
+    self.player = player;
+#if 0
     // MPMoviePlayerViewController作成
     MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:@"http://10.5.5.9:8080/live/amba.m3u8"]];
+
     
     theMovie = [player moviePlayer];
     theMovie.scalingMode = MPMovieScalingModeAspectFit;
@@ -233,13 +244,20 @@
     theMovie.controlStyle = MPMovieControlStyleNone;
     theMovie.shouldAutoplay = TRUE;
     theMovie.view.frame = /*self.view.bounds;*/CGRectMake(0, 0, 1024, 768);//WVGA 800 480   //1024 768
+#endif
+    
+    player.view.frame = CGRectMake(0, 0, 320, 200);
+    [self.view addSubview:player.view];
     
     //プログラムからビューを生成
-    [self.view addSubview:player.view];
+    //[self.view addSubview:player.view];
     // 重なり順を最背面に
     [self.view sendSubviewToBack:player.view];
     
-    player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
+    //player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
+    
+    // 再生開始
+    [player prepareToPlay];
     
     //再生準備
     //    [theMovie prepareToPlay];
