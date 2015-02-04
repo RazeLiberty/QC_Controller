@@ -602,8 +602,8 @@
 
 
 // テーブルに表示する情報が入る
-@property (nonatomic, strong) NSArray *dataSourceiPhone;
-@property (nonatomic, strong) NSArray *dataSourceAndroid;
+@property (nonatomic, strong) NSArray *dataSourceThrottle;
+@property (nonatomic, strong) NSArray *dataSourceYaw;
 
 @end
 
@@ -616,11 +616,11 @@
     // TableViewのデリゲート先とデータソースをこのクラスに設定
     self.table.delegate = self;
     self.table.dataSource = self;
-    self.table.allowsSelection = YES;   //行選択の可否
+    //self.table.allowsSelection = YES;   //行選択の可否
     
     // テーブルに表示したいデータソースをセット
-    self.dataSourceiPhone = @[@"iPhone 4", @"iPhone 4S", @"iPhone 5", @"iPhone 5c", @"iPhone 5s"];
-    self.dataSourceAndroid = @[@"Nexus", @"Galaxy", @"Xperia"];
+    //self.dataSourceThrottle = @[@"iPhone 4", @"iPhone 4S", @"iPhone 5", @"iPhone 5c", @"iPhone 5s"];
+    //self.dataSourceYaw = @[@"Nexus", @"Galaxy", @"Xperia"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -642,10 +642,10 @@
     // テーブルに表示するデータ件数を返す
     switch (section) {
         case 0:
-            dataCount = self.dataSourceiPhone.count;
+            dataCount = self.dataSourceThrottle.count;
             break;
         case 1:
-            dataCount = self.dataSourceAndroid.count;
+            dataCount = self.dataSourceYaw.count;
             break;
         default:
             break;
@@ -660,7 +660,7 @@
  */
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 
 // テーブルの中のセルはどんなセルか
@@ -683,16 +683,21 @@
     
     switch (indexPath.section) {
         case 0:
-            cell.textLabel.text = self.dataSourceiPhone[indexPath.row];
+            cell.textLabel.text = self.dataSourceThrottle[indexPath.row];
             break;
         case 1:
-            cell.textLabel.text = self.dataSourceAndroid[indexPath.row];
+            cell.textLabel.text = self.dataSourceYaw[indexPath.row];
             break;
         default:
             break;
     }
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"Setting" sender:self];
 }
 
 // 空の領域にある透明なボタンがタップされたときに呼び出されるメソッド

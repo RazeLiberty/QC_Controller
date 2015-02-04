@@ -219,15 +219,12 @@
                                 <rect key="frame" x="142" y="47" width="284" height="225"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="odH-IP-P2I">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="0NU-7K-NR9">
+                                        <rect key="frame" x="0.0" y="0.0" width="284" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="odH-IP-P2I" id="o1K-PB-CVc">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0NU-7K-NR9" id="4bA-Wr-QSq">
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="accessoryView" destination="65Q-Kh-TIR" id="fL3-d9-B26"/>
-                                            <segue destination="us3-uR-SxV" kind="push" id="DzH-p7-IY1"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <sections/>
@@ -238,6 +235,7 @@
                     <connections>
                         <outlet property="closeButton" destination="B9h-i2-Ric" id="8qf-cR-Vfe"/>
                         <outlet property="table" destination="U9W-Pu-xXe" id="RGE-ei-8gW"/>
+                        <segue destination="us3-uR-SxV" kind="push" identifier="Setting" id="iBb-Ot-wP0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uLQ-mO-AZh" userLabel="First Responder" sceneMemberID="firstResponder"/>
