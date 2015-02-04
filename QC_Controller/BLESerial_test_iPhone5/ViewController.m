@@ -593,12 +593,16 @@
 @end
 
 
-
 //================================================================================
 // メニュー　テーブルビュー実装
 //================================================================================
 
 @interface TableViewController ()
+
+
+// テーブルに表示する情報が入る
+@property (nonatomic, strong) NSArray *dataSourceMenu;
+//@property (nonatomic, strong) NSArray *dataSourceYaw;
 
 @end
 
@@ -610,59 +614,74 @@
     
     // TableViewのデリゲート先とデータソースをこのクラスに設定
     self.table.delegate = self;
-   // self.table.dataSource = self;
-    self.table.allowsSelection = YES;   //行選択の可否
+    self.table.dataSource = self;
+    //self.table.allowsSelection = YES;   //行選択の可否
+    
+    // テーブルに表示したいデータソースをセット
+    self.dataSourceMenu = @[@"iPhone 4"];
+    //self.dataSourceYaw = @[@"Nexus", @"Galaxy", @"Xperia"];
 }
-/*
- // TableViewで要素が選択されたときに呼び出されるメソッド
- - (void)tableView:(UITableView *)tableView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
- // デリゲート先の処理を呼び出し、選択された文字列を親Viewに表示させる
- [self.delegate applySelectedString:[NSString stringWithFormat:@"%d", row]];
- }
- */
-/*
-// セクション数
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+//セクション数
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
-    return 1;
-}
-*/
-// TableViewの列数を指定するメソッド
-- (NSInteger)numberOfComponentsInTableView:(UITableView*)tableView {
     return 1;
 }
 
-// TableViewに表示する行数を指定するメソッド
--(NSInteger)tableView:(UITableView*)tableView numberOfRowsInComponent:(NSInteger)component {
-    return 10;
-}
-//
-/*
+
+// テーブルにいくつのデータがあるか
+/**
+ テーブルに表示するデータ件数を返す（必須）
+ 
+ @return NSInteger : データ件数
+ */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    AppDelegate *appdelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-    
-    // Return the number of rows in the section.
-    return [appdelegate.aryDataSource count];
+    return 1;
 }
 
-//セルの設定
+
+// テーブルの中のセルはどんなセルか
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AppDelegate *appdelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-    static NSString *CellIdentifier = @”Cell”;
-    UITableViewCell * cell = [[ UITableViewCell alloc ]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    cell.textLabel = [appdelegate.aryDataSource objectAtIndex:indexPath.row];
+    static NSString *CellIdentifier = @"Cell";
+    // 再利用できるセルがあれば再利用する
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        // 再利用できない場合は新規で作成
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault                            reuseIdentifier:CellIdentifier];
+    }
+    
+    // ボタンを作成して、tableViewCellに載せます。
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    // rectのx,yは、0で良い。accessoryViewで自動的に上下中央にしてくれる。
+    button.frame = CGRectMake(0, 0, 200, 0);
+    // ボタンのラベルを指定するには、以下のメソッド。titleプロパティに代入しても反映されない。
+    [button setTitle:@"Bluetooth強制解除" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(tapButton:) forControlEvents:UIControlEventTouchUpInside];
+    cell.accessoryView = button;
+    
+    cell.textLabel.text = @"";
+    
+    return cell;
 }
-*/
 
-/*
-// TableViewの各行に表示する文字列を指定するメソッド
--(NSString*)tableView:(UITableView*)tableView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    return [NSString stringWithFormat:@"%d", row];
+// ボタンがタップされた際に呼び出されるメソッド
+-(void)tapButton:(id)sender {
+    NSLog(@"Execute Button tapped.");
 }
-*/
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"Setting" sender:self];
+}
+
 // 空の領域にある透明なボタンがタップされたときに呼び出されるメソッド
 - (IBAction)closeTableView:(id)sender {
     // TableViewを閉じるための処理を呼び出す
