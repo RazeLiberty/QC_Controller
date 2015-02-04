@@ -611,7 +611,7 @@
     // TableViewのデリゲート先とデータソースをこのクラスに設定
     self.table.delegate = self;
    // self.table.dataSource = self;
-    self.table.allowsSelection = YES;   //行選択の可否
+    //self.table.allowsSelection = YES;   //行選択の可否
 }
 /*
  // TableViewで要素が選択されたときに呼び出されるメソッド
@@ -628,6 +628,7 @@
     return 1;
 }
 */
+/*
 // TableViewの列数を指定するメソッド
 - (NSInteger)numberOfComponentsInTableView:(UITableView*)tableView {
     return 1;
@@ -637,6 +638,7 @@
 -(NSInteger)tableView:(UITableView*)tableView numberOfRowsInComponent:(NSInteger)component {
     return 10;
 }
+ */
 //
 /*
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
