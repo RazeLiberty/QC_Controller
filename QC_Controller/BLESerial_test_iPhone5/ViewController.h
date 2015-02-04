@@ -12,37 +12,9 @@
 
 
 //================================================================================
-// メニュー
-//================================================================================
-@protocol TableViewControllerDelegate;
-
-@interface TableViewController : UIViewController <UITableViewDelegate/*, UITableViewDataSource*/>
-
-@property (weak, nonatomic) IBOutlet UITableView *table;
-
-// 空の領域にある透明なボタン
-@property (weak, nonatomic) IBOutlet UIButton *closeButton;
-
-// 処理のデリゲート先の参照
-@property (weak, nonatomic) id<TableViewControllerDelegate> delegate;
-
-// PickerViewを閉じる処理を行うメソッド。closeButtonが押下されたときに呼び出される
-- (IBAction)closeTableView:(id)sender;
-
-@end
-
-
-@protocol TableViewControllerDelegate <NSObject>
-// 選択された文字列を適用するためのデリゲートメソッド
-//-(void)applySelectedString:(NSString *)str;
-// 当該MenuViewを閉じるためのデリゲートメソッド
--(void)closeTableView:(TableViewController *)controller;
-@end
-
-//================================================================================
 // 操作画面
 //================================================================================
-@interface ViewController : UIViewController <TableViewControllerDelegate> {
+@interface ViewController : UIViewController {
     
     UITextField* _textField;
     MPMoviePlayerController* theMovie;
@@ -56,19 +28,13 @@
 - (void)otherThread;
 - (void)loopBackground;
 
+- (void)menuBluetoothDefuse;
+
 - (void)play;
 - (void)stop;
 
 // 「選択」ボタン
 @property (weak, nonatomic) IBOutlet UIButton *selectButton;
-/*// TableViewで選択された文字列を表示するラベル
- @property (weak, nonatomic) IBOutlet UILabel *selectedStringLabel;
- */
-// 呼び出すTableViewControllerのポインタ　※strongを指定してポインタを掴んでおかないと解放されてしまう
-@property (strong, nonatomic) TableViewController *tableViewController;
-
-// 「選択」ボタンがタップされたときに呼び出されるメソッド
-- (IBAction)openTableView:(id)sender;
 
 @end
 
