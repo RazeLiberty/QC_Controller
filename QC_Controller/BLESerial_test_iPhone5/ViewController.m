@@ -97,6 +97,7 @@
 
 - (IBAction)cameraOn:(id)sender;
 - (IBAction)cameraOff:(id)sender;
+- (IBAction)openMenuButton:(id)sender;
 
 @end
 
@@ -146,72 +147,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-//================================================================================
-// メニュー実装
-//================================================================================
-// 「選択」ボタンがタップされたときに呼び出されるメソッド
-- (IBAction)openTableView:(id)sender {
-    // PickerViewControllerのインスタンスをStoryboardから取得し
-    self.tableViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"TableViewController"];
-    self.tableViewController.delegate = self;
-    
-    // PickerViewをサブビューとして表示する
-    // 表示するときはアニメーションをつけて下から上にゆっくり表示させる
-    
-    // アニメーション完了時のPickerViewの位置を計算
-    UIView *tableView = self.tableViewController.view;
-    CGPoint middleCenter = tableView.center;
-    
-    // アニメーション開始時のPickerViewの位置を計算
-    UIWindow* mainWindow = (((AppDelegate*) [UIApplication sharedApplication].delegate).window);
-    CGSize offSize = [UIScreen mainScreen].bounds.size;
-    CGPoint offScreenCenter = CGPointMake(offSize.width / 2.0, offSize.height * 1.5);
-    tableView.center = offScreenCenter;
-    
-    [mainWindow addSubview:tableView];
-    
-    // アニメーションを使ってPickerViewをアニメーション完了時の位置に表示されるようにする
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.5];
-    tableView.center = middleCenter;
-    [UIView commitAnimations];
-}
-/*
- // PickerViewのある行が選択されたときに呼び出されるPickerViewControllerDelegateプロトコルのデリゲートメソッド
- - (void)applySelectedString:(NSString *)str
- {
- self.selectedStringLabel.text = str;
- }
- */
-// PickerViewController上にある透明ボタンがタップされたときに呼び出されるPickerViewControllerDelegateプロトコルのデリゲートメソッド
-- (void)closeTableView:(TableViewController *)controller
-{
-    // PickerViewをアニメーションを使ってゆっくり非表示にする
-    UIView *tableView = controller.view;
-    
-    // アニメーション完了時のPickerViewの位置を計算
-    CGSize offSize = [UIScreen mainScreen].bounds.size;
-    CGPoint offScreenCenter = CGPointMake(offSize.width / 2.0, offSize.height * 1.5);
-    
-    [UIView beginAnimations:nil context:(void *)tableView];
-    [UIView setAnimationDuration:0.3];
-    [UIView setAnimationDelegate:self];
-    // アニメーション終了時に呼び出す処理を設定
-    [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
-    tableView.center = offScreenCenter;
-    [UIView commitAnimations];
-}
-
-// 単位のPickerViewを閉じるアニメーションが終了したときに呼び出されるメソッド
-- (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
-{
-    // PickerViewをサブビューから削除
-    UIView *tableView = (__bridge UIView *)context;
-    [tableView removeFromSuperview];
-}
-
 
 //================================================================================
 // GoPro　ストリーミング処理
@@ -264,6 +199,74 @@
 - (IBAction)cameraOff:(id)sender {
     [self stop];
 }
+
+- (IBAction)openMenuButton:(id)sender {
+    [self menuBluetoothDefuse];
+}
+
+- (void)menuBluetoothDefuse
+{
+    //アクションシート表示
+    // コントローラを生成
+    UIAlertController * ac =
+    [UIAlertController alertControllerWithTitle:@""
+                                        message:@"Bluetooth強制解除しますか？"
+                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    // Cancel用のアクションを生成
+    UIAlertAction * cancelAction =
+    [UIAlertAction actionWithTitle:@"NO"
+                             style:UIAlertActionStyleCancel
+                           handler:^(UIAlertAction * action) {
+                               // ボタンタップ時の処理
+                               NSLog(@"Cancel button tapped.");
+                           }];
+    
+    // Destructive用のアクションを生成
+    UIAlertAction * destructiveAction =
+    [UIAlertAction actionWithTitle:@"YES"
+                             style:UIAlertActionStyleDestructive
+                           handler:^(UIAlertAction * action) {
+                               // ボタンタップ時の処理
+                               NSLog(@"Destructive button tapped.");
+                               
+                               if (_Device)	{
+                                   //	UUID_DEMO_SERVICEサービスを持っているデバイスから切断する
+                                   [_BaseClass disconnectService:UUID_VSP_SERVICE];
+                                   _Device = 0;
+                                   
+                                   //connectフラグ
+                                   _connectFlag = FALSE;
+                                   
+                                   //ボタンの状態変更
+                                   _connectButtonStatus.enabled    = TRUE;
+                                   _disconnectButtonStatus.enabled = FALSE;
+                                   _textField.text                 = @"OFFLINE";
+                                   
+                                   //	周りのBLEデバイスからのadvertise情報のスキャンを開始する
+                                   [_BaseClass scanDevices:nil];
+                               }
+                               
+                           }];
+    /*
+     // OK用のアクションを生成
+     UIAlertAction * okAction =
+     [UIAlertAction actionWithTitle:@"OK"
+     style:UIAlertActionStyleDefault
+     handler:^(UIAlertAction * action) {
+     // ボタンタップ時の処理
+     NSLog(@"OK button tapped.");
+     }];
+     */
+    // コントローラにアクションを追加
+    [ac addAction:cancelAction];
+    [ac addAction:destructiveAction];
+    // [ac addAction:okAction];
+    
+    // アクションシート表示処理
+    [self presentViewController:ac animated:YES completion:nil];
+}
+
 -(void)logm3u8
 {
     NSError *error;
@@ -592,81 +595,3 @@
 
 @end
 
-
-
-//================================================================================
-// メニュー　テーブルビュー実装
-//================================================================================
-
-@interface TableViewController ()
-
-@end
-
-@implementation TableViewController
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    // TableViewのデリゲート先とデータソースをこのクラスに設定
-    self.table.delegate = self;
-   // self.table.dataSource = self;
-    self.table.allowsSelection = YES;   //行選択の可否
-}
-/*
- // TableViewで要素が選択されたときに呼び出されるメソッド
- - (void)tableView:(UITableView *)tableView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
- // デリゲート先の処理を呼び出し、選択された文字列を親Viewに表示させる
- [self.delegate applySelectedString:[NSString stringWithFormat:@"%d", row]];
- }
- */
-/*
-// セクション数
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return 1;
-}
-*/
-// TableViewの列数を指定するメソッド
-- (NSInteger)numberOfComponentsInTableView:(UITableView*)tableView {
-    return 1;
-}
-
-// TableViewに表示する行数を指定するメソッド
--(NSInteger)tableView:(UITableView*)tableView numberOfRowsInComponent:(NSInteger)component {
-    return 10;
-}
-//
-/*
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    AppDelegate *appdelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-    
-    // Return the number of rows in the section.
-    return [appdelegate.aryDataSource count];
-}
-
-//セルの設定
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    AppDelegate *appdelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-    static NSString *CellIdentifier = @”Cell”;
-    UITableViewCell * cell = [[ UITableViewCell alloc ]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    cell.textLabel = [appdelegate.aryDataSource objectAtIndex:indexPath.row];
-}
-*/
-
-/*
-// TableViewの各行に表示する文字列を指定するメソッド
--(NSString*)tableView:(UITableView*)tableView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    return [NSString stringWithFormat:@"%d", row];
-}
-*/
-// 空の領域にある透明なボタンがタップされたときに呼び出されるメソッド
-- (IBAction)closeTableView:(id)sender {
-    // TableViewを閉じるための処理を呼び出す
-    [self.delegate closeTableView:self];
-}
-
-@end
